@@ -27,7 +27,6 @@ import {
   ExternalLink,
   User
 } from 'lucide-react';
-import { 
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -322,11 +321,13 @@ export function BillingPage() {
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
+              <button
                 onClick={openPaymentModal}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
+                className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium transition-all duration-300"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Make Payment
+              </button>
             </div>
           </div>
         </div>
@@ -470,17 +471,21 @@ export function BillingPage() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
+                      <button
                         onClick={() => openBillModal(bill)}
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
+                        className="flex items-center bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                       >
                         <Eye className="w-4 h-4 mr-2" />
                         View Details
+                      </button>
                       {bill.status === 'pending' && (
+                        <button
                           onClick={openPaymentModal}
-                          className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                          className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                         >
                           <CreditCard className="w-4 h-4 mr-2" />
                           Pay Now
+                        </button>
                       )}
                     </div>
                   </div>
@@ -492,11 +497,15 @@ export function BillingPage() {
       </div>
 
       {/* Bill Detail Modal */}
-        isOpen={isBillModalOpen}
-        onClose={() => setIsBillModalOpen(false)}
-        title="Bill Details"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isBillModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsBillModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Bill Details</h2>
+              <button onClick={() => setIsBillModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         {selectedBill && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -538,12 +547,15 @@ export function BillingPage() {
             </div>
 
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
+              <button
                 onClick={() => setIsBillModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
               >
                 Close
+              </button>
               {(selectedBill.status === 'pending' || selectedBill.status === 'overdue') && (
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                <button
+                  className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                   onClick={() => {
                     setIsBillModalOpen(false);
                     openPaymentModal();
@@ -551,17 +563,26 @@ export function BillingPage() {
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Pay Now
+                </button>
               )}
             </div>
           </div>
         )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Payment Modal */}
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        title="Make Payment"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isPaymentModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsPaymentModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Make Payment</h2>
+              <button onClick={() => setIsPaymentModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -600,18 +621,26 @@ export function BillingPage() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 pt-4">
+            <button
               onClick={() => setIsPaymentModalOpen(false)}
-              className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+              className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               Cancel
+            </button>
+            <button
               onClick={handleProcessPayment}
               disabled={processPaymentMutation.isPending}
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               <Shield className="w-4 h-4 mr-2" />
               {processPaymentMutation.isPending ? 'Processing...' : 'Process Payment'}
+            </button>
           </div>
         </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -304,7 +304,6 @@ export function PatientDashboard() {
                       Book Your First Appointment
                     </button>
                 </div>
-                )
               )}
               </div>
             </div>

@@ -5,7 +5,6 @@ import {
   Calendar, Clock, User, Stethoscope, Plus, Search, Eye, 
   CheckCircle, AlertCircle, Heart, Star, Wifi, Signal, Download
 } from 'lucide-react';
-import { 
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -269,11 +268,13 @@ export function TelemedicinePage() {
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
+              <button
                 onClick={() => setIsBookSessionModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
+                className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium transition-all duration-300"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Book Session
+              </button>
             </div>
           </div>
         </div>
@@ -326,28 +327,32 @@ export function TelemedicinePage() {
 
                 {/* Enhanced Call Controls */}
                 <div className="flex items-center justify-center space-x-6">
-                    className={`border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
-                      isMuted 
-                        ? 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20' 
+                  <button
+                    className={`flex items-center border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                      isMuted
+                        ? 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                         : 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20'
                     }`}
                     onClick={toggleMute}
                   >
                     {isMuted ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
-
-                    className={`border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
-                      isVideoOn 
-                        ? 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20' 
+                  </button>
+                  <button
+                    className={`flex items-center border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                      isVideoOn
+                        ? 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20'
                         : 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                     }`}
                     onClick={toggleVideo}
                   >
                     {isVideoOn ? <Camera className="w-6 h-6" /> : <CameraOff className="w-6 h-6" />}
-
-                    className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg font-medium"
+                  </button>
+                  <button
+                    className="flex items-center bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg font-medium transition-all duration-300"
                     onClick={endCall}
                   >
                     <Phone className="w-6 h-6" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -490,20 +495,24 @@ export function TelemedicinePage() {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
+                        <button
                           onClick={() => {
                             setSelectedSession(session);
                             setIsModalOpen(true);
                           }}
-                          className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
+                          className="flex items-center bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                         >
                           <Eye className="w-4 h-4 mr-2" />
                           View Details
+                        </button>
                         {session.status === 'scheduled' && (
+                          <button
                             onClick={() => joinSession(session)}
-                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                            className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                           >
                             <Video className="w-4 h-4 mr-2" />
                             Join Session
+                          </button>
                         )}
                       </div>
                     </div>
@@ -516,11 +525,15 @@ export function TelemedicinePage() {
       </div>
 
       {/* Enhanced Session Detail Modal */}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Session Details"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Session Details</h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         {selectedSession && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -570,30 +583,42 @@ export function TelemedicinePage() {
               </div>
             </div>
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
               >
                 Close
+              </button>
               {selectedSession.status === 'scheduled' && (
+                <button
                   onClick={() => {
                     joinSession(selectedSession);
                     setIsModalOpen(false);
                   }}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                  className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                 >
                   <Video className="w-4 h-4 mr-2" />
                   Join Session
+                </button>
               )}
             </div>
           </div>
         )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Book Session Modal */}
-        isOpen={isBookSessionModalOpen}
-        onClose={() => setIsBookSessionModalOpen(false)}
-        title="Book Telemedicine Session"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isBookSessionModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsBookSessionModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Book Telemedicine Session</h2>
+              <button onClick={() => setIsBookSessionModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -669,18 +694,26 @@ export function TelemedicinePage() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
+            <button
               onClick={() => setIsBookSessionModalOpen(false)}
-              className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+              className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               Cancel
+            </button>
+            <button
               onClick={handleBookSession}
               disabled={createSessionMutation.isPending}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               <Video className="w-4 h-4 mr-2" />
               {createSessionMutation.isPending ? 'Booking...' : 'Book Session'}
+            </button>
           </div>
         </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

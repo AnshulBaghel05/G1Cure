@@ -6,7 +6,6 @@ import {
   Smartphone, CreditCard, FileText, Heart,
   CheckCircle, AlertCircle, Info, Save
 } from 'lucide-react';
-import { 
 import { ThemeToggle } from '../../contexts/ThemeContext';
 
 interface UserProfile {
@@ -160,12 +159,14 @@ export function SettingsPage() {
             <div className="flex items-center space-x-4">
               <ThemeToggle />
               {isEditing && (
+                <button
                   onClick={handleSave}
                   disabled={isSaving}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium"
+                  className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium transition-all duration-300"
                 >
                   <Save className="w-5 h-5 mr-2" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
+                </button>
               )}
             </div>
           </div>
@@ -208,10 +209,12 @@ export function SettingsPage() {
               <div className="space-y-8">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Personal Information</h2>
+                  <button
                     onClick={() => setIsEditing(!isEditing)}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
+                    className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                   >
                     {isEditing ? 'Cancel' : 'Edit Profile'}
+                  </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -370,10 +373,15 @@ export function SettingsPage() {
                           </p>
                         </div>
                       </div>
-                        checked={value}
-                        onChange={(checked) => updateNotificationSetting(key as keyof NotificationSettings, checked)}
-                        className="bg-gradient-to-r from-blue-500 to-purple-500"
-                      />
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={value}
+                          onChange={(e) => updateNotificationSetting(key as keyof NotificationSettings, e.target.checked)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-purple-500"></div>
+                      </label>
                     </div>
                   ))}
                 </div>
@@ -401,10 +409,15 @@ export function SettingsPage() {
                           </p>
                         </div>
                       </div>
-                        checked={value}
-                        onChange={(checked) => updatePrivacySetting(key as keyof PrivacySettings, checked)}
-                        className="bg-gradient-to-r from-emerald-500 to-teal-500"
-                      />
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={value}
+                          onChange={(e) => updatePrivacySetting(key as keyof PrivacySettings, e.target.checked)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500"></div>
+                      </label>
                     </div>
                   ))}
                 </div>
@@ -457,11 +470,13 @@ export function SettingsPage() {
                       />
                     </div>
 
+                    <button
                       onClick={handlePasswordChange}
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl w-full"
+                      className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl w-full px-4 py-2 rounded-lg font-medium transition-all duration-300"
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       Change Password
+                    </button>
                   </div>
                 </div>
               </div>
@@ -498,10 +513,15 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Enable push notifications and mobile features
                     </p>
-                      checked={true}
-                      onChange={() => {}}
-                      className="bg-gradient-to-r from-orange-500 to-red-500"
-                    />
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={true}
+                        onChange={() => {}}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gradient-to-r peer-checked:from-orange-500 peer-checked:to-red-500"></div>
+                    </label>
                   </div>
 
                   <div className="p-6 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600">
@@ -514,10 +534,15 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Receive personalized health recommendations
                     </p>
-                      checked={true}
-                      onChange={() => {}}
-                      className="bg-gradient-to-r from-emerald-500 to-teal-500"
-                    />
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={true}
+                        onChange={() => {}}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500"></div>
+                    </label>
                   </div>
 
                   <div className="p-6 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600">
@@ -530,10 +555,15 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Automatically save your preferences
                     </p>
-                      checked={true}
-                      onChange={() => {}}
-                      className="bg-gradient-to-r from-purple-500 to-pink-500"
-                    />
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={true}
+                        onChange={() => {}}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-pink-500"></div>
+                    </label>
                   </div>
                 </div>
               </div>
