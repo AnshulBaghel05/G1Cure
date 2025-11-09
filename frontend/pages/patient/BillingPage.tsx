@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+
 import { 
   CreditCard, 
   DollarSign, 
@@ -28,14 +28,6 @@ import {
   User
 } from 'lucide-react';
 import { 
-  AnimatedCard, 
-  AnimatedButton, 
-  AnimatedIcon, 
-  AnimatedBadge, 
-  AnimatedInput,
-  AnimatedModal,
-  AnimatedProgress
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -312,49 +304,35 @@ export function BillingPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
       <div className="relative z-10 space-y-8 p-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="space-y-4"
         >
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+              <h1 
                 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
               >
                 Billing & Payments
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
+              </h1>
+              <p 
                 className="text-xl text-slate-600 dark:text-slate-300 mt-3"
               >
                 Manage your medical bills and payment methods
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              <AnimatedButton
                 onClick={openPaymentModal}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Make Payment
-              </AnimatedButton>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Financial Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <div
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {[
@@ -377,11 +355,8 @@ export function BillingPage() {
               color: 'from-orange-500 to-yellow-500'
             }
           ].map((stat, index) => (
-            <motion.div
+            <div
               key={stat.title}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -398,15 +373,12 @@ export function BillingPage() {
                   {stat.value}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bills List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <div
           className="space-y-6"
         >
           {billsLoading ? (
@@ -450,12 +422,8 @@ export function BillingPage() {
             </div>
           ) : (
             filteredBills.map((bill, index) => (
-              <motion.div
+              <div
                 key={bill.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                whileHover={{ scale: 1.01, y: -5 }}
                 className="relative group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -502,33 +470,28 @@ export function BillingPage() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <AnimatedButton
                         onClick={() => openBillModal(bill)}
                         className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
                       >
                         <Eye className="w-4 h-4 mr-2" />
                         View Details
-                      </AnimatedButton>
                       {bill.status === 'pending' && (
-                        <AnimatedButton
                           onClick={openPaymentModal}
                           className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
                         >
                           <CreditCard className="w-4 h-4 mr-2" />
                           Pay Now
-                        </AnimatedButton>
                       )}
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Bill Detail Modal */}
-      <AnimatedModal
         isOpen={isBillModalOpen}
         onClose={() => setIsBillModalOpen(false)}
         title="Bill Details"
@@ -575,14 +538,11 @@ export function BillingPage() {
             </div>
 
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-              <AnimatedButton
                 onClick={() => setIsBillModalOpen(false)}
                 className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
               >
                 Close
-              </AnimatedButton>
               {(selectedBill.status === 'pending' || selectedBill.status === 'overdue') && (
-                <AnimatedButton
                   className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
                   onClick={() => {
                     setIsBillModalOpen(false);
@@ -591,15 +551,12 @@ export function BillingPage() {
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Pay Now
-                </AnimatedButton>
               )}
             </div>
           </div>
         )}
-      </AnimatedModal>
 
       {/* Payment Modal */}
-      <AnimatedModal
         isOpen={isPaymentModalOpen}
         onClose={() => setIsPaymentModalOpen(false)}
         title="Make Payment"
@@ -643,23 +600,18 @@ export function BillingPage() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 pt-4">
-            <AnimatedButton
               onClick={() => setIsPaymentModalOpen(false)}
               className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
             >
               Cancel
-            </AnimatedButton>
-            <AnimatedButton
               onClick={handleProcessPayment}
               disabled={processPaymentMutation.isPending}
               className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Shield className="w-4 h-4 mr-2" />
               {processPaymentMutation.isPending ? 'Processing...' : 'Process Payment'}
-            </AnimatedButton>
           </div>
         </div>
-      </AnimatedModal>
     </div>
   );
 }

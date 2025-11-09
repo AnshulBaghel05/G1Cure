@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Bell, 
-  BellOff, 
-  CheckCircle, 
-  AlertCircle, 
-  Info, 
-  XCircle, 
-  Settings, 
-  Trash2, 
+import {
+  Bell,
+  BellOff,
+  CheckCircle,
+  AlertCircle,
+  Info,
+  XCircle,
+  Settings,
+  Trash2,
   Archive,
   Filter,
   Search,
@@ -179,46 +178,18 @@ export function NotificationsPage() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Floating 3D Icons */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30"
-      >
+      {/* Floating Icons */}
+      <div className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30">
         <Brain className="w-16 h-16" />
-      </motion.div>
-      
-      <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 0]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30"
-      >
+      </div>
+
+      <div className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30">
         <Sparkles className="w-20 h-20" />
-      </motion.div>
+      </div>
 
       <div className="relative z-10 p-6">
         {/* Header with Theme Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent">
@@ -246,15 +217,10 @@ export function NotificationsPage() {
               </AnimatedButton>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Notification Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <AnimatedCard className="p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 backdrop-blur-xl border border-blue-200/50 dark:border-blue-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center justify-between">
@@ -308,15 +274,10 @@ export function NotificationsPage() {
               </div>
             </AnimatedCard>
           </div>
-        </motion.div>
+        </div>
 
         {/* Filters and Search */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
             <div className="flex flex-col lg:flex-row gap-6">
               <div className="flex-1">
@@ -408,24 +369,16 @@ export function NotificationsPage() {
               </div>
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Notifications List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           {filteredNotifications.map((notification, index) => {
             const TypeIcon = getTypeIcon(notification.type);
             return (
-              <motion.div
+              <div
                 key={notification.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                whileHover={{ scale: 1.01, y: -2 }}
+                className="hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300"
               >
                 <AnimatedCard 
                   className={`p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 transition-all duration-300 ${
@@ -499,17 +452,12 @@ export function NotificationsPage() {
                     </div>
                   </div>
                 </AnimatedCard>
-              </motion.div>
+              </div>
             );
           })}
-          
+
           {filteredNotifications.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-center py-12"
-            >
+            <div className="text-center py-12">
               <Bell className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No notifications found
@@ -517,9 +465,9 @@ export function NotificationsPage() {
               <p className="text-gray-500 dark:text-gray-400">
                 Try adjusting your filters or search terms
               </p>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

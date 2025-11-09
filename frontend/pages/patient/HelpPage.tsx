@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  HelpCircle, Search, MessageSquare, Phone, Mail, 
+import {
+  HelpCircle, Search, MessageSquare, Phone, Mail,
   BookOpen, Video, FileText, Download, Star,
-  ChevronDown, ChevronRight, ExternalLink, 
+  ChevronDown, ChevronRight, ExternalLink,
   CheckCircle, AlertCircle, Info, Clock
 } from 'lucide-react';
-import { 
-  AnimatedCard, AnimatedButton, AnimatedIcon, AnimatedBadge, 
-  AnimatedInput, AnimatedModal 
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 
 interface FAQ {
@@ -246,78 +241,30 @@ export function HelpPage() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)] bg-[size:30px_30px]" />
       </div>
 
-      {/* Floating 3D Icons */}
-      <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 text-6xl opacity-10 dark:opacity-20"
-        >
-          <HelpCircle className="text-blue-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-40 right-20 text-5xl opacity-10 dark:opacity-20"
-        >
-          <BookOpen className="text-purple-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-40 left-20 text-4xl opacity-10 dark:opacity-20"
-        >
-          <MessageSquare className="text-emerald-400" />
-        </motion.div>
-      </div>
-
       <div className="relative z-10 space-y-8 p-8">
         {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
-              >
+              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
                 Help & Support
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-xl text-slate-600 dark:text-slate-300 mt-3"
-              >
+              </h1>
+              <p className="text-xl text-slate-600 dark:text-slate-300 mt-3">
                 Find answers to your questions and get the support you need
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Contact Methods */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {contactMethods.map((method, index) => (
-            <motion.div
+            <div
               key={method.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="relative group"
+              className="relative group hover:scale-105 transition-all duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
               <div className="relative p-6 rounded-2xl text-center">
@@ -330,14 +277,13 @@ export function HelpPage() {
                 <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                   {method.description}
                 </p>
-                <AnimatedButton
+                <button
                   onClick={() => {
                     switch (method.type) {
                       case 'chat':
                         handleStartChat();
                         break;
                       case 'phone':
-                        // Call Now button - not implemented as requested
                         alert('Phone support is not available yet. Please use other contact methods.');
                         break;
                       case 'email':
@@ -350,37 +296,28 @@ export function HelpPage() {
                         break;
                     }
                   }}
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl w-full"
+                  className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl w-full rounded-xl font-medium transition-all duration-300"
                 >
                   {method.action}
-                </AnimatedButton>
+                </button>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                   {method.availability}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Help Articles */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-6 rounded-2xl">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Help Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {helpArticles.map((article, index) => (
-                <motion.div
+                <div
                   key={article.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  className="relative group"
+                  className="relative group hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-600 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300" />
                   <div className="relative p-6 rounded-xl">
@@ -409,7 +346,7 @@ export function HelpPage() {
                           </span>
                         ))}
                       </div>
-                      <AnimatedButton
+                      <button
                         onClick={() => {
                           switch (article.id) {
                             case '1':
@@ -428,26 +365,21 @@ export function HelpPage() {
                               break;
                           }
                         }}
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300 flex items-center"
                       >
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Read More
-                      </AnimatedButton>
+                      </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Search and Categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-6 rounded-2xl">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 mb-6">
@@ -480,27 +412,18 @@ export function HelpPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* FAQs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-6 rounded-2xl">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {filteredFAQs.map((faq, index) => (
-                <motion.div
+                <div
                   key={faq.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.01, y: -2 }}
-                  className="relative group"
+                  className="relative group hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-600 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300" />
                   <div className="relative p-6 rounded-xl">
@@ -521,28 +444,29 @@ export function HelpPage() {
                           {faq.answer}
                         </p>
                       </div>
-                      <AnimatedButton
+                      <button
                         onClick={() => toggleFAQ(faq.id)}
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl ml-4"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl ml-4 rounded-xl font-medium transition-all duration-300 flex items-center"
                       >
                         <ChevronRight className="w-4 h-4" />
-                      </AnimatedButton>
+                      </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* FAQ Detail Modal */}
-      <AnimatedModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="FAQ Details"
-        size="lg"
-      >
+      {isModalOpen && selectedFAQ && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">FAQ Details</h2>
+            </div>
+            <div className="p-6">
         {selectedFAQ && (
           <div className="space-y-6">
             <div className="flex items-center space-x-3 mb-4">
@@ -565,30 +489,32 @@ export function HelpPage() {
             </div>
 
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-              <AnimatedButton
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="px-6 py-3 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300"
               >
                 Close
-              </AnimatedButton>
-              <AnimatedButton
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
-              >
+              </button>
+              <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300 flex items-center">
                 <MessageSquare className="w-4 h-4 mr-2" />
                 Contact Support
-              </AnimatedButton>
+              </button>
             </div>
           </div>
         )}
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Chat Modal */}
-      <AnimatedModal
-        isOpen={isChatModalOpen}
-        onClose={() => setIsChatModalOpen(false)}
-        title="Live Chat Support"
-        size="lg"
-      >
+      {isChatModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Live Chat Support</h2>
+            </div>
+            <div className="p-6">
         <div className="space-y-6">
           <div className="text-center">
             <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-2xl">
@@ -624,30 +550,32 @@ export function HelpPage() {
                 <span>Average response time: 2 minutes</span>
               </div>
               <div className="flex space-x-3">
-                <AnimatedButton
+                <button
                   onClick={() => setIsChatModalOpen(false)}
-                  className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300"
                 >
                   Close
-                </AnimatedButton>
-                <AnimatedButton
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
-                >
+                </button>
+                <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300">
                   Send Message
-                </AnimatedButton>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Create Ticket Modal */}
-      <AnimatedModal
-        isOpen={isTicketModalOpen}
-        onClose={() => setIsTicketModalOpen(false)}
-        title="Create Support Ticket"
-        size="lg"
-      >
+      {isTicketModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Create Support Ticket</h2>
+            </div>
+            <div className="p-6">
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -711,22 +639,25 @@ export function HelpPage() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-            <AnimatedButton
+            <button
               onClick={() => setIsTicketModalOpen(false)}
-              className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+              className="px-6 py-3 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300"
             >
               Cancel
-            </AnimatedButton>
-            <AnimatedButton
+            </button>
+            <button
               onClick={handleSubmitTicket}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300 flex items-center"
             >
               <FileText className="w-4 h-4 mr-2" />
               Create Ticket
-            </AnimatedButton>
+            </button>
           </div>
         </div>
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

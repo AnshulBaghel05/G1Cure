@@ -1,11 +1,9 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  ArrowLeft, FileText, Download, Eye, Calendar, 
+import {
+  ArrowLeft, FileText, Download, Eye, Calendar,
   User, Stethoscope, Activity, AlertCircle, CheckCircle,
   Clock, Shield, Star, TrendingUp
 } from 'lucide-react';
-import { AnimatedButton } from '@/components/ui';
 import { ThemeToggle } from '../../../contexts/ThemeContext';
 
 export function MedicalRecordsGuide() {
@@ -106,51 +104,31 @@ export function MedicalRecordsGuide() {
 
       <div className="relative z-10 space-y-8 p-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <AnimatedButton
+              <button
                 onClick={() => window.history.back()}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg transition-all duration-200"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Help
-              </AnimatedButton>
+              </button>
               <div>
-                <motion.h1 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
-                >
+                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
                   Understanding Your Medical Records
-                </motion.h1>
-                <motion.p 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-lg text-slate-600 dark:text-slate-300 mt-2"
-                >
+                </h1>
+                <p className="text-lg text-slate-600 dark:text-slate-300 mt-2">
                   A comprehensive guide to reading and interpreting your medical records
-                </motion.p>
+                </p>
               </div>
             </div>
             <ThemeToggle />
           </div>
-        </motion.div>
+        </div>
 
         {/* Introduction */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-8 rounded-2xl">
             <div className="flex items-start space-x-6">
@@ -179,27 +157,19 @@ export function MedicalRecordsGuide() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Types of Medical Records */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
             Types of Medical Records
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {recordTypes.map((record, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="relative group"
+                className="relative group hover:scale-105 transition-transform duration-300"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
                 <div className="relative p-6 rounded-2xl">
@@ -228,18 +198,13 @@ export function MedicalRecordsGuide() {
                     </ul>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Understanding Your Results */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-8 rounded-2xl">
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
@@ -247,12 +212,9 @@ export function MedicalRecordsGuide() {
             </h2>
             <div className="space-y-8">
               {understandingResults.map((section, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-600"
+                  className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-600 hover:shadow-lg transition-shadow duration-200"
                 >
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                     {section.title}
@@ -271,19 +233,14 @@ export function MedicalRecordsGuide() {
                       ))}
                     </ul>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Security & Privacy */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="relative group"
-        >
+        <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
           <div className="relative p-8 rounded-2xl">
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
@@ -291,12 +248,9 @@ export function MedicalRecordsGuide() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {securityFeatures.map((feature, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  className="text-center"
+                  className="text-center hover:scale-105 transition-transform duration-300"
                 >
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <feature.icon className="w-8 h-8 text-white" />
@@ -307,19 +261,14 @@ export function MedicalRecordsGuide() {
                   <p className="text-slate-600 dark:text-slate-400">
                     {feature.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center"
-        >
+        <div className="text-center">
           <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-8 text-white">
             <h2 className="text-3xl font-bold mb-4">
               Ready to Explore Your Records?
@@ -328,21 +277,21 @@ export function MedicalRecordsGuide() {
               Access your medical records and take control of your health information.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <AnimatedButton
+              <button
                 onClick={() => window.location.href = '/patient/medical-records'}
-                className="bg-white text-emerald-600 hover:bg-slate-100 shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
+                className="bg-white text-emerald-600 hover:bg-slate-100 shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium transition-all duration-200"
               >
                 View My Records
-              </AnimatedButton>
-              <AnimatedButton
+              </button>
+              <button
                 onClick={() => window.location.href = '/patient/help'}
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-emerald-600 shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-emerald-600 shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium transition-all duration-200"
               >
                 Get More Help
-              </AnimatedButton>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

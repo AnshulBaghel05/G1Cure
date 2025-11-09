@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { 
   Settings, User, Shield, Bell, Eye, EyeOff, 
   Lock, Mail, Phone, Globe, Moon, Sun, 
@@ -7,9 +7,6 @@ import {
   CheckCircle, AlertCircle, Info, Save
 } from 'lucide-react';
 import { 
-  AnimatedCard, AnimatedButton, AnimatedIcon, AnimatedBadge, 
-  AnimatedInput, AnimatedModal, AnimatedSwitch
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 
 interface UserProfile {
@@ -125,77 +122,57 @@ export function SettingsPage() {
 
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        <div
           className="absolute top-20 left-10 text-6xl opacity-10 dark:opacity-20"
         >
           <Settings className="text-blue-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        </div>
+        <div
           className="absolute top-40 right-20 text-5xl opacity-10 dark:opacity-20"
         >
           <Shield className="text-purple-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        </div>
+        <div
           className="absolute bottom-40 left-20 text-4xl opacity-10 dark:opacity-20"
         >
           <User className="text-emerald-400" />
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative z-10 space-y-8 p-8">
         {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="space-y-4"
         >
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+              <h1 
                 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
               >
                 Settings
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
+              </h1>
+              <p 
                 className="text-xl text-slate-600 dark:text-slate-300 mt-3"
               >
                 Manage your account preferences and privacy settings
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
               {isEditing && (
-                <AnimatedButton
                   onClick={handleSave}
                   disabled={isSaving}
                   className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium"
                 >
                   <Save className="w-5 h-5 mr-2" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
-                </AnimatedButton>
               )}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Tab Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <div
           className="relative group"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -217,14 +194,11 @@ export function SettingsPage() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Tab Content */}
-        <motion.div
+        <div
           key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
           className="relative group"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -234,12 +208,10 @@ export function SettingsPage() {
               <div className="space-y-8">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Personal Information</h2>
-                  <AnimatedButton
                     onClick={() => setIsEditing(!isEditing)}
                     className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
                   >
                     {isEditing ? 'Cancel' : 'Edit Profile'}
-                  </AnimatedButton>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -398,7 +370,6 @@ export function SettingsPage() {
                           </p>
                         </div>
                       </div>
-                      <AnimatedSwitch
                         checked={value}
                         onChange={(checked) => updateNotificationSetting(key as keyof NotificationSettings, checked)}
                         className="bg-gradient-to-r from-blue-500 to-purple-500"
@@ -430,7 +401,6 @@ export function SettingsPage() {
                           </p>
                         </div>
                       </div>
-                      <AnimatedSwitch
                         checked={value}
                         onChange={(checked) => updatePrivacySetting(key as keyof PrivacySettings, checked)}
                         className="bg-gradient-to-r from-emerald-500 to-teal-500"
@@ -487,13 +457,11 @@ export function SettingsPage() {
                       />
                     </div>
 
-                    <AnimatedButton
                       onClick={handlePasswordChange}
                       className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl w-full"
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       Change Password
-                    </AnimatedButton>
                   </div>
                 </div>
               </div>
@@ -530,7 +498,6 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Enable push notifications and mobile features
                     </p>
-                    <AnimatedSwitch
                       checked={true}
                       onChange={() => {}}
                       className="bg-gradient-to-r from-orange-500 to-red-500"
@@ -547,7 +514,6 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Receive personalized health recommendations
                     </p>
-                    <AnimatedSwitch
                       checked={true}
                       onChange={() => {}}
                       className="bg-gradient-to-r from-emerald-500 to-teal-500"
@@ -564,7 +530,6 @@ export function SettingsPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
                       Automatically save your preferences
                     </p>
-                    <AnimatedSwitch
                       checked={true}
                       onChange={() => {}}
                       className="bg-gradient-to-r from-purple-500 to-pink-500"
@@ -574,7 +539,7 @@ export function SettingsPage() {
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
