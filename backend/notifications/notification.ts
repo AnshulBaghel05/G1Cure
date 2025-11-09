@@ -1,30 +1,49 @@
 import { api, APIError } from "encore.dev/api";
-import { secret } from "encore.dev/config";
 import { getAuthData } from "~encore/auth";
 import { supabaseAdmin } from "../supabase/client";
 import nodemailer from 'nodemailer';
 import twilio from 'twilio';
+import * as dotenv from 'dotenv';
 
-const twilioAccountSid = secret("TwilioAccountSid");
-const twilioAuthToken = secret("TwilioAuthToken");
-const twilioPhoneNumber = secret("TwilioPhoneNumber");
-const emailHost = secret("EmailHost");
-const emailUser = secret("EmailUser");
-const emailPassword = secret("EmailPassword");
+// Load environment variables
+dotenv.config();
 
-// const twilioClient = twilio(twilioAccountSid(), twilioAuthToken());
-const twilioClient = null; // Temporarily disabled for development
+// Environment variables for Twilio
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID || '';
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN || '';
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER || '';
 
-// const emailTransporter = nodemailer.createTransporter({
-//   host: emailHost(),
-//   port: 587,
-//   secure: false,
-//   auth: {
-//     user: emailUser(),
-//     pass: emailPassword(),
-//   },
-// });
-const emailTransporter = null; // Temporarily disabled for development
+// Environment variables for Email
+const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.gmail.com';
+const EMAIL_PORT = parseInt(process.env.EMAIL_PORT || '587');
+const EMAIL_USER = process.env.EMAIL_USER || '';
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || '';
+
+// Initialize Twilio client if credentials are provided
+const twilioClient = (TWILIO_ACCOUNT_SID && TWILIO_AUTH_TOKEN)
+  ? twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+  : null;
+
+if (!twilioClient) {
+  console.warn('⚠️  Twilio credentials not configured - SMS notifications will be disabled');
+}
+
+// Initialize email transporter if credentials are provided
+const emailTransporter = (EMAIL_USER && EMAIL_PASSWORD)
+  ? nodemailer.createTransporter({
+      host: EMAIL_HOST,
+      port: EMAIL_PORT,
+      secure: false,
+      auth: {
+        user: EMAIL_USER,
+        pass: EMAIL_PASSWORD,
+      },
+    })
+  : null;
+
+if (!emailTransporter) {
+  console.warn('⚠️  Email credentials not configured - Email notifications will be disabled');
+}
 
 export interface Notification {
   id: string;
@@ -157,10 +176,15 @@ const NOTIFICATION_TEMPLATES = {
 
 // Send SMS notification
 async function sendSMS(phoneNumber: string, message: string): Promise<boolean> {
+  if (!twilioClient || !TWILIO_PHONE_NUMBER) {
+    console.warn('SMS sending skipped - Twilio not configured');
+    return false;
+  }
+
   try {
     await twilioClient.messages.create({
       body: message,
-      from: twilioPhoneNumber(),
+      from: TWILIO_PHONE_NUMBER,
       to: phoneNumber,
     });
     return true;
@@ -172,9 +196,14 @@ async function sendSMS(phoneNumber: string, message: string): Promise<boolean> {
 
 // Send email notification
 async function sendEmail(email: string, subject: string, htmlContent: string): Promise<boolean> {
+  if (!emailTransporter || !EMAIL_USER) {
+    console.warn('Email sending skipped - Email not configured');
+    return false;
+  }
+
   try {
     await emailTransporter.sendMail({
-      from: emailUser(),
+      from: EMAIL_USER,
       to: email,
       subject,
       html: htmlContent,
@@ -186,11 +215,17 @@ async function sendEmail(email: string, subject: string, htmlContent: string): P
   }
 }
 
-// Send push notification (placeholder for future implementation)
+// Send push notification
+// Note: Push notifications require Firebase Cloud Messaging (FCM) setup
+// Configure FIREBASE_SERVER_KEY in .env and initialize Firebase Admin SDK
 async function sendPushNotification(userId: string, title: string, message: string): Promise<boolean> {
   try {
-    // TODO: Implement push notification service (Firebase, OneSignal, etc.)
-    console.log(`Push notification to ${userId}: ${title} - ${message}`);
+    // Push notification implementation requires:
+    // 1. Firebase Admin SDK initialization in firebase/admin.ts
+    // 2. User device tokens stored in database
+    // 3. FCM message sending with proper payload
+    console.log(`Push notification queued for ${userId}: ${title} - ${message}`);
+    console.warn('⚠️  Firebase Cloud Messaging not fully configured - push notifications are logged only');
     return true;
   } catch (error) {
     console.error('Push notification failed:', error);
