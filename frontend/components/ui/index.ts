@@ -1,6 +1,13 @@
 // Simple UI Components (replacing animated versions)
 export { default as SimpleButton } from './SimpleButton';
 export { default as SimpleCard } from './SimpleCard';
+export { default as SimpleInput } from './SimpleInput';
+export { default as SimpleModal } from './SimpleModal';
+export { default as SimpleTable } from './SimpleTable';
+export { default as SimpleSkeleton } from './SimpleSkeleton';
+export { default as SimpleDropdown } from './SimpleDropdown';
+export { default as SimpleTooltip } from './SimpleTooltip';
+export { default as SimpleProgress } from './SimpleProgress';
 
 // Animated UI Components (kept for critical UX only)
 export { default as AnimatedButton } from './AnimatedButton';
