@@ -6,10 +6,17 @@ const supabaseUrl = secret("SupabaseUrl");
 const supabaseAnonKey = secret("SupabaseAnonKey");
 const supabaseServiceKey = secret("SupabaseServiceKey");
 
+// Get environment variables from Encore secrets
+// If running locally, these will be read from backend/.env
+// In production, use Encore's secret management
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://bgfbtbhdbkaossfhviaw.supabase.co';
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
+
 // Create Supabase client for server-side operations
 export const supabaseAdmin = createClient(
-  'https://bgfbtbhdbkaossfhviaw.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmJ0YmhkYmthb3NzZmh2aWF3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjQ3MTc5MiwiZXhwIjoyMDcyMDQ3NzkyfQ.FYs3LciZb8UvUahn-Os23v15qrxez2XO17hGcj-m6L4',
+  SUPABASE_URL,
+  SUPABASE_SERVICE_KEY,
   {
     auth: {
       autoRefreshToken: false,
@@ -20,8 +27,8 @@ export const supabaseAdmin = createClient(
 
 // Create Supabase client for client-side operations
 export const supabaseClient = createClient(
-  'https://bgfbtbhdbkaossfhviaw.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmJ0YmhkYmthb3NzZmh2aWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NzE3OTIsImV4cCI6MjA3MjA0Nzc5Mn0.S-XbgMnv0M4wxzeP_sUCjWSTZ9H6aaGKvbUqHek5ffA'
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 // Database schema types (you would generate these from Supabase)

@@ -1,4 +1,8 @@
-// Animated UI Components
+// Simple UI Components (replacing animated versions)
+export { default as SimpleButton } from './SimpleButton';
+export { default as SimpleCard } from './SimpleCard';
+
+// Animated UI Components (kept for critical UX only)
 export { default as AnimatedButton } from './AnimatedButton';
 export { default as AnimatedCard } from './AnimatedCard';
 export { default as AnimatedIcon } from './AnimatedIcon';
