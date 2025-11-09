@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
+import {
   Heart,
   Activity,
   Zap,
@@ -131,9 +130,6 @@ import { ChatBotTrigger } from '../components/ChatBot';
 
 export function ContactPage() {
   const { resolvedTheme } = useTheme();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const isDark = resolvedTheme === 'dark';
 
@@ -183,81 +179,59 @@ export function ContactPage() {
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${
-      isDark 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
+      isDark
+        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
         : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'
     } relative overflow-hidden pt-20`}>
       {/* Animated Background Grid */}
       <div className="fixed inset-0 opacity-20">
         <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]' 
+          isDark
+            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]'
             : 'bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]'
         } bg-[size:50px_50px]`} />
-        <motion.div
-          style={{ y: backgroundY }}
+        <div
           className={`absolute inset-0 ${
-            isDark 
-              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]' 
+            isDark
+              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]'
               : 'bg-[linear-gradient(rgba(147,51,234,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.05)_1px,transparent_1px)]'
           } bg-[size:30px_30px]`}
         />
       </div>
 
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transform origin-left z-50"
-        style={{ scaleX }}
-      />
-
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        <div
           className="absolute top-20 left-10 text-6xl opacity-10"
         >
           <Box className={`${isDark ? 'text-blue-400' : 'text-blue-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        </div>
+        <div
           className="absolute top-40 right-20 text-5xl opacity-10"
         >
           <Octagon className={`${isDark ? 'text-purple-400' : 'text-purple-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        </div>
+        <div
           className="absolute bottom-40 left-20 text-4xl opacity-10"
         >
           <Layers className={`${isDark ? 'text-emerald-400' : 'text-emerald-300'}`} />
-        </motion.div>
+        </div>
       </div>
 
       <div className="space-y-16 relative z-10">
         {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <section
           className="px-4 py-20"
         >
           <div className="max-w-7xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
+            <div
               className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-full border border-blue-500/30 mb-6"
             >
               <Sparkles className="w-4 h-4 text-blue-500" />
               <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Get in Touch</span>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+            </div>
+
+            <h1
               className="text-5xl md:text-7xl font-bold mb-6"
             >
               <span className={`${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -267,35 +241,25 @@ export function ContactPage() {
               <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 bg-clip-text text-transparent">
                 Healthcare Together
               </span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+            </h1>
+
+            <p
               className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
               }`}
             >
-              Ready to transform your healthcare practice? Our team is here to help you 
+              Ready to transform your healthcare practice? Our team is here to help you
               every step of the way with personalized support and expert guidance.
-            </motion.p>
+            </p>
           </div>
-        </motion.section>
+        </section>
 
         {/* Contact Methods Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <section
           className="px-4 py-20"
         >
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <div
               className="text-center mb-16"
             >
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
@@ -308,42 +272,24 @@ export function ContactPage() {
               }`}>
                 We're here to help and answer any questions you might have
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {contactMethods.map((method, index) => (
-                <motion.div
+                <div
                   key={method.title}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    y: -10, 
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
                   className="relative group"
                 >
-                  <div className={`h-full p-6 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                  <div className={`h-full p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:scale-105 ${
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
-                    <motion.div
-                      whileHover={{ 
-                        rotateY: 360,
-                        scale: 1.1,
-                      }}
-                      transition={{ 
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${method.gradient} flex items-center justify-center shadow-lg`}
+                    <div
+                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${method.gradient} flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110`}
                     >
                       <method.icon className="w-8 h-8 text-white" />
-                    </motion.div>
+                    </div>
 
                     <h3 className={`text-xl font-bold mb-3 text-center ${
                       isDark ? 'text-white' : 'text-slate-900'
@@ -369,25 +315,18 @@ export function ContactPage() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Contact Form Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <section
           className="px-4 py-20"
         >
           <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <div
               className="text-center mb-16"
             >
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
@@ -400,16 +339,12 @@ export function ContactPage() {
               }`}>
                 Have a question or need assistance? We'd love to hear from you
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+            <div
               className={`p-8 rounded-2xl border ${
-                isDark 
-                  ? 'bg-slate-800/50 border-slate-700/50' 
+                isDark
+                  ? 'bg-slate-800/50 border-slate-700/50'
                   : 'bg-white/80 border-slate-200/50'
               }`}
             >
@@ -424,8 +359,8 @@ export function ContactPage() {
                     <input
                       type="text"
                       className={`w-full px-4 py-3 rounded-xl border transition-colors ${
-                        isDark 
-                          ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500' 
+                        isDark
+                          ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500'
                           : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                       }`}
                       placeholder="Enter your first name"
@@ -440,8 +375,8 @@ export function ContactPage() {
                     <input
                       type="text"
                       className={`w-full px-4 py-3 rounded-xl border transition-colors ${
-                        isDark 
-                          ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500' 
+                        isDark
+                          ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500'
                           : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                       }`}
                       placeholder="Enter your last name"
@@ -458,8 +393,8 @@ export function ContactPage() {
                   <input
                     type="email"
                     className={`w-full px-4 py-3 rounded-xl border transition-colors ${
-                      isDark 
-                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500' 
+                      isDark
+                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500'
                         : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                     }`}
                     placeholder="Enter your email address"
@@ -475,8 +410,8 @@ export function ContactPage() {
                   <input
                     type="text"
                     className={`w-full px-4 py-3 rounded-xl border transition-colors ${
-                      isDark 
-                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500' 
+                      isDark
+                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500'
                         : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                     }`}
                     placeholder="What is this about?"
@@ -492,43 +427,34 @@ export function ContactPage() {
                   <textarea
                     rows={5}
                     className={`w-full px-4 py-3 rounded-xl border transition-colors resize-none ${
-                      isDark 
-                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500' 
+                      isDark
+                        ? 'bg-slate-700/50 border-slate-600/50 text-white placeholder-slate-400 focus:border-blue-500'
                         : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                     }`}
                     placeholder="Tell us more about your inquiry..."
                   />
                 </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-medium transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-blue-500/25' 
+                <button
+                  className={`w-full py-4 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
+                    isDark
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-blue-500/25'
                       : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-blue-500/25'
                   }`}
                 >
                   Send Message
-                </motion.button>
+                </button>
               </form>
-            </motion.div>
+            </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* FAQ Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <section
           className="px-4 py-20"
         >
           <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <div
               className="text-center mb-16"
             >
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
@@ -541,7 +467,7 @@ export function ContactPage() {
               }`}>
                 Find answers to common questions about G1Cure
               </p>
-            </motion.div>
+            </div>
 
             <div className="space-y-6">
               {[
@@ -570,15 +496,11 @@ export function ContactPage() {
                   answer: 'We offer 24/7 customer support through multiple channels including phone, email, live chat, and dedicated account management. Our team includes healthcare technology experts who understand your specific needs and challenges.'
                 }
               ].map((faq, index) => (
-                <motion.div
+                <div
                   key={faq.question}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
                   className={`rounded-2xl border transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}
                 >
@@ -607,18 +529,14 @@ export function ContactPage() {
                       <p className="text-lg leading-relaxed">{faq.answer}</p>
                     </div>
                   </details>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Social Media & CTA Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <section
           className="px-4 py-20"
         >
           <div className="max-w-6xl mx-auto">
@@ -626,103 +544,63 @@ export function ContactPage() {
               {/* Background Gradients */}
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800 via-blue-900 to-purple-900" />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800/90 via-blue-900/90 to-purple-900/90" />
-              
+
               {/* Animated Background Elements */}
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 30,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
+              <div
                 className="absolute inset-0 opacity-10"
               >
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              </motion.div>
+              </div>
 
               <div className="relative z-10 p-16 md:p-20 text-center text-white">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
+                <div
                   className="space-y-8 max-w-4xl mx-auto"
                 >
-                  <motion.h2 
+                  <h2
                     className="text-4xl md:text-6xl font-bold"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
                   >
                     Stay Connected
-                  </motion.h2>
-                  <motion.p 
+                  </h2>
+                  <p
                     className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
                   >
                     Follow us for the latest healthcare technology updates
-                  </motion.p>
-                  
+                  </p>
+
                   {/* Social Media Links */}
-                  <motion.div 
+                  <div
                     className="flex flex-wrap justify-center gap-6 pt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
                   >
                     {socialMedia.map((social, index) => (
-                      <motion.a
+                      <a
                         key={social.platform}
                         href={social.url}
-                        whileHover={{ 
-                          scale: 1.1,
-                          y: -5,
-                        }} 
-                        whileTap={{ scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-white/10 transition-all duration-300"
+                        className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:scale-105"
                       >
                         <social.icon className="w-8 h-8" />
                         <span className="text-sm font-medium">{social.platform}</span>
                         <span className="text-xs opacity-75">{social.followers}</span>
-                      </motion.a>
+                      </a>
                     ))}
-                  </motion.div>
+                  </div>
 
                   {/* CTA Button */}
-                  <motion.div 
+                  <div
                     className="pt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 }}
                   >
-                    <motion.button 
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                      }} 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-12 py-5 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-0 text-lg"
+                    <button
+                      className="px-12 py-5 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-0 text-lg hover:scale-105 hover:-translate-y-1"
                     >
                       <Rocket className="w-6 h-6 mr-3 inline" />
                       Get Started Today
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
       </div>
 
       <Footer />

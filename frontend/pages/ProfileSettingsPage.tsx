@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -62,10 +62,7 @@ export function ProfileSettingsPage() {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      <div
       >
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Profile & Settings
@@ -73,12 +70,9 @@ export function ProfileSettingsPage() {
         <p className="text-gray-600 dark:text-gray-400">
           Manage your account details and preferences.
         </p>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+      <div
       >
         <Tabs defaultValue="profile" className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
@@ -140,7 +134,7 @@ export function ProfileSettingsPage() {
             </Card>
           </TabsContent>
         </Tabs>
-      </motion.div>
+      </div>
     </div>
   );
 }

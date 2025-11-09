@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -121,9 +121,7 @@ export function BillingPage() {
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
       >
         <div>
@@ -132,12 +130,9 @@ export function BillingPage() {
             {isPatient ? 'View your invoices and payment history' : 'Manage invoices and payment records'}
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className="flex items-center gap-4"
       >
         <div className="relative flex-1 max-w-md">
@@ -149,7 +144,7 @@ export function BillingPage() {
             className="pl-10"
           />
         </div>
-      </motion.div>
+      </div>
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -169,19 +164,12 @@ export function BillingPage() {
           ))}
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+        <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {billsData?.bills.map((bill, index) => (
-            <motion.div
+            <div
               key={bill.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
-              whileHover={{ y: -2 }}
             >
               <Card className="h-full transition-all duration-200 hover:shadow-lg dark:bg-gray-800">
                 <CardHeader className="pb-3">
@@ -265,15 +253,13 @@ export function BillingPage() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       )}
 
       {billsData?.bills.length === 0 && !isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <div
           className="text-center py-12"
         >
           <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -281,7 +267,7 @@ export function BillingPage() {
           <p className="text-gray-600 dark:text-gray-400 mb-4">
             {isPatient ? 'You have no outstanding or past bills.' : 'Bills will be automatically generated when appointments are created.'}
           </p>
-        </motion.div>
+        </div>
       )}
 
       {showForm && !isPatient && (

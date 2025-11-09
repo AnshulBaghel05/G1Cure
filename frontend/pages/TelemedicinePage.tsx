@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -140,11 +139,7 @@ export function TelemedicinePage() {
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
-      >
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">{t('nav.telemedicine')}</h1>
           <p className="text-gray-600 mt-1">
@@ -173,15 +168,10 @@ export function TelemedicinePage() {
             Create Session
           </Button>
         </div>
-      </motion.div>
+      </div>
 
       {viewMode === 'list' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex items-center gap-4"
-        >
+        <div className="flex items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
@@ -191,7 +181,7 @@ export function TelemedicinePage() {
               className="pl-10"
             />
           </div>
-        </motion.div>
+        </div>
       )}
 
       {isLoading ? (
@@ -212,20 +202,9 @@ export function TelemedicinePage() {
           ))}
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sessionsData?.sessions.map((session, index) => (
-            <motion.div
-              key={session.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
-              whileHover={{ y: -2 }}
-            >
+            <div key={session.id} className="hover:-translate-y-0.5 transition-transform duration-200">
               <Card className="h-full transition-all duration-200 hover:shadow-md">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
@@ -317,17 +296,13 @@ export function TelemedicinePage() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       )}
 
       {sessionsData?.sessions.length === 0 && !isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-12"
-        >
+        <div className="text-center py-12">
           <Video className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No telemedicine sessions found</h3>
           <p className="text-gray-600 mb-4">
@@ -337,15 +312,11 @@ export function TelemedicinePage() {
             <Plus className="w-4 h-4 mr-2" />
             Create Session
           </Button>
-        </motion.div>
+        </div>
       )}
 
       {viewMode === 'session' && activeSession && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
+        <div>
           <div className="mb-4">
             <Button 
               variant="outline" 
@@ -361,16 +332,11 @@ export function TelemedicinePage() {
             doctorId={activeSession.doctorId}
             onEndSession={handleEndSession}
           />
-        </motion.div>
+        </div>
       )}
 
       {viewMode === 'analytics' && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="space-y-6"
-        >
+        <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card>
               <CardHeader className="pb-3">
@@ -491,7 +457,7 @@ export function TelemedicinePage() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       )}
 
       {showForm && (

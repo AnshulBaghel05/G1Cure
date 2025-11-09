@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Users, Search, Plus, Filter, Eye, Edit, MessageSquare, 
+import {
+  Users, Search, Plus, Filter, Eye, Edit, MessageSquare,
   Activity, TrendingUp, Heart, Brain, Calendar, FileText,
   Phone, Mail, MapPin, Clock, AlertCircle, CheckCircle
 } from 'lucide-react';
@@ -117,13 +116,10 @@ export function PatientsPage() {
   const renderOverview = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -144,15 +140,12 @@ export function PatientsPage() {
           <p className={`text-sm ${
             isDark ? 'text-slate-400' : 'text-slate-600'
           }`}>+12% from last month</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -173,15 +166,12 @@ export function PatientsPage() {
           <p className={`text-sm ${
             isDark ? 'text-slate-400' : 'text-slate-600'
           }`}>76% of total patients</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -202,15 +192,12 @@ export function PatientsPage() {
           <p className={`text-sm ${
             isDark ? 'text-slate-400' : 'text-slate-600'
           }`}>3 pending confirmations</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -231,17 +218,14 @@ export function PatientsPage() {
           <p className={`text-sm ${
             isDark ? 'text-slate-400' : 'text-slate-600'
           }`}>Require close monitoring</p>
-        </motion.div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -277,15 +261,12 @@ export function PatientsPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -310,7 +291,7 @@ export function PatientsPage() {
               <span className="text-sm font-medium text-purple-600">19 patients</span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -355,11 +336,8 @@ export function PatientsPage() {
             </thead>
             <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
               {mockPatients.map((patient, index) => (
-                <motion.tr
+                <tr
                   key={patient.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
                   className={`hover:${
                     isDark ? 'bg-slate-700/30' : 'bg-slate-50'
                   } transition-colors duration-200`}
@@ -419,7 +397,7 @@ export function PatientsPage() {
                       </button>
                     </div>
                   </td>
-                </motion.tr>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -431,13 +409,10 @@ export function PatientsPage() {
   const renderAnalytics = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -458,15 +433,12 @@ export function PatientsPage() {
               <span className="text-sm font-medium text-purple-600">+15 patients</span>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
+        <div
           className={`p-6 rounded-2xl border transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
+            isDark
+              ? 'bg-slate-800/50 border-slate-700/50'
               : 'bg-white/80 border-slate-200/50'
           }`}
         >
@@ -487,20 +459,17 @@ export function PatientsPage() {
               <span className="text-sm font-medium text-red-600">12</span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
 
   const renderAIInsights = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -517,17 +486,14 @@ export function PatientsPage() {
             }`}>Intelligent analysis of patient data and health trends</p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {mockPatients.map((patient, index) => (
-            <motion.div
+            <div
               key={patient.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + index * 0.1 }}
               className={`p-4 rounded-xl border transition-all duration-500 ${
-                isDark 
-                  ? 'bg-slate-700/30 border-slate-600/50' 
+                isDark
+                  ? 'bg-slate-700/30 border-slate-600/50'
                   : 'bg-slate-50 border-slate-200'
               }`}
             >
@@ -555,10 +521,10 @@ export function PatientsPage() {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
@@ -568,12 +534,9 @@ export function PatientsPage() {
         ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
         : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'
     } p-6`}>
-      
+
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+      <div
         className="mb-8"
       >
         <div className="flex items-center justify-between">
@@ -589,37 +552,30 @@ export function PatientsPage() {
               Comprehensive patient care with AI-powered insights
             </p>
           </div>
-          
+
           <div className="flex items-center space-x-3">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2"
+            <button
+              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2 hover:bg-slate-100 dark:hover:bg-slate-700"
             >
               <Filter className="w-4 h-4" />
               <span>Filters</span>
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            </button>
+
+            <button
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
             >
               <Plus className="w-5 h-5" />
               <span>Add Patient</span>
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Tab Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+      <div
         className={`mb-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -648,16 +604,13 @@ export function PatientsPage() {
             </button>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Search and Filters */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+      <div
         className={`mb-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         } p-4`}
       >
@@ -713,23 +666,15 @@ export function PatientsPage() {
             <span>Export</span>
           </button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === 'overview' && renderOverview()}
-          {activeTab === 'patients' && renderPatientList()}
-          {activeTab === 'analytics' && renderAnalytics()}
-          {activeTab === 'ai-insights' && renderAIInsights()}
-        </motion.div>
-      </AnimatePresence>
+      <div>
+        {activeTab === 'overview' && renderOverview()}
+        {activeTab === 'patients' && renderPatientList()}
+        {activeTab === 'analytics' && renderAnalytics()}
+        {activeTab === 'ai-insights' && renderAIInsights()}
+      </div>
     </div>
   );
 }

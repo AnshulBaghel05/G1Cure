@@ -1,12 +1,19 @@
 import { api, APIError } from "encore.dev/api";
-import { secret } from "encore.dev/config";
 import { getAuthData } from "~encore/auth";
 import { supabaseAdmin } from "../supabase/client";
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import * as dotenv from 'dotenv';
 
-const geminiApiKey = secret("GeminiApiKey");
+// Load environment variables
+dotenv.config();
 
-const genAI = new GoogleGenerativeAI(geminiApiKey());
+const geminiApiKey = process.env.GEMINI_API_KEY || '';
+
+if (!geminiApiKey) {
+  console.warn('⚠️  GEMINI_API_KEY not set - AI features will be disabled');
+}
+
+const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 export interface MedicalQuery {
   id: string;

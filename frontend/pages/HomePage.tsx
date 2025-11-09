@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  Users, 
-  UserCheck, 
-  Calendar, 
-  Video, 
-  CreditCard, 
+import {
+  Users,
+  UserCheck,
+  Calendar,
+  Video,
+  CreditCard,
   BarChart3,
   Activity,
   Shield,
@@ -57,12 +56,7 @@ export function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center space-y-8"
-      >
+      <section className="text-center space-y-8">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
             {t('home.title')}
@@ -80,23 +74,15 @@ export function HomePage() {
             <Link to="/analytics">View Demo</Link>
           </Button>
         </div>
-      </motion.section>
+      </section>
 
       {/* Stats Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-6"
-      >
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
               className="text-center space-y-2"
             >
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto">
@@ -104,18 +90,13 @@ export function HomePage() {
               </div>
               <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
               <div className="text-sm text-gray-600">{stat.label}</div>
-            </motion.div>
+            </div>
           );
         })}
-      </motion.section>
+      </section>
 
       {/* Features Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="space-y-8"
-      >
+      <section className="space-y-8">
         <div className="text-center space-y-4">
           <h2 className="text-3xl font-bold text-gray-900">
             Comprehensive Healthcare Solutions
@@ -129,13 +110,9 @@ export function HomePage() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
-                className="group"
+                className="group hover:-translate-y-1 transition-transform duration-300"
               >
                 <Card className="h-full transition-all duration-300 hover:shadow-lg border-0 bg-gradient-to-br from-white to-gray-50">
                   <CardHeader className="text-center space-y-4">
@@ -153,19 +130,14 @@ export function HomePage() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </motion.section>
+      </section>
 
       {/* CTA Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white"
-      >
+      <section className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white">
         <div className="space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your Practice?
@@ -182,7 +154,7 @@ export function HomePage() {
             </Button>
           </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 }

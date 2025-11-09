@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, Heart, Shield, Users, Zap } from 'lucide-react';
-import { AnimatedButton, AnimatedCard, AnimatedInput, AnimatedIcon } from '@/components/ui';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface LoginPageProps {
@@ -18,7 +16,7 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       await login(email, password);
     } catch (error) {
@@ -45,25 +43,15 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
 
       <div className="relative min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left Side - Features & Branding */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             {/* Brand Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <AnimatedIcon size="xl" animation="pulse" color="#3B82F6">
-                  <Heart className="w-16 h-16" />
-                </AnimatedIcon>
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                  <Heart className="w-10 h-10 text-white" />
+                </div>
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                   G1Cure
                 </h1>
@@ -72,41 +60,24 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                 Transforming Healthcare Management
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                The complete healthcare platform designed for modern medical practices. 
+                The complete healthcare platform designed for modern medical practices.
                 Streamline operations, enhance patient care, and grow your practice.
               </p>
-            </motion.div>
+            </div>
 
             {/* Features Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="grid grid-cols-2 gap-6"
-            >
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="group"
-                >
-                  <AnimatedCard 
-                    className="p-6 h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-                    hoverEffect="glow"
-                    entranceAnimation="slideUp"
+            <div className="grid grid-cols-2 gap-6">
+              {features.map((feature) => {
+                const Icon = feature.icon;
+                return (
+                  <div
+                    key={feature.title}
+                    className="group p-6 h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="text-center space-y-3">
-                      <AnimatedIcon 
-                        size="lg" 
-                        animation="pulse" 
-                        color="#3B82F6"
-                        className="mx-auto group-hover:scale-110 transition-transform duration-300"
-                      >
-                        <feature.icon className="w-8 h-8" />
-                      </AnimatedIcon>
+                      <div className="mx-auto w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      </div>
                       <h3 className="font-semibold text-gray-900 dark:text-white">
                         {feature.title}
                       </h3>
@@ -114,18 +85,13 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                         {feature.description}
                       </p>
                     </div>
-                  </AnimatedCard>
-                </motion.div>
-              ))}
-            </motion.div>
+                  </div>
+                );
+              })}
+            </div>
 
             {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex justify-center space-x-8 text-center"
-            >
+            <div className="flex justify-center space-x-8 text-center">
               <div>
                 <div className="text-2xl font-bold text-blue-600">10K+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Patients Served</div>
@@ -138,82 +104,55 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                 <div className="text-2xl font-bold text-indigo-600">99.9%</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Uptime</div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Side - Login Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex justify-center"
-          >
-            <AnimatedCard 
-              className="w-full max-w-md p-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 shadow-2xl"
-              hoverEffect="lift"
-              entranceAnimation="slideRight"
-            >
+          <div className="flex justify-center">
+            <div className="w-full max-w-md p-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 shadow-2xl rounded-xl hover:shadow-3xl transition-shadow duration-300">
               <div className="text-center mb-8">
-                <motion.h2 
-                  className="text-3xl font-bold text-gray-900 dark:text-white mb-2"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   Welcome Back
-                </motion.h2>
-                <motion.p 
-                  className="text-gray-600 dark:text-gray-400"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
                   Sign in to your G1Cure account
-                </motion.p>
+                </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
+                <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Email Address
                   </label>
                   <div className="relative">
-                    <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                       <Mail className="w-4 h-4" />
-                    </AnimatedIcon>
-                    <AnimatedInput
+                    </div>
+                    <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="pl-10 w-full"
+                      className="pl-10 w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
                     />
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                >
+                <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Password
                   </label>
                   <div className="relative">
-                    <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                       <Lock className="w-4 h-4" />
-                    </AnimatedIcon>
-                    <AnimatedInput
+                    </div>
+                    <input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="pl-10 pr-10 w-full"
+                      className="pl-10 pr-10 w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
                     />
                     <button
@@ -224,14 +163,9 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="flex items-center justify-between"
-                >
+                <div className="flex items-center justify-between">
                   <label className="flex items-center">
                     <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
@@ -239,29 +173,17 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                   <button type="button" className="text-sm text-blue-600 hover:text-blue-500 font-medium">
                     Forgot password?
                   </button>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
+                <button
+                  type="submit"
+                  className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isLoading}
                 >
-                  <AnimatedButton
-                    type="submit"
-                    className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                    loading={isLoading}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Signing In...' : 'Sign In'}
-                  </AnimatedButton>
-                </motion.div>
+                  {isLoading ? 'Signing In...' : 'Sign In'}
+                </button>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  className="text-center"
-                >
+                <div className="text-center">
                   <p className="text-gray-600 dark:text-gray-400">
                     Don't have an account?{' '}
                     <button
@@ -272,10 +194,10 @@ export function LoginPage({ onSwitchToSignup }: LoginPageProps) {
                       Sign up here
                     </button>
                   </p>
-                </motion.div>
+                </div>
               </form>
-            </AnimatedCard>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

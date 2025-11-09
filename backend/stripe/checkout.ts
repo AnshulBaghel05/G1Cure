@@ -1,19 +1,33 @@
 import { api, APIError } from "encore.dev/api";
-import { secret } from "encore.dev/config";
 import Stripe from "stripe";
 import { getAuthData } from "~encore/auth";
+import * as dotenv from 'dotenv';
 
-const stripeSecretKey = secret("StripeSecretKey");
+// Load environment variables
+dotenv.config();
 
-// Lazy initializer for the Stripe client to prevent app startup failure if the secret is not set.
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
+
+if (!STRIPE_SECRET_KEY) {
+  console.warn('⚠️  Stripe Secret Key not configured - payment features will be disabled');
+}
+
+// Lazy initializer for the Stripe client to prevent app startup failure if the key is not set.
+let stripeClient: Stripe | null = null;
+
 function getStripeClient(): Stripe {
-  const key = stripeSecretKey();
-  if (!key) {
-    throw APIError.internal("StripeSecretKey is not set. Please add it in the Leap Infrastructure tab.");
+  if (!STRIPE_SECRET_KEY) {
+    throw APIError.internal("Stripe Secret Key is not configured. Please set STRIPE_SECRET_KEY in your .env file.");
   }
-  return new Stripe(key, {
-    apiVersion: "2024-06-20",
-  });
+
+  if (!stripeClient) {
+    stripeClient = new Stripe(STRIPE_SECRET_KEY, {
+      apiVersion: "2024-06-20",
+    });
+  }
+
+  return stripeClient;
 }
 
 export interface CreateCheckoutSessionRequest {

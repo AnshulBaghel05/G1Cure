@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+
 import { 
   Video, Phone, Mic, MicOff, Camera, CameraOff, MessageSquare, 
   Calendar, Clock, User, Stethoscope, Plus, Search, Eye, 
   CheckCircle, AlertCircle, Heart, Star, Wifi, Signal, Download
 } from 'lucide-react';
-import { 
-  AnimatedCard, AnimatedButton, AnimatedIcon, AnimatedBadge, 
-  AnimatedInput, AnimatedModal 
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -235,75 +231,57 @@ export function TelemedicinePage() {
 
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        <div
           className="absolute top-20 left-10 text-6xl opacity-10 dark:opacity-20"
         >
           <Video className="text-blue-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        </div>
+        <div
           className="absolute top-40 right-20 text-5xl opacity-10 dark:opacity-20"
         >
           <Phone className="text-purple-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        </div>
+        <div
           className="absolute bottom-40 left-20 text-4xl opacity-10 dark:opacity-20"
         >
           <Stethoscope className="text-emerald-400" />
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative z-10 space-y-8 p-8">
         {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="space-y-4"
         >
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+              <h1 
                 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
               >
                 Telemedicine
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
+              </h1>
+              <p 
                 className="text-xl text-slate-600 dark:text-slate-300 mt-3"
               >
                 Connect with healthcare providers through secure video consultations
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              <AnimatedButton
+              <button
                 onClick={() => setIsBookSessionModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium"
+                className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-medium transition-all duration-300"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Book Session
-              </AnimatedButton>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Active Call Interface */}
         {isInCall && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+          <div
             className="mb-8"
           >
             <div className="relative group">
@@ -349,45 +327,40 @@ export function TelemedicinePage() {
 
                 {/* Enhanced Call Controls */}
                 <div className="flex items-center justify-center space-x-6">
-                  <AnimatedButton
-                    className={`border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
-                      isMuted 
-                        ? 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20' 
+                  <button
+                    className={`flex items-center border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                      isMuted
+                        ? 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                         : 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20'
                     }`}
                     onClick={toggleMute}
                   >
                     {isMuted ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
-                  </AnimatedButton>
-
-                  <AnimatedButton
-                    className={`border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
-                      isVideoOn 
-                        ? 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20' 
+                  </button>
+                  <button
+                    className={`flex items-center border-2 px-6 py-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                      isVideoOn
+                        ? 'border-slate-500 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/20'
                         : 'border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                     }`}
                     onClick={toggleVideo}
                   >
                     {isVideoOn ? <Camera className="w-6 h-6" /> : <CameraOff className="w-6 h-6" />}
-                  </AnimatedButton>
-
-                  <AnimatedButton
-                    className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg font-medium"
+                  </button>
+                  <button
+                    className="flex items-center bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg font-medium transition-all duration-300"
                     onClick={endCall}
                   >
                     <Phone className="w-6 h-6" />
-                  </AnimatedButton>
+                  </button>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Enhanced Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <div
           className="mb-8"
         >
           <div className="relative group">
@@ -418,13 +391,10 @@ export function TelemedicinePage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Sessions List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
           className="space-y-6"
         >
           {sessionsLoading ? (
@@ -474,12 +444,8 @@ export function TelemedicinePage() {
               const specialty = session.doctor?.specialty || 'General';
               
               return (
-                <motion.div
+                <div
                   key={session.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  whileHover={{ scale: 1.01, y: -5 }}
                   className="relative group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -529,42 +495,45 @@ export function TelemedicinePage() {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <AnimatedButton
+                        <button
                           onClick={() => {
                             setSelectedSession(session);
                             setIsModalOpen(true);
                           }}
-                          className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
+                          className="flex items-center bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                         >
                           <Eye className="w-4 h-4 mr-2" />
                           View Details
-                        </AnimatedButton>
+                        </button>
                         {session.status === 'scheduled' && (
-                          <AnimatedButton
+                          <button
                             onClick={() => joinSession(session)}
-                            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                            className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                           >
                             <Video className="w-4 h-4 mr-2" />
                             Join Session
-                          </AnimatedButton>
+                          </button>
                         )}
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Enhanced Session Detail Modal */}
-      <AnimatedModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Session Details"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Session Details</h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         {selectedSession && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -614,36 +583,42 @@ export function TelemedicinePage() {
               </div>
             </div>
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-              <AnimatedButton
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
               >
                 Close
-              </AnimatedButton>
+              </button>
               {selectedSession.status === 'scheduled' && (
-                <AnimatedButton
+                <button
                   onClick={() => {
                     joinSession(selectedSession);
                     setIsModalOpen(false);
                   }}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                  className="flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
                 >
                   <Video className="w-4 h-4 mr-2" />
                   Join Session
-                </AnimatedButton>
+                </button>
               )}
             </div>
           </div>
         )}
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Book Session Modal */}
-      <AnimatedModal
-        isOpen={isBookSessionModalOpen}
-        onClose={() => setIsBookSessionModalOpen(false)}
-        title="Book Telemedicine Session"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isBookSessionModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsBookSessionModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Book Telemedicine Session</h2>
+              <button onClick={() => setIsBookSessionModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -719,23 +694,26 @@ export function TelemedicinePage() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-            <AnimatedButton
+            <button
               onClick={() => setIsBookSessionModalOpen(false)}
-              className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+              className="flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               Cancel
-            </AnimatedButton>
-            <AnimatedButton
+            </button>
+            <button
               onClick={handleBookSession}
               disabled={createSessionMutation.isPending}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-lg font-medium transition-all duration-300"
             >
               <Video className="w-4 h-4 mr-2" />
               {createSessionMutation.isPending ? 'Booking...' : 'Book Session'}
-            </AnimatedButton>
+            </button>
           </div>
         </div>
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  Eye, EyeOff, Mail, Lock, User, UserPlus, Heart, 
+import {
+  Eye, EyeOff, Mail, Lock, User, UserPlus, Heart,
   Stethoscope, Shield, Sparkles, Users, TrendingUp, Calendar
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,9 +12,6 @@ import { ChatBotTrigger } from '../components/ChatBot';
 export function SignupPage() {
   const { signup } = useAuth();
   const { resolvedTheme } = useTheme();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -125,49 +121,34 @@ export function SignupPage() {
       {/* Animated Background Grid */}
       <div className="fixed inset-0 opacity-20">
         <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]' 
+          isDark
+            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]'
             : 'bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]'
         } bg-[size:50px_50px]`} />
-        <motion.div
-          style={{ y: backgroundY }}
+        <div
           className={`absolute inset-0 ${
-            isDark 
-              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]' 
+            isDark
+              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]'
               : 'bg-[linear-gradient(rgba(147,51,234,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.05)_1px,transparent_1px)]'
           } bg-[size:30px_30px]`}
         />
       </div>
 
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 transform origin-left z-50"
-        style={{ scaleX }}
-      />
-
       <div className="relative z-10">
         {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="px-4 py-6"
-        >
+        <header className="px-4 py-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 group">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300"
-              >
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 hover:scale-110">
                 <Heart className="w-6 h-6 text-white" />
-              </motion.div>
+              </div>
               <span className={`text-2xl font-bold ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
                 G1Cure
               </span>
             </Link>
-            
+
             <div className="flex items-center gap-4">
               <span className={`text-sm ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
@@ -175,45 +156,26 @@ export function SignupPage() {
                 Already have an account?
               </span>
               <Link to="/login">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-                >
+                <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
                   Sign In
-                </motion.button>
+                </button>
               </Link>
             </div>
           </div>
-        </motion.header>
+        </header>
 
         <div className="flex items-center justify-center min-h-[calc(100vh-200px)] px-4 py-12">
           {/* Centered Signup Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-md"
-          >
+          <div className="relative w-full max-w-md">
             <div className={`${
               isDark ? 'text-white' : 'text-slate-900'
             }`}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-center mb-8"
-              >
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm rounded-full border border-emerald-500/30 mb-6"
-                >
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-sm rounded-full border border-emerald-500/30 mb-6">
                   <Sparkles className="w-4 h-4 text-emerald-500" />
                   <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Join G1Cure</span>
-                </motion.div>
-                
+                </div>
+
                 <h1 className="text-4xl font-bold mb-4">
                   Create your account
                 </h1>
@@ -222,71 +184,53 @@ export function SignupPage() {
                 }`}>
                   Start your healthcare journey with the most advanced platform
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.form
+              <form
                 onSubmit={handleSubmit}
                 className="space-y-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
               >
                 {/* Basic Information */}
-                <motion.div 
-                  className="grid grid-cols-2 gap-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  <motion.div 
-                    className="space-y-2"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-medium">
                       <User className="w-4 h-4" />
                       First Name
                     </label>
-                    <motion.input
+                    <input
                       type="text"
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
                       required
-                      whileFocus={{ scale: 1.02 }}
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        isDark 
-                          ? 'bg-slate-800/50 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500' 
+                        isDark
+                          ? 'bg-slate-800/50 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500'
                           : 'bg-white border-slate-200 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                       }`}
                       placeholder="John"
                     />
-                  </motion.div>
-                  <motion.div 
-                    className="space-y-2"
-                    whileFocus={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  </div>
+                  <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-medium">
                       <User className="w-4 h-4" />
                       Last Name
                     </label>
-                    <motion.input
+                    <input
                       type="text"
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
                       required
-                      whileFocus={{ scale: 1.02 }}
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        isDark 
-                          ? 'bg-slate-800/50 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500' 
+                        isDark
+                          ? 'bg-slate-800/50 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500'
                           : 'bg-white border-slate-200 text-slate-900 placeholder-slate-500 focus:border-blue-500'
                       }`}
                       placeholder="Doe"
                     />
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
 
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-medium">
@@ -397,13 +341,7 @@ export function SignupPage() {
 
                 {/* Conditional Fields for Doctor Role */}
                 {formData.role === 'doctor' && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
+                  <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label className="flex items-center gap-2 text-sm font-medium">
@@ -464,18 +402,12 @@ export function SignupPage() {
                         placeholder="5"
                       />
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Conditional Fields for Patient Role */}
                 {formData.role === 'patient' && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
+                  <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label className="flex items-center gap-2 text-sm font-medium">
@@ -515,25 +447,19 @@ export function SignupPage() {
                         </select>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 dark:text-red-400 text-sm"
-                  >
+                  <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 dark:text-red-400 text-sm">
                     {error}
-                  </motion.div>
+                  </div>
                 )}
 
-                <motion.button
+                <button
                   type="submit"
                   disabled={isLoading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 hover:scale-105 active:scale-95"
                 >
                   {isLoading ? (
                     <>
@@ -546,10 +472,10 @@ export function SignupPage() {
                       Create Account
                     </>
                   )}
-                </motion.button>
-              </motion.form>
+                </button>
+              </form>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

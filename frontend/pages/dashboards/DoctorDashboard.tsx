@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Users, 
-  Calendar, 
-  FileText, 
-  Video, 
-  BarChart3, 
-  TrendingUp, 
-  Clock, 
-  CheckCircle, 
-  AlertCircle, 
+import {
+  Users,
+  Calendar,
+  FileText,
+  Video,
+  BarChart3,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  AlertCircle,
   Star,
   Heart,
   Activity,
@@ -23,16 +22,6 @@ import {
   Filter,
   MoreVertical
 } from 'lucide-react';
-import { 
-  AnimatedCard, 
-  AnimatedButton, 
-  AnimatedIcon, 
-  AnimatedProgress, 
-  AnimatedBadge, 
-  AnimatedChart,
-  AnimatedTable,
-  AnimatedSkeleton
-} from '@/components/ui';
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface Patient {
@@ -115,12 +104,12 @@ export function DoctorDashboard() {
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, i) => (
-            <AnimatedSkeleton key={i} variant="card" className="h-32" />
+            <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {[...Array(2)].map((_, i) => (
-            <AnimatedSkeleton key={i} variant="card" className="h-80" />
+            <div key={i} className="h-80 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -130,12 +119,7 @@ export function DoctorDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900 p-6">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-8"
-      >
+      <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -146,52 +130,28 @@ export function DoctorDashboard() {
             </p>
           </div>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-            <AnimatedButton
-              variant="outline"
-              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              New Patient
-            </AnimatedButton>
-            <AnimatedButton
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl"
-            >
-              <Calendar className="w-4 h-4 mr-2" />
-              Schedule Appointment
-            </AnimatedButton>
+            <button className="px-4 py-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 hover:scale-105">
+              <Plus className="w-4 h-4" />
+              <span>New Patient</span>
+            </button>
+            <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 hover:scale-105">
+              <Calendar className="w-4 h-4" />
+              <span>Schedule Appointment</span>
+            </button>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Stats Cards */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {stats.map((stat, index) => (
-          <motion.div
+          <div
             key={stat.title}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-            whileHover={{ scale: 1.02, y: -5 }}
+            className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
           >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="lift"
-              entranceAnimation="slideUp"
-            >
               <div className="flex items-center justify-between mb-3">
                 <div className={`p-3 rounded-full bg-${stat.color}-100 dark:bg-${stat.color}-900/20`}>
-                  <AnimatedIcon 
-                    size="lg" 
-                    animation="pulse" 
-                    color={`var(--color-${stat.color}-600)`}
-                  >
-                    <stat.icon className="w-6 h-6" />
-                  </AnimatedIcon>
+                  <stat.icon className="w-6 h-6" />
                 </div>
                 <div className={`text-sm font-medium px-2 py-1 rounded-full ${
                   stat.change.startsWith('+') 
@@ -214,22 +174,13 @@ export function DoctorDashboard() {
                   {stat.description}
                 </p>
               </div>
-            </AnimatedCard>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Quick Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mb-8"
-      >
-        <AnimatedCard 
-          className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200/50 dark:border-blue-700/50"
-          hoverEffect="lift"
-        >
+      <div className="mb-8">
+        <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200/50 dark:border-blue-700/50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
           <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">
             Quick Actions
           </h3>
@@ -242,11 +193,9 @@ export function DoctorDashboard() {
               { icon: MessageSquare, label: 'Messages', color: 'indigo' },
               { icon: Users, label: 'Patient List', color: 'teal' },
             ].map((action, index) => (
-              <motion.button
+              <button
                 key={action.label}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className={`p-4 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-white/50 dark:border-slate-700/50 transition-all duration-300 hover:shadow-lg ${
+                className={`p-4 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-white/50 dark:border-slate-700/50 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1 ${
                   isDark ? 'hover:bg-slate-700/80' : 'hover:bg-white'
                 }`}
               >
@@ -258,29 +207,21 @@ export function DoctorDashboard() {
                 }`}>
                   {action.label}
                 </p>
-              </motion.button>
+              </button>
             ))}
           </div>
-        </AnimatedCard>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Left Column - Charts & Analytics */}
         <div className="lg:col-span-2 space-y-8">
-          
+
           {/* Patient Activity Chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="glow"
-              entranceAnimation="slideLeft"
-            >
+          <div>
+            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -306,28 +247,18 @@ export function DoctorDashboard() {
                   ))}
                 </div>
               </div>
-              <AnimatedChart
-                type="line"
-                data={chartData}
-                width={600}
-                height={300}
-                title=""
-                className="w-full"
-              />
-            </AnimatedCard>
-          </motion.div>
+              <div className="h-72 flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl">
+                <div className="text-center">
+                  <Activity className="w-16 h-16 mx-auto mb-4 text-blue-500" />
+                  <p className="text-gray-600 dark:text-gray-400">Patient Activity Chart</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Revenue Chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="glow"
-              entranceAnimation="slideLeft"
-            >
+          <div>
+            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -342,32 +273,22 @@ export function DoctorDashboard() {
                   <span className="text-sm font-medium">+18.5%</span>
                 </div>
               </div>
-              <AnimatedChart
-                type="bar"
-                data={revenueData}
-                width={600}
-                height={300}
-                title=""
-                className="w-full"
-              />
-            </AnimatedCard>
-          </motion.div>
+              <div className="h-72 flex items-center justify-center bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
+                <div className="text-center">
+                  <BarChart3 className="w-16 h-16 mx-auto mb-4 text-green-500" />
+                  <p className="text-gray-600 dark:text-gray-400">Revenue Overview Chart</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right Column - Quick Actions & Recent Activity */}
         <div className="space-y-8">
-          
+
           {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="glow"
-              entranceAnimation="slideRight"
-            >
+          <div>
+            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Quick Actions
               </h3>
@@ -378,13 +299,9 @@ export function DoctorDashboard() {
                   { icon: FileText, label: 'Write Report', color: 'orange' },
                   { icon: Video, label: 'Start Session', color: 'purple' },
                 ].map((action, index) => (
-                  <motion.button
+                  <button
                     key={action.label}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="w-full flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 group"
+                    className="w-full flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 group hover:scale-105 hover:translate-x-1"
                   >
                     <div className={`p-2 rounded-lg bg-${action.color}-100 dark:bg-${action.color}-900/20`}>
                       <action.icon className={`w-4 h-4 text-${action.color}-600`} />
@@ -392,39 +309,28 @@ export function DoctorDashboard() {
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
                       {action.label}
                     </span>
-                  </motion.button>
+                  </button>
                 ))}
               </div>
-            </AnimatedCard>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Today's Appointments */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="glow"
-              entranceAnimation="slideRight"
-            >
+          <div>
+            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Today's Appointments
                 </h3>
-                <AnimatedBadge variant="primary" size="sm">
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-sm font-medium">
                   {appointments.length}
-                </AnimatedBadge>
+                </span>
               </div>
               <div className="space-y-3">
                 {appointments.map((appointment, index) => (
-                  <motion.div
+                  <div
                     key={appointment.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300"
+                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex items-center space-x-3">
                       <div className={`w-2 h-2 rounded-full ${
@@ -441,44 +347,31 @@ export function DoctorDashboard() {
                         </p>
                       </div>
                     </div>
-                    <AnimatedBadge
-                      variant={
-                        appointment.status === 'scheduled' ? 'primary' :
-                        appointment.status === 'in-progress' ? 'warning' :
-                        appointment.status === 'completed' ? 'success' : 'danger'
-                      }
-                      size="sm"
-                    >
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      appointment.status === 'scheduled' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
+                      appointment.status === 'in-progress' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                      appointment.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
+                      'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
+                    }`}>
                       {appointment.status}
-                    </AnimatedBadge>
-                  </motion.div>
+                    </span>
+                  </div>
                 ))}
               </div>
-            </AnimatedCard>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Recent Patients */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <AnimatedCard 
-              className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-              hoverEffect="glow"
-              entranceAnimation="slideRight"
-            >
+          <div>
+            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Recent Patients
               </h3>
               <div className="space-y-3">
                 {patients.slice(0, 4).map((patient, index) => (
-                  <motion.div
+                  <div
                     key={patient.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300"
+                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center">
@@ -495,20 +388,18 @@ export function DoctorDashboard() {
                         </p>
                       </div>
                     </div>
-                    <AnimatedBadge
-                      variant={
-                        patient.priority === 'high' ? 'danger' :
-                        patient.priority === 'medium' ? 'warning' : 'success'
-                      }
-                      size="sm"
-                    >
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      patient.priority === 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
+                      patient.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                      'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
+                    }`}>
                       {patient.priority}
-                    </AnimatedBadge>
-                  </motion.div>
+                    </span>
+                  </div>
                 ))}
               </div>
-            </AnimatedCard>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

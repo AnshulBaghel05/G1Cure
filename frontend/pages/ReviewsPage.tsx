@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -71,30 +70,21 @@ export function ReviewsPage() {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           {isDoctor ? 'My Reviews' : 'Patient Reviews'}
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
-          {isDoctor 
+          {isDoctor
             ? 'See what patients are saying about your care'
             : 'Monitor patient feedback and satisfaction across the clinic'
           }
         </p>
-      </motion.div>
+      </div>
 
       {/* Statistics */}
       {reviewStats && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
             title="Total Reviews"
             value={reviewStats.totalReviews}
@@ -123,16 +113,12 @@ export function ReviewsPage() {
             color="text-purple-600"
             bgColor="bg-purple-100"
           />
-        </motion.div>
+        </div>
       )}
 
       {/* Rating Distribution */}
       {reviewStats && reviewStats.ratingDistribution.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div>
           <Card className="dark:bg-gray-800">
             <CardHeader>
               <CardTitle className="dark:text-white">Rating Distribution</CardTitle>
@@ -161,16 +147,11 @@ export function ReviewsPage() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       )}
 
       {/* Filters */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex flex-col sm:flex-row gap-4"
-      >
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <Input
@@ -193,7 +174,7 @@ export function ReviewsPage() {
             <SelectItem value="1">1+ Stars</SelectItem>
           </SelectContent>
         </Select>
-      </motion.div>
+      </div>
 
       {/* Reviews List */}
       {isLoading ? (
@@ -214,12 +195,7 @@ export function ReviewsPage() {
           ))}
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviewsData?.reviews
             .filter(review => 
               searchTerm === '' || 
@@ -237,15 +213,11 @@ export function ReviewsPage() {
                 showDoctorName={isAdmin && !isDoctor}
               />
             ))}
-        </motion.div>
+        </div>
       )}
 
       {reviewsData?.reviews.length === 0 && !isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-12"
-        >
+        <div className="text-center py-12">
           <MessageSquare className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No reviews found</h3>
           <p className="text-gray-600 dark:text-gray-400">
@@ -254,7 +226,7 @@ export function ReviewsPage() {
               : 'Patient reviews will appear here as they submit feedback.'
             }
           </p>
-        </motion.div>
+        </div>
       )}
     </div>
   );

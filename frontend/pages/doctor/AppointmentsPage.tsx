@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, Search, Plus } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -24,12 +23,7 @@ export function AppointmentsPage() {
     } p-6`}>
       
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-8"
-      >
+      <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
             <h1 className={`text-3xl font-bold mb-2 ${
@@ -43,29 +37,20 @@ export function AppointmentsPage() {
               Manage your patient appointments and schedule
             </p>
           </div>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
-          >
+
+          <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2">
             <Plus className="w-5 h-5" />
             <span>Schedule Appointment</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Tab Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className={`mb-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+      <div className={`mb-6 rounded-2xl border transition-all duration-500 ${
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
-        }`}
-      >
+        }`}>
         <div className="flex border-b border-slate-200 dark:border-slate-700">
           {tabs.map((tab) => (
             <button
@@ -89,19 +74,14 @@ export function AppointmentsPage() {
             </button>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Search */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className={`mb-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+      <div className={`mb-6 rounded-2xl border transition-all duration-500 ${
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
-        } p-4`}
-      >
+        } p-4`}>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input
@@ -116,19 +96,14 @@ export function AppointmentsPage() {
             }`}
           />
         </div>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className={`rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+      <div className={`rounded-2xl border transition-all duration-500 ${
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
-        } p-8`}
-      >
+        } p-8`}>
         <div className="text-center">
           <Calendar className={`w-16 h-16 mx-auto mb-4 ${
             isDark ? 'text-slate-600' : 'text-slate-400'
@@ -146,7 +121,7 @@ export function AppointmentsPage() {
             {activeTab === 'past' && 'Review completed appointments and patient history'}
           </p>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Users, UserPlus, Search, Filter, Eye, Edit, Trash2, Shield, 
-  User, UserCheck, UserX, Mail, Phone, Calendar, Building2, 
+import {
+  Users, UserPlus, Search, Filter, Eye, Edit, Trash2, Shield,
+  User, UserCheck, UserX, Mail, Phone, Calendar, Building2,
   CheckCircle, AlertCircle, Clock, MoreVertical, Download,
   Zap, Target, Brain, Sparkles, Plus, Settings, BarChart3
 } from 'lucide-react';
@@ -140,46 +139,18 @@ export function UserManagementPage() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Floating 3D Icons */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30"
-      >
+      {/* Floating Icons */}
+      <div className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30">
         <Brain className="w-16 h-16" />
-      </motion.div>
-      
-      <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 0]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30"
-      >
+      </div>
+
+      <div className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30">
         <Target className="w-20 h-20" />
-      </motion.div>
+      </div>
 
       <div className="relative z-10 p-6">
         {/* Header with Theme Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent">
@@ -207,26 +178,18 @@ export function UserManagementPage() {
               </AnimatedButton>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Quick Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
             { title: 'Total Users', value: totalUsers, icon: Users, color: 'blue', description: 'All registered users' },
             { title: 'Active Users', value: activeUsers, icon: UserCheck, color: 'green', description: 'Currently active' },
             { title: 'Verified Users', value: verifiedUsers, icon: CheckCircle, color: 'purple', description: 'Email verified' }
           ].map((stat, index) => (
-            <motion.div
+            <div
               key={stat.title}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -8 }}
+              className="hover:scale-105 hover:-translate-y-2 transition-transform duration-300"
             >
               <AnimatedCard
                 className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
@@ -258,17 +221,12 @@ export function UserManagementPage() {
                   </p>
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Sub-pages Navigation Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard className="p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
             <div className="flex space-x-2">
               {[
@@ -276,11 +234,9 @@ export function UserManagementPage() {
                 { id: 'add-users', label: 'Add Users', icon: UserPlus, active: false },
                 { id: 'sub-admins', label: 'Sub Admins', icon: Shield, active: false }
               ].map((tab) => (
-                <motion.button
+                <button
                   key={tab.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-102 ${
                     tab.active
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -288,19 +244,14 @@ export function UserManagementPage() {
                 >
                   <tab.icon className="w-4 h-4" />
                   <span>{tab.label}</span>
-                </motion.button>
+                </button>
               ))}
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Enhanced Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard 
             className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
             hoverEffect="glow"
@@ -351,24 +302,16 @@ export function UserManagementPage() {
               </div>
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Users List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="space-y-6"
-        >
+        <div className="space-y-6">
           {filteredUsers.map((user, index) => (
-            <motion.div
+            <div
               key={user.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-              whileHover={{ scale: 1.01, x: 5 }}
+              className="hover:scale-[1.01] hover:translate-x-1 transition-all duration-300"
             >
-              <AnimatedCard 
+              <AnimatedCard
                 className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
                 hoverEffect="glow"
                 entranceAnimation="slideLeft"
@@ -463,9 +406,9 @@ export function UserManagementPage() {
                   </div>
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* User Detail Modal */}
         <AnimatedModal

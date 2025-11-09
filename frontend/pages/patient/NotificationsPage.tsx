@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Bell, CheckCircle, AlertCircle, Info, X, 
+import {
+  Bell, CheckCircle, AlertCircle, Info, X,
   Calendar, Clock, User, Stethoscope, Heart,
   MessageSquare, FileText, Download, Star, Eye
 } from 'lucide-react';
-import { 
-  AnimatedCard, AnimatedButton, AnimatedIcon, AnimatedBadge, 
-  AnimatedInput, AnimatedModal 
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -305,75 +300,57 @@ export function NotificationsPage() {
 
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        <div
           className="absolute top-20 left-10 text-6xl opacity-10 dark:opacity-20"
         >
           <Bell className="text-blue-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        </div>
+        <div
           className="absolute top-40 right-20 text-5xl opacity-10 dark:opacity-20"
         >
           <AlertCircle className="text-purple-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        </div>
+        <div
           className="absolute bottom-40 left-20 text-4xl opacity-10 dark:opacity-20"
         >
           <CheckCircle className="text-emerald-400" />
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative z-10 space-y-8 p-8">
         {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="space-y-4"
         >
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+              <h1 
                 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
               >
                 Notifications
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
+              </h1>
+              <p 
                 className="text-xl text-slate-600 dark:text-slate-300 mt-3"
               >
                 Stay updated with your healthcare information and important reminders
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              <AnimatedButton
+              <button
                 onClick={markAllAsRead}
                 disabled={markAllAsReadMutation.isPending}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center"
               >
                 <CheckCircle className="w-5 h-5 mr-2" />
                 {markAllAsReadMutation.isPending ? 'Marking...' : 'Mark All Read'}
-              </AnimatedButton>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Notification Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <div
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {[
@@ -399,11 +376,8 @@ export function NotificationsPage() {
               change: 'All time'
             }
           ].map((stat, index) => (
-            <motion.div
+            <div
               key={stat.title}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -423,15 +397,12 @@ export function NotificationsPage() {
                   {stat.value}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Enhanced Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
           className="mb-8"
         >
           <div className="relative group">
@@ -465,13 +436,10 @@ export function NotificationsPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Notifications List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <div
           className="space-y-6"
         >
           {notificationsLoading ? (
@@ -515,12 +483,8 @@ export function NotificationsPage() {
             </div>
           ) : (
             filteredNotifications.map((notification, index) => (
-              <motion.div
+              <div
                 key={notification.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                whileHover={{ scale: 1.01, y: -5 }}
                 className={`relative group ${!notification.isRead ? 'ring-2 ring-blue-500/20' : ''}`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -557,50 +521,53 @@ export function NotificationsPage() {
                         </div>
                         <div className="flex items-center space-x-3">
                           {notification.action && (
-                            <AnimatedButton
-                              className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
+                            <button
+                              className="px-4 py-2 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl"
                             >
                               {notification.action}
-                            </AnimatedButton>
+                            </button>
                           )}
-                          <AnimatedButton
+                          <button
                             onClick={() => {
                               setSelectedNotification(notification);
                               setIsModalOpen(true);
                             }}
-                            className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                            className="px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
                           >
                             <Eye className="w-4 h-4 mr-2" />
                             View
-                          </AnimatedButton>
+                          </button>
                           {!notification.isRead && (
-                            <AnimatedButton
+                            <button
                               onClick={() => markAsRead(notification.id)}
                               disabled={markAsReadMutation.isPending}
-                              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               <CheckCircle className="w-4 h-4 mr-2" />
                               {markAsReadMutation.isPending ? 'Marking...' : 'Mark Read'}
-                            </AnimatedButton>
+                            </button>
                           )}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Enhanced Notification Detail Modal */}
-      <AnimatedModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Notification Details"
-        size="lg"
-      >
+      <div className={`fixed inset-0 z-50 ${isModalOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Notification Details</h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">×</button>
+            </div>
+            <div className="p-6">
         {selectedNotification && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -657,35 +624,38 @@ export function NotificationsPage() {
             </div>
 
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-              <AnimatedButton
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="px-4 py-2 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
               >
                 Close
-              </AnimatedButton>
+              </button>
               {!selectedNotification.isRead && (
-                <AnimatedButton
+                <button
                   onClick={() => {
                     markAsRead(selectedNotification.id);
                     setIsModalOpen(false);
                   }}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
+                  className="px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl"
                 >
                   <CheckCircle className="w-4 h-4 mr-2" />
                   Mark as Read
-                </AnimatedButton>
+                </button>
               )}
               {selectedNotification.action && (
-                <AnimatedButton
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
+                <button
+                  className="px-4 py-2 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl"
                 >
                   {selectedNotification.action}
-                </AnimatedButton>
+                </button>
               )}
             </div>
           </div>
         )}
-      </AnimatedModal>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

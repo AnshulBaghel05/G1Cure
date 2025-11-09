@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
+import {
   Heart,
   Activity,
   Zap,
@@ -149,9 +148,6 @@ import { ChatBotTrigger } from '../components/ChatBot';
 
 export function AboutPage() {
   const { resolvedTheme } = useTheme();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const isDark = resolvedTheme === 'dark';
 
@@ -274,83 +270,47 @@ export function AboutPage() {
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${
-      isDark 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
+      isDark
+        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
         : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'
     } relative overflow-hidden pt-20`}>
       {/* Animated Background Grid */}
       <div className="fixed inset-0 opacity-20">
         <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]' 
+          isDark
+            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]'
             : 'bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]'
         } bg-[size:50px_50px]`} />
-        <motion.div
-          style={{ y: backgroundY }}
-          className={`absolute inset-0 ${
-            isDark 
-              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]' 
-              : 'bg-[linear-gradient(rgba(147,51,234,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.05)_1px,transparent_1px)]'
-          } bg-[size:30px_30px]`}
-        />
+        <div className={`absolute inset-0 ${
+          isDark
+            ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]'
+            : 'bg-[linear-gradient(rgba(147,51,234,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.05)_1px,transparent_1px)]'
+        } bg-[size:30px_30px]`} />
       </div>
-
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 transform origin-left z-50"
-        style={{ scaleX }}
-      />
 
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 text-6xl opacity-10"
-        >
+        <div className="absolute top-20 left-10 text-6xl opacity-10">
           <Box className={`${isDark ? 'text-amber-400' : 'text-amber-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-40 right-20 text-5xl opacity-10"
-        >
+        </div>
+        <div className="absolute top-40 right-20 text-5xl opacity-10">
           <Octagon className={`${isDark ? 'text-orange-400' : 'text-orange-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-40 left-20 text-4xl opacity-10"
-        >
+        </div>
+        <div className="absolute bottom-40 left-20 text-4xl opacity-10">
           <Layers className={`${isDark ? 'text-red-400' : 'text-red-300'}`} />
-        </motion.div>
+        </div>
       </div>
 
       <div className="space-y-16 relative z-10">
         {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm rounded-full border border-amber-500/30 mb-6"
-            >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm rounded-full border border-amber-500/30 mb-6">
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span className="text-sm font-medium text-amber-600 dark:text-amber-400">About G1Cure</span>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
-            >
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className={`${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Transforming Healthcare
               </span>
@@ -358,43 +318,26 @@ export function AboutPage() {
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
                 Through Innovation
               </span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 ${
-                isDark ? 'text-slate-400' : 'text-slate-600'
-              }`}
-            >
-              G1Cure is a pioneering healthcare technology company dedicated to revolutionizing 
+            </h1>
+
+            <p className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 ${
+              isDark ? 'text-slate-400' : 'text-slate-600'
+            }`}>
+              G1Cure is a pioneering healthcare technology company dedicated to revolutionizing
               patient care through cutting-edge AI, telemedicine, and practice management solutions.
-            </motion.p>
+            </p>
           </div>
-        </motion.section>
+        </section>
 
         {/* Mission & Vision Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Mission */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="relative"
-              >
+              <div className="relative">
                 <div className={`p-8 rounded-2xl border transition-all duration-500 ${
-                  isDark 
-                    ? 'bg-slate-800/50 border-slate-700/50' 
+                  isDark
+                    ? 'bg-slate-800/50 border-slate-700/50'
                     : 'bg-white/80 border-slate-200/50'
                 }`}>
                   <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6">
@@ -408,24 +351,18 @@ export function AboutPage() {
                   <p className={`text-lg leading-relaxed ${
                     isDark ? 'text-slate-400' : 'text-slate-600'
                   }`}>
-                    To democratize access to high-quality healthcare by providing innovative, 
-                    affordable, and user-friendly technology solutions that empower healthcare 
+                    To democratize access to high-quality healthcare by providing innovative,
+                    affordable, and user-friendly technology solutions that empower healthcare
                     providers and improve patient outcomes worldwide.
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Vision */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="relative"
-              >
+              <div className="relative">
                 <div className={`p-8 rounded-2xl border transition-all duration-500 ${
-                  isDark 
-                    ? 'bg-slate-800/50 border-slate-700/50' 
+                  isDark
+                    ? 'bg-slate-800/50 border-slate-700/50'
                     : 'bg-white/80 border-slate-200/50'
                 }`}>
                   <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6">
@@ -439,60 +376,34 @@ export function AboutPage() {
                   <p className={`text-lg leading-relaxed ${
                     isDark ? 'text-slate-400' : 'text-slate-600'
                   }`}>
-                    To become the global leader in healthcare technology, creating a future where 
-                    every person has access to world-class healthcare regardless of their location, 
+                    To become the global leader in healthcare technology, creating a future where
+                    every person has access to world-class healthcare regardless of their location,
                     economic status, or background.
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Enhanced Statistics Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {stats.map((stat, index) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    y: -10, 
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
                   className="relative group text-center"
                 >
-                  <div className={`p-6 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                  <div className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-2 hover:scale-105 ${
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
-                    <motion.div
-                      whileHover={{ 
-                        rotateY: 360,
-                        scale: 1.1,
-                      }}
-                      transition={{ 
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-lg`}
-                    >
+                    <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110`}>
                       <stat.icon className="w-8 h-8 text-white" />
-                    </motion.div>
-                    
+                    </div>
+
                     <div className={`text-3xl font-bold mb-2 ${
                       isDark ? 'text-white' : 'text-slate-900'
                     }`}>
@@ -504,27 +415,16 @@ export function AboutPage() {
                       {stat.label}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Journey Timeline Section - Compact Design */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
@@ -535,27 +435,18 @@ export function AboutPage() {
               }`}>
                 From startup to global healthcare technology leader
               </p>
-            </motion.div>
+            </div>
 
             {/* Compact Timeline Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {journey.map((milestone, index) => (
-                <motion.div
+                <div
                   key={milestone.year}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    y: -10, 
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="relative group"
+                  className="relative group transition-all duration-300 hover:-translate-y-2 hover:scale-105"
                 >
                   <div className={`h-full p-6 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
                     <div className="text-center">
@@ -579,27 +470,16 @@ export function AboutPage() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Team Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
@@ -610,47 +490,33 @@ export function AboutPage() {
               }`}>
                 The visionaries and experts driving healthcare innovation forward
               </p>
-            </motion.div>
+            </div>
 
             {/* Team Grid with Custom Alignment */}
             <div className="space-y-12">
               {/* First Row - 2 Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {teamMembers.slice(0, 2).map((member, index) => (
-                  <motion.div
+                  <div
                     key={member.name}
-                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    whileHover={{ 
-                      y: -15, 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
-                    }}
-                    className="relative group"
+                    className="relative group transition-all duration-300 hover:-translate-y-3 hover:scale-105"
                   >
                     <div className={`h-full p-8 rounded-2xl border transition-all duration-500 ${
-                      isDark 
-                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                      isDark
+                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                         : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                     }`}>
                       <div className="text-center">
                         <div className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center text-4xl shadow-2xl`}>
                           {member.avatar}
                         </div>
-                        
+
                         <h3 className={`text-2xl font-bold mb-2 ${
                           isDark ? 'text-white' : 'text-slate-900'
                         }`}>
                           {member.name}
                         </h3>
-                        
+
                         <div className={`inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full border border-amber-500/30 mb-4`}>
                           <span className={`text-sm font-medium ${
                             isDark ? 'text-amber-400' : 'text-amber-600'
@@ -658,7 +524,7 @@ export function AboutPage() {
                             {member.position}
                           </span>
                         </div>
-                        
+
                         <p className={`text-lg leading-relaxed ${
                           isDark ? 'text-slate-400' : 'text-slate-600'
                         }`}>
@@ -666,47 +532,33 @@ export function AboutPage() {
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
               {/* Second Row - 3 Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {teamMembers.slice(2, 5).map((member, index) => (
-                  <motion.div
+                  <div
                     key={member.name}
-                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    whileHover={{ 
-                      y: -15, 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
-                    }}
-                    className="relative group"
+                    className="relative group transition-all duration-300 hover:-translate-y-3 hover:scale-105"
                   >
                     <div className={`h-full p-6 rounded-2xl border transition-all duration-500 ${
-                      isDark 
-                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                      isDark
+                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                         : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                     }`}>
                       <div className="text-center">
                         <div className={`w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center text-3xl shadow-2xl`}>
                           {member.avatar}
                         </div>
-                        
+
                         <h3 className={`text-xl font-bold mb-2 ${
                           isDark ? 'text-white' : 'text-slate-900'
                         }`}>
                           {member.name}
                         </h3>
-                        
+
                         <div className={`inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full border border-amber-500/30 mb-3`}>
                           <span className={`text-xs font-medium ${
                             isDark ? 'text-amber-400' : 'text-amber-600'
@@ -714,7 +566,7 @@ export function AboutPage() {
                             {member.position}
                           </span>
                         </div>
-                        
+
                         <p className={`text-sm leading-relaxed ${
                           isDark ? 'text-slate-400' : 'text-slate-600'
                         }`}>
@@ -722,28 +574,17 @@ export function AboutPage() {
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Values Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
@@ -754,47 +595,22 @@ export function AboutPage() {
               }`}>
                 The principles that guide everything we do
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => (
-                <motion.div
+                <div
                   key={value.title}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  whileHover={{ 
-                    y: -15, 
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="relative group text-center"
+                  className="relative group text-center transition-all duration-300 hover:-translate-y-3 hover:scale-105"
                 >
                   <div className={`h-full p-8 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
-                    <motion.div
-                      whileHover={{ 
-                        rotateY: 360,
-                        scale: 1.1,
-                      }}
-                      transition={{ 
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center shadow-2xl`}
-                    >
+                    <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-110`}>
                       <value.icon className="w-10 h-10 text-white" />
-                    </motion.div>
+                    </div>
 
                     <h3 className={`text-2xl font-bold mb-4 ${
                       isDark ? 'text-white' : 'text-slate-900'
@@ -807,107 +623,51 @@ export function AboutPage() {
                       {value.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Enhanced CTA Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative overflow-hidden rounded-3xl">
               {/* Background Gradients */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-800 via-orange-900 to-red-900" />
               <div className="absolute inset-0 bg-gradient-to-r from-amber-800/90 via-orange-900/90 to-red-900/90" />
-              
+
               {/* Animated Background Elements */}
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 30,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 opacity-10"
-              >
+              <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              </motion.div>
+              </div>
 
               <div className="relative z-10 p-16 md:p-20 text-center text-white">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-8 max-w-4xl mx-auto"
-                >
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-bold"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                  >
+                <div className="space-y-8 max-w-4xl mx-auto">
+                  <h2 className="text-4xl md:text-6xl font-bold">
                     Join the Healthcare Revolution
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                  >
+                  </h2>
+                  <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
                     Be part of the future of healthcare technology
-                  </motion.p>
-                  
+                  </p>
+
                   {/* CTA Buttons */}
-                  <motion.div 
-                    className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <motion.button 
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                      }} 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-12 py-5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 border-0 text-lg"
-                    >
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+                    <button className="px-12 py-5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 border-0 text-lg hover:scale-105 hover:-translate-y-1">
                       <Rocket className="w-6 h-6 mr-3 inline" />
                       Get Started Today
-                    </motion.button>
-                    <motion.button 
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                      }} 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-12 py-5 border-2 border-white text-white hover:bg-white/10 bg-transparent rounded-xl font-medium shadow-2xl hover:shadow-white/25 transition-all duration-300 text-lg"
-                    >
+                    </button>
+                    <button className="px-12 py-5 border-2 border-white text-white hover:bg-white/10 bg-transparent rounded-xl font-medium shadow-2xl hover:shadow-white/25 transition-all duration-300 text-lg hover:scale-105 hover:-translate-y-1">
                       <Target className="w-6 h-6 mr-3 inline" />
                       Learn More
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
       </div>
 
       <Footer />

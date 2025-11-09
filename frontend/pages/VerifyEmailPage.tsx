@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 import { useAuth } from '../contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, CheckCircle, XCircle } from 'lucide-react';
@@ -57,10 +57,7 @@ export function VerifyEmailPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+      <div
       >
         <Card className="w-full max-w-md shadow-2xl">
           <CardHeader>
@@ -70,20 +67,17 @@ export function VerifyEmailPage() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center text-center space-y-4 py-8">
-              <motion.div
+              <div
                 key={status}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: 'spring', damping: 15, stiffness: 300 }}
               >
                 {currentStatus.icon}
-              </motion.div>
+              </div>
               <h3 className="text-xl font-semibold">{currentStatus.title}</h3>
               <p className="text-gray-600 dark:text-gray-300">{currentStatus.message}</p>
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }

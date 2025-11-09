@@ -11,7 +11,6 @@ import { ChatBotTrigger } from './components/ChatBot';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Toaster } from './components/ui/toaster';
-import { AnimatedNotifications } from './components/ui';
 
 // Lazy load pages for better performance
 const PublicHomePage = lazy(() => import('./pages/PublicHomePage').then(m => ({ default: m.PublicHomePage })));
@@ -205,11 +204,6 @@ const AuthenticatedApp = () => {
       />
       
       <Toaster />
-      <AnimatedNotifications
-        notifications={[]}
-        onRemove={() => {}}
-        position="top-right"
-      />
     </div>
   );
 };

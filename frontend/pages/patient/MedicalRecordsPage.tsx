@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  FileText, 
-  Download, 
-  Eye, 
-  Plus, 
-  Search, 
-  Filter, 
-  Calendar, 
-  User, 
+import {
+  FileText,
+  Download,
+  Eye,
+  Plus,
+  Search,
+  Filter,
+  Calendar,
+  User,
   Activity,
   Heart,
   Thermometer,
@@ -27,15 +26,6 @@ import {
   CheckCircle,
   MoreVertical
 } from 'lucide-react';
-import { 
-  AnimatedCard, 
-  AnimatedButton, 
-  AnimatedIcon, 
-  AnimatedBadge, 
-  AnimatedInput,
-  AnimatedProgress,
-  AnimatedModal
-} from '@/components/ui';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackendClient } from '../../lib/backend';
@@ -365,28 +355,6 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
     setIsRecordModalOpen(true);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
-  };
-
   // Show loading state
   if (isLoading) {
     return (
@@ -426,85 +394,40 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)] bg-[size:30px_30px]" />
       </div>
 
-      {/* Floating 3D Icons */}
-      <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 text-6xl opacity-10 dark:opacity-20"
-        >
-          <FileText className="text-blue-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-40 right-20 text-5xl opacity-10 dark:opacity-20"
-        >
-          <Stethoscope className="text-purple-400" />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-40 left-20 text-4xl opacity-10 dark:opacity-20"
-        >
-          <Heart className="text-emerald-400" />
-        </motion.div>
-      </div>
-
       <div className="relative z-10 space-y-8 p-8">
         {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <motion.h1 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
-              >
+              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
                 Medical Records
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-xl text-slate-600 dark:text-slate-300 mt-3"
-              >
+              </h1>
+              <p className="text-xl text-slate-600 dark:text-slate-300 mt-3">
                 Access and manage your complete health history and medical documents
-              </motion.p>
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              <AnimatedButton
-                variant="outline"
+              <button
                 onClick={handleExportRecords}
-                className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-6 py-3 rounded-xl font-medium"
+                className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg flex items-center"
               >
                 <Download className="w-5 h-5 mr-2" />
                 Export Records
-              </AnimatedButton>
-              <AnimatedButton
+              </button>
+              <button
                 onClick={() => setIsUploadModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Upload Document
-              </AnimatedButton>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Vital Signs Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
+        <div>
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
             <div className="relative p-6 rounded-2xl">
@@ -512,24 +435,16 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                   Vital Signs Overview
                 </h2>
-                <AnimatedButton
-                  size="sm"
-                  variant="outline"
-                  className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-4 py-2 rounded-xl font-medium"
-                >
+                <button className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:shadow-lg flex items-center">
                   <Activity className="w-4 h-4 mr-2" />
                   Update Vitals
-                </AnimatedButton>
+                </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 {vitalSigns.map((vital, index) => (
-                  <motion.div
+                  <div
                     key={vital.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -8 }}
-                    className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 hover:from-slate-100 to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-600/50 transition-all duration-300 border border-slate-200/50 dark:border-slate-600/50 shadow-lg hover:shadow-xl"
+                    className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 hover:from-slate-100 to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-600/50 transition-all duration-300 border border-slate-200/50 dark:border-slate-600/50 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-2"
                   >
                     <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg">
                       {vital.name === 'Blood Pressure' && <Heart className="w-7 h-7 text-white" />}
@@ -558,19 +473,15 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                       </span>
                       <span className="text-slate-600 dark:text-slate-400">{vital.lastUpdated}</span>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Current Medications */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <div>
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
             <div className="relative p-6 rounded-2xl">
@@ -579,13 +490,9 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
               </h2>
               <div className="space-y-4">
                 {medications.map((medication, index) => (
-                  <motion.div
+                  <div
                     key={medication.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 hover:from-slate-100 to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-600/50 transition-all duration-300 border border-slate-200/50 dark:border-slate-600/50 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 hover:from-slate-100 to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-600/50 transition-all duration-300 border border-slate-200/50 dark:border-slate-600/50 shadow-lg hover:shadow-xl hover:scale-[1.02] hover:translate-x-1"
                   >
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg">
@@ -614,19 +521,15 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                         <Eye className="w-4 h-4" />
                       </button>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+        <div>
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
             <div className="relative p-6 rounded-2xl">
@@ -634,12 +537,12 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                 <div className="flex-1 max-w-md">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
-                    <AnimatedInput
+                    <input
                       type="text"
                       placeholder="Search records, doctors, or specialties..."
                       value={searchTerm}
-                      onChange={(e: any) => setSearchTerm(e.target.value)}
-                      className="pl-10 w-full bg-white/80 dark:bg-slate-700/80 border-slate-200 dark:border-slate-600 rounded-xl"
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 w-full px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     />
                   </div>
                 </div>
@@ -678,15 +581,10 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Enhanced Medical Records List */}
-        <motion.div
-          className="space-y-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="space-y-6">
           {isLoading ? (
             <div className="space-y-4">
               {[1, 2, 3, 4].map((i) => (
@@ -732,16 +630,11 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                 `Dr. ${(record.doctor as any).firstName} ${(record.doctor as any).lastName}` : 
                 'Unknown Doctor';
               const specialty = (record.doctor as any)?.specialty || 'General';
-              
+
               return (
-                <motion.div
+                <div
                   key={record.id}
-                  variants={itemVariants as any}
-                  whileHover={{ 
-                    y: -5, 
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
+                  className="hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
                 >
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 rounded-2xl border border-white/20 dark:border-slate-700/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500" />
@@ -837,19 +730,20 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })
           )}
-        </motion.div>
+        </div>
 
         {/* Record Detail Modal */}
-        <AnimatedModal
-          isOpen={isRecordModalOpen}
-          onClose={() => setIsRecordModalOpen(false)}
-          title={selectedRecord?.title || 'Medical Record Details'}
-          size="lg"
-        >
+        {isRecordModalOpen && selectedRecord && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{selectedRecord.title}</h2>
+              </div>
+              <div className="p-6">
           {selectedRecord && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -946,29 +840,33 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
                 </div>
               )}
 
-              <div className="flex items-center justify-end space-x-3 pt-4">
+              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
                 <button
                   className="px-6 py-3 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl font-medium transition-all duration-300"
                   onClick={() => setIsRecordModalOpen(false)}
                 >
                   Close
                 </button>
-                <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Download className="w-4 h-4 mr-2 inline" />
+                <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center">
+                  <Download className="w-4 h-4 mr-2" />
                   Export Record
                 </button>
               </div>
             </div>
           )}
-        </AnimatedModal>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Upload Document Modal */}
-        <AnimatedModal
-          isOpen={isUploadModalOpen}
-          onClose={() => setIsUploadModalOpen(false)}
-          title="Upload Medical Document"
-          size="md"
-        >
+        {isUploadModalOpen && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full shadow-2xl">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Upload Medical Document</h2>
+              </div>
+              <div className="p-6">
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -988,22 +886,25 @@ ${medicalRecords.map(record => `- ${record.title} (${record.date})`).join('\n')}
             </div>
 
             <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-600">
-              <AnimatedButton
+              <button
                 onClick={() => setIsUploadModalOpen(false)}
-                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl"
+                className="px-6 py-3 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300"
               >
                 Cancel
-              </AnimatedButton>
-              <AnimatedButton
+              </button>
+              <button
                 onClick={handleUploadDocument}
                 disabled={!uploadFile || uploadDocumentMutation.isPending}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {uploadDocumentMutation.isPending ? 'Uploading...' : 'Upload Document'}
-              </AnimatedButton>
+              </button>
             </div>
           </div>
-        </AnimatedModal>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
