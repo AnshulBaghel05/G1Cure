@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { AppointmentsPage } from './AppointmentsPage';
@@ -9,10 +9,7 @@ export function AppointmentManagementPage() {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      <div
         className="flex justify-between items-center"
       >
         <div>
@@ -23,15 +20,12 @@ export function AppointmentManagementPage() {
             Oversee all scheduled appointments across the clinic.
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+      <div
       >
         <AppointmentsPage />
-      </motion.div>
+      </div>
     </div>
   );
 }

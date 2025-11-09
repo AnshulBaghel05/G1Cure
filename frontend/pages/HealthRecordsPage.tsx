@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, HeartPulse, FlaskConical, Stethoscope, Shield, Activity } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -28,10 +28,7 @@ export function HealthRecordsPage() {
   return (
     <>
       <div className="space-y-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
         >
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             My Health Records
@@ -39,18 +36,14 @@ export function HealthRecordsPage() {
           <p className="text-gray-600 dark:text-gray-400">
             A complete and secure overview of your medical history, {user?.first_name}.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recordTypes.map((record, index) => {
             const Icon = record.icon;
             return (
-              <motion.div
+              <div
                 key={record.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
               >
                 <Card className="h-full hover:shadow-lg transition-shadow dark:bg-gray-800">
                   <CardHeader>
@@ -68,15 +61,12 @@ export function HealthRecordsPage() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <div
         >
           <Card className="dark:bg-gray-800">
             <CardHeader>
@@ -86,7 +76,7 @@ export function HealthRecordsPage() {
               <p className="text-center py-8 text-gray-500 dark:text-gray-400">A timeline of recent health activities will be displayed here.</p>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </div>
       <HealthRecordDetailModal
         isOpen={isModalOpen}

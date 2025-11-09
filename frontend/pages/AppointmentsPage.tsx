@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -186,9 +186,7 @@ export function AppointmentsPage() {
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
       >
         <div>
@@ -227,13 +225,10 @@ export function AppointmentsPage() {
             {isPatient ? 'Book New Appointment' : t('appointments.add')}
           </Button>
         </div>
-      </motion.div>
+      </div>
 
       {viewMode === 'list' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className="flex items-center gap-4"
         >
           <div className="relative flex-1 max-w-md">
@@ -245,7 +240,7 @@ export function AppointmentsPage() {
               className="pl-10"
             />
           </div>
-        </motion.div>
+        </div>
       )}
 
       {viewMode === 'list' && (
@@ -268,19 +263,12 @@ export function AppointmentsPage() {
               ))}
             </div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+            <div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {appointmentsData?.appointments.map((appointment, index) => (
-                <motion.div
+                <div
                   key={appointment.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -2 }}
                 >
                   <Card className="h-full transition-all duration-200 hover:shadow-lg dark:bg-gray-800">
                     <CardHeader className="pb-3">
@@ -372,15 +360,13 @@ export function AppointmentsPage() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           )}
 
           {appointmentsData?.appointments.length === 0 && !isLoading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <div
               className="text-center py-12"
             >
               <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -392,16 +378,13 @@ export function AppointmentsPage() {
                 <Plus className="w-4 h-4 mr-2" />
                 {isPatient ? 'Book New Appointment' : t('appointments.add')}
               </Button>
-            </motion.div>
+            </div>
           )}
         </>
       )}
 
       {viewMode === 'scheduler' && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+        <div
         >
           <SmartScheduler 
             onSlotSelect={handleSlotSelect}
@@ -416,14 +399,11 @@ export function AppointmentsPage() {
               type: 'consultation'
             }}
           />
-        </motion.div>
+        </div>
       )}
 
       {viewMode === 'analytics' && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+        <div
           className="space-y-6"
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -549,7 +529,7 @@ export function AppointmentsPage() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       )}
 
       {showForm && (

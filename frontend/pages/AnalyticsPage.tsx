@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   Users, 
@@ -72,27 +72,22 @@ export function AnalyticsPage() {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="space-y-2"
       >
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('analytics.title')}</h1>
         <p className="text-gray-600 dark:text-gray-300">
           Overview of your healthcare practice performance
         </p>
-      </motion.div>
+      </div>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <section
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
       >
         {statCards.map((stat, index) => (
           <AnimatedKPICard key={stat.title} {...stat} delay={index * 0.1} />
         ))}
-      </motion.section>
+      </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
@@ -134,19 +129,16 @@ export function AnalyticsPage() {
         <CardContent>
           <div className="space-y-3">
             {doctorPerformance?.doctors.slice(0, 5).map((doctor, index) => (
-              <motion.div 
+              <div 
                 key={doctor.doctorId} 
                 className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
               >
                 <span className="font-medium">{doctor.doctorName}</span>
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">{doctor.totalAppointments} appts</span>
                   <span className="text-sm text-green-600">₹{doctor.totalRevenue.toFixed(2)}</span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </CardContent>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -87,9 +87,7 @@ export function DoctorsPage() {
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
       >
         <div>
@@ -102,12 +100,9 @@ export function DoctorsPage() {
           <Plus className="w-4 h-4" />
           {t('doctors.add')}
         </Button>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className="flex items-center gap-4"
       >
         <div className="relative flex-1 max-w-md">
@@ -119,7 +114,7 @@ export function DoctorsPage() {
             className="pl-10"
           />
         </div>
-      </motion.div>
+      </div>
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -139,19 +134,12 @@ export function DoctorsPage() {
           ))}
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+        <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {doctorsData?.doctors.map((doctor, index) => (
-            <motion.div
+            <div
               key={doctor.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
-              whileHover={{ y: -2 }}
             >
               <Card className="h-full transition-all duration-200 hover:shadow-md">
                 <CardHeader className="pb-3">
@@ -217,15 +205,13 @@ export function DoctorsPage() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       )}
 
       {doctorsData?.doctors.length === 0 && !isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <div
           className="text-center py-12"
         >
           <UserCheck className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -237,7 +223,7 @@ export function DoctorsPage() {
             <Plus className="w-4 h-4 mr-2" />
             {t('doctors.add')}
           </Button>
-        </motion.div>
+        </div>
       )}
 
       {showForm && (

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Upload, FlaskConical, Search, File, X } from 'lucide-react';
@@ -69,10 +69,7 @@ export function LabReportsPage() {
 
   return (
     <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      <div
         className="flex justify-between items-center"
       >
         <div>
@@ -83,12 +80,9 @@ export function LabReportsPage() {
             Manage and review patient lab reports.
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+      <div
       >
         <Card>
           <CardHeader>
@@ -134,12 +128,9 @@ export function LabReportsPage() {
             )}
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+      <div
       >
         <Card>
           <CardHeader>
@@ -153,7 +144,7 @@ export function LabReportsPage() {
             </p>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }
