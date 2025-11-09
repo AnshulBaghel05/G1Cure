@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
+import {
   Heart,
   Activity,
   Zap,
@@ -83,7 +82,6 @@ import {
   Banknote,
   Coins,
   PiggyBank,
-  Shield,
   Vault,
   Lock as LockIcon,
   Unlock,
@@ -144,9 +142,6 @@ import { ChatBotTrigger } from '../components/ChatBot';
 
 export function PricingPage() {
   const { resolvedTheme } = useTheme();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
   const isDark = resolvedTheme === 'dark';
@@ -261,83 +256,48 @@ export function PricingPage() {
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${
-      isDark 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
+      isDark
+        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
         : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'
     } relative overflow-hidden pt-20`}>
       {/* Animated Background Grid */}
       <div className="fixed inset-0 opacity-20">
         <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]' 
+          isDark
+            ? 'bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]'
             : 'bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]'
         } bg-[size:50px_50px]`} />
-        <motion.div
-          style={{ y: backgroundY }}
-          className={`absolute inset-0 ${
-            isDark 
-              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]' 
+        <div className={`absolute inset-0 ${
+            isDark
+              ? 'bg-[linear-gradient(rgba(147,51,234,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.1)_1px,transparent_1px)]'
               : 'bg-[linear-gradient(rgba(147,51,234,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.05)_1px,transparent_1px)]'
           } bg-[size:30px_30px]`}
         />
       </div>
 
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transform origin-left z-50"
-        style={{ scaleX }}
-      />
-
       {/* Floating 3D Icons */}
       <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-10 text-6xl opacity-10"
-        >
+        <div className="absolute top-20 left-10 text-6xl opacity-10">
           <Box className={`${isDark ? 'text-blue-400' : 'text-blue-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-40 right-20 text-5xl opacity-10"
-        >
+        </div>
+        <div className="absolute top-40 right-20 text-5xl opacity-10">
           <Octagon className={`${isDark ? 'text-purple-400' : 'text-purple-300'}`} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          className="absolute bottom-40 left-20 text-4xl opacity-10"
-        >
+        </div>
+        <div className="absolute bottom-40 left-20 text-4xl opacity-10">
           <Layers className={`${isDark ? 'text-emerald-400' : 'text-emerald-300'}`} />
-        </motion.div>
+        </div>
       </div>
 
       <div className="space-y-16 relative z-10">
         {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-full border border-blue-500/30 mb-6"
-            >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-full border border-blue-500/30 mb-6">
               <Sparkles className="w-4 h-4 text-blue-500" />
               <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Pricing Plans</span>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
-            >
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className={`${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Simple, Transparent
               </span>
@@ -345,27 +305,18 @@ export function PricingPage() {
               <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 bg-clip-text text-transparent">
                 Pricing
               </span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 ${
+            </h1>
+
+            <p className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 ${
                 isDark ? 'text-slate-400' : 'text-slate-600'
               }`}
             >
-              Choose the perfect plan for your healthcare practice. All plans include 
+              Choose the perfect plan for your healthcare practice. All plans include
               our core features with no hidden fees.
-            </motion.p>
+            </p>
 
             {/* Billing Toggle */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center justify-center gap-4 mb-8"
-            >
+            <div className="flex items-center justify-center gap-4 mb-8">
               <span className={`text-lg font-medium ${
                 isDark ? 'text-slate-300' : 'text-slate-700'
               }`}>
@@ -377,10 +328,10 @@ export function PricingPage() {
                   billingCycle === 'yearly' ? 'bg-blue-500' : 'bg-slate-400'
                 }`}
               >
-                <motion.div
-                  className="absolute top-1 w-6 h-6 bg-white rounded-full shadow-lg"
-                  animate={{ x: billingCycle === 'yearly' ? 32 : 0 }}
-                  transition={{ duration: 0.3 }}
+                <div
+                  className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-lg transition-all duration-300 ${
+                    billingCycle === 'yearly' ? 'left-9' : 'left-1'
+                  }`}
                 />
               </button>
               <span className={`text-lg font-medium ${
@@ -391,38 +342,18 @@ export function PricingPage() {
                   Save 20%
                 </span>
               </span>
-            </motion.div>
+            </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Pricing Plans Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {plans.map((plan, index) => (
-                <motion.div
+                <div
                   key={plan.name}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  whileHover={{ 
-                    y: -15, 
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                  className={`relative group ${
+                  className={`relative group transition-all duration-300 hover:-translate-y-4 hover:scale-105 ${
                     plan.popular ? 'md:-mt-8 md:mb-8' : ''
                   }`}
                 >
@@ -437,25 +368,14 @@ export function PricingPage() {
                   <div className={`h-full p-8 rounded-2xl border transition-all duration-500 ${
                     plan.popular
                       ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
-                      : isDark 
-                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                      : isDark
+                        ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                         : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
                     <div className="text-center mb-8">
-                      <motion.div
-                        whileHover={{ 
-                          rotateY: 360,
-                          scale: 1.1,
-                        }}
-                        transition={{ 
-                          duration: 0.8,
-                          type: "spring",
-                          stiffness: 200
-                        }}
-                        className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center shadow-2xl`}
-                      >
+                      <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110`}>
                         <plan.icon className="w-10 h-10 text-white" />
-                      </motion.div>
+                      </div>
 
                       <h3 className={`text-3xl font-bold mb-2 ${
                         isDark ? 'text-white' : 'text-slate-900'
@@ -489,7 +409,7 @@ export function PricingPage() {
                             {plan.price}
                           </div>
                         )}
-                        
+
                         {plan.originalPrice && (
                           <div className="text-lg text-slate-500 line-through mt-2">
                             ${plan.originalPrice}/{billingCycle === 'monthly' ? 'mo' : 'year'}
@@ -500,12 +420,8 @@ export function PricingPage() {
 
                     <div className="space-y-4 mb-8">
                       {plan.features.map((feature, featureIndex) => (
-                        <motion.div
+                        <div
                           key={feature}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.1 + featureIndex * 0.05 }}
                           className="flex items-center gap-3"
                         >
                           <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -516,43 +432,30 @@ export function PricingPage() {
                           }`}>
                             {feature}
                           </span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
 
-                    <motion.button
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`w-full py-4 rounded-xl font-medium transition-all duration-300 ${
+                    <button
+                      className={`w-full py-4 rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
                         plan.popular
                           ? 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl'
                           : 'border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white'
                       }`}
                     >
                       {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
-                    </motion.button>
+                    </button>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Add-ons Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
@@ -563,26 +466,17 @@ export function PricingPage() {
               }`}>
                 Enhance your experience with our premium add-ons
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {addons.map((addon, index) => (
-                <motion.div
+                <div
                   key={addon.name}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    y: -10, 
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="relative group"
+                  className="relative group transition-all duration-300 hover:-translate-y-2 hover:scale-105"
                 >
                   <div className={`h-full p-6 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
                     <h3 className={`text-xl font-bold mb-3 ${
@@ -613,35 +507,22 @@ export function PricingPage() {
                       ))}
                     </div>
 
-                    <motion.button
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-xl font-medium transition-all duration-300"
+                    <button
+                      className="w-full py-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:-translate-y-1"
                     >
                       Add to Plan
-                    </motion.button>
+                    </button>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Benefits Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
@@ -652,42 +533,22 @@ export function PricingPage() {
               }`}>
                 Every plan includes these essential benefits
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={benefit.title}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    y: -10, 
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="relative group text-center"
+                  className="relative group text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105"
                 >
                   <div className={`h-full p-6 rounded-2xl border transition-all duration-500 ${
-                    isDark 
-                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50' 
+                    isDark
+                      ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
                       : 'bg-white/80 border-slate-200/50 hover:border-slate-300/50'
                   }`}>
-                    <motion.div
-                      whileHover={{ 
-                        rotateY: 360,
-                        scale: 1.1,
-                      }}
-                      transition={{ 
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
-                    >
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110">
                       <benefit.icon className="w-8 h-8 text-white" />
-                    </motion.div>
+                    </div>
 
                     <h3 className={`text-xl font-bold mb-3 ${
                       isDark ? 'text-white' : 'text-slate-900'
@@ -700,107 +561,55 @@ export function PricingPage() {
                       {benefit.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Enhanced CTA Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="px-4 py-20"
-        >
+        <section className="px-4 py-20">
           <div className="max-w-6xl mx-auto">
             <div className="relative overflow-hidden rounded-3xl">
               {/* Background Gradients */}
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800 via-blue-900 to-purple-900" />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800/90 via-blue-900/90 to-purple-900/90" />
-              
+
               {/* Animated Background Elements */}
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 30,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 opacity-10"
-              >
+              <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              </motion.div>
+              </div>
 
               <div className="relative z-10 p-16 md:p-20 text-center text-white">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-8 max-w-4xl mx-auto"
-                >
-                  <motion.h2 
-                    className="text-4xl md:text-6xl font-bold"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                  >
+                <div className="space-y-8 max-w-4xl mx-auto">
+                  <h2 className="text-4xl md:text-6xl font-bold">
                     Ready to Get Started?
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                  >
+                  </h2>
+                  <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
                     Join thousands of healthcare providers who trust G1Cure
-                  </motion.p>
-                  
+                  </p>
+
                   {/* CTA Buttons */}
-                  <motion.div 
-                    className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <motion.button 
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                      }} 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-12 py-5 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-0 text-lg"
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+                    <button
+                      className="px-12 py-5 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl font-medium shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-0 text-lg hover:scale-105 hover:-translate-y-1"
                     >
                       <Rocket className="w-6 h-6 mr-3 inline" />
                       Start Free Trial
-                    </motion.button>
-                    <motion.button 
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                      }} 
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-12 py-5 border-2 border-white text-white hover:bg-white/10 bg-transparent rounded-xl font-medium shadow-2xl hover:shadow-white/25 transition-all duration-300 text-lg"
+                    </button>
+                    <button
+                      className="px-12 py-5 border-2 border-white text-white hover:bg-white/10 bg-transparent rounded-xl font-medium shadow-2xl hover:shadow-white/25 transition-all duration-300 text-lg hover:scale-105 hover:-translate-y-1"
                     >
                       <Target className="w-6 h-6 mr-3 inline" />
                       Schedule Demo
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
       </div>
 
       <Footer />
