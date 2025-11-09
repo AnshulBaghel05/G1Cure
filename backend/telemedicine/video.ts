@@ -1,11 +1,18 @@
 import { api, APIError } from "encore.dev/api";
-import { secret } from "encore.dev/config";
 import { getAuthData } from "~encore/auth";
 import { supabaseAdmin } from "../supabase/client";
 import AccessToken from 'agora-access-token';
+import * as dotenv from 'dotenv';
 
-const agoraAppId = secret("AgoraAppId");
-const agoraAppCertificate = secret("AgoraAppCertificate");
+// Load environment variables
+dotenv.config();
+
+const AGORA_APP_ID = process.env.AGORA_APP_ID || '';
+const AGORA_APP_CERTIFICATE = process.env.AGORA_APP_CERTIFICATE || '';
+
+if (!AGORA_APP_ID || !AGORA_APP_CERTIFICATE) {
+  console.warn('⚠️  Agora credentials not configured - video conferencing features will be disabled');
+}
 
 export interface VideoSession {
   id: string;
@@ -75,14 +82,11 @@ export interface SendChatMessageRequest {
 
 // Generate Agora access token
 function generateAgoraToken(channelName: string, uid: number, role: number): string {
-  const appId = agoraAppId();
-  const appCertificate = agoraAppCertificate();
-  
-  if (!appId || !appCertificate) {
-    throw APIError.internal("Agora credentials not configured");
+  if (!AGORA_APP_ID || !AGORA_APP_CERTIFICATE) {
+    throw APIError.internal("Agora credentials not configured. Please set AGORA_APP_ID and AGORA_APP_CERTIFICATE in your .env file.");
   }
 
-  const token = new AccessToken(appId, appCertificate, channelName, uid);
+  const token = new AccessToken(AGORA_APP_ID, AGORA_APP_CERTIFICATE, channelName, uid);
   token.addPrivilege(AccessToken.Privileges.kJoinChannel, Math.floor(Date.now() / 1000) + 3600);
   token.addPrivilege(AccessToken.Privileges.kPublishAudioStream, Math.floor(Date.now() / 1000) + 3600);
   token.addPrivilege(AccessToken.Privileges.kPublishVideoStream, Math.floor(Date.now() / 1000) + 3600);
@@ -191,7 +195,7 @@ export const joinVideoSession = api<JoinVideoSessionRequest, JoinVideoSessionRes
       token,
       channelName: session.channel_name,
       sessionId: session.session_id,
-      agoraAppId: agoraAppId() || "",
+      agoraAppId: AGORA_APP_ID || "",
       uid,
       role: req.userRole,
     };
