@@ -8,6 +8,20 @@ export { default as SimpleSkeleton } from './SimpleSkeleton';
 export { default as SimpleDropdown } from './SimpleDropdown';
 export { default as SimpleTooltip } from './SimpleTooltip';
 export { default as SimpleProgress } from './SimpleProgress';
+export { default as SimpleAccordion } from './SimpleAccordion';
+export { default as SimpleTabs } from './SimpleTabs';
+export { default as SimpleBadge } from './SimpleBadge';
+export { default as SimpleSearch } from './SimpleSearch';
+export { default as SimpleSwitch } from './SimpleSwitch';
+export { default as SimpleRating } from './SimpleRating';
+export { default as SimpleTimeline } from './SimpleTimeline';
+export { default as SimpleStepper } from './SimpleStepper';
+export { default as SimpleCounter } from './SimpleCounter';
+export { default as SimpleBreadcrumb } from './SimpleBreadcrumb';
+export { default as SimpleCalendar } from './SimpleCalendar';
+export { default as SimpleChart } from './SimpleChart';
+export { default as SimpleCarousel } from './SimpleCarousel';
+export { default as SimpleNotification, SimpleNotificationContainer } from './SimpleNotification';
 
 // Animated UI Components (kept for critical UX only)
 export { default as AnimatedButton } from './AnimatedButton';
