@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   BarChart3, TrendingUp, Users, DollarSign, Activity, 
   Calendar, Download, Filter, Search, Eye, RotateCcw,
@@ -215,45 +214,17 @@ export function AnalyticsPage() {
       </div>
 
       {/* Floating 3D Icons */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30"
-      >
+      <div className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30">
         <Brain className="w-16 h-16" />
-      </motion.div>
-      
-      <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 0]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30"
-      >
+      </div>
+
+      <div className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30">
         <Target className="w-20 h-20" />
-      </motion.div>
+      </div>
 
       <div className="relative z-10 p-6">
         {/* Header with Theme Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent">
@@ -280,23 +251,16 @@ export function AnalyticsPage() {
               </AnimatedButton>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Sub-pages Navigation Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard className="p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
             <div className="flex space-x-2">
               {subPages.map((page) => (
-                <motion.button
+                <button
                   key={page.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
                     page.active
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -304,19 +268,14 @@ export function AnalyticsPage() {
                 >
                   <page.icon className="w-4 h-4" />
                   <span>{page.label}</span>
-                </motion.button>
+                </button>
               ))}
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Date Range Selector */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard 
             className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
             hoverEffect="glow"
@@ -346,22 +305,14 @@ export function AnalyticsPage() {
               </div>
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Enhanced Key Metrics */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {analyticsData.map((metric, index) => (
-            <motion.div
+            <div
               key={metric.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -8 }}
+              className="transition-all duration-300 hover:scale-105"
             >
               <AnimatedCard
                 className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
@@ -428,17 +379,12 @@ export function AnalyticsPage() {
                   </AnimatedBadge>
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Enhanced Tabs Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard 
             className="p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
             hoverEffect="glow"
@@ -448,12 +394,10 @@ export function AnalyticsPage() {
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
-                  <motion.button
+                  <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
                       activeTab === tab.id
                         ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -461,30 +405,21 @@ export function AnalyticsPage() {
                   >
                     <Icon className="w-5 h-5" />
                     <span>{tab.label}</span>
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Content Based on Active Tab */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8">
           {activeTab === 'overview' && (
             <>
               {/* Charts Row */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Revenue Trend Chart */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
+                <div className="transition-all duration-300 hover:scale-105">
                   <AnimatedCard 
                     className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
                     hoverEffect="glow"
@@ -512,14 +447,10 @@ export function AnalyticsPage() {
                       />
                     </div>
                   </AnimatedCard>
-                </motion.div>
+                </div>
 
                 {/* Patient Growth Chart */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
+                <div className="transition-all duration-300 hover:scale-105">
                   <AnimatedCard 
                     className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
                     hoverEffect="glow"
@@ -547,15 +478,11 @@ export function AnalyticsPage() {
                       />
                     </div>
                   </AnimatedCard>
-                </motion.div>
+                </div>
               </div>
 
               {/* Performance Metrics */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
+              <div className="transition-all duration-300 hover:scale-105">
                 <AnimatedCard 
                   className="p-8 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-xl border border-white/30 dark:border-gray-600/30 shadow-xl hover:shadow-2xl transition-all duration-300"
                   hoverEffect="glow"
@@ -608,24 +535,16 @@ export function AnalyticsPage() {
                     </div>
                   </div>
                 </AnimatedCard>
-              </motion.div>
+              </div>
             </>
           )}
 
           {activeTab === 'reports' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               {reports.map((report, index) => (
-                <motion.div
+                <div
                   key={report.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.01, x: 5 }}
+                  className="transition-all duration-300 hover:scale-105"
                 >
                   <AnimatedCard 
                     className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
@@ -694,17 +613,13 @@ export function AnalyticsPage() {
                       </div>
                     </div>
                   </AnimatedCard>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'trends' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div className="transition-all duration-300 hover:scale-105">
               <AnimatedCard 
                 className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
                 hoverEffect="glow"
@@ -722,15 +637,11 @@ export function AnalyticsPage() {
                   Advanced trend analysis and forecasting capabilities coming soon...
                 </p>
               </AnimatedCard>
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'comparisons' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div className="transition-all duration-300 hover:scale-105">
               <AnimatedCard 
                 className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
                 hoverEffect="glow"
@@ -748,9 +659,9 @@ export function AnalyticsPage() {
                   Comparative analysis tools and benchmarking features coming soon...
                 </p>
               </AnimatedCard>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
 
         {/* Report Detail Modal */}
         <AnimatedModal

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   DollarSign, 
   Clock, 
@@ -166,45 +165,17 @@ export function BillingPage() {
       </div>
 
       {/* Floating 3D Icons */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, 0]
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30"
-      >
+      <div className="absolute top-20 right-20 text-blue-400/30 dark:text-blue-300/30">
         <Brain className="w-16 h-16" />
-      </motion.div>
-      
-      <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 0]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30"
-      >
+      </div>
+
+      <div className="absolute bottom-20 left-20 text-emerald-400/30 dark:text-emerald-300/30">
         <Sparkles className="w-20 h-20" />
-      </motion.div>
+      </div>
 
       <div className="relative z-10 p-6">
         {/* Header with Theme Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent">
@@ -232,23 +203,16 @@ export function BillingPage() {
               </AnimatedButton>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Sub-pages Navigation Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard className="p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
             <div className="flex space-x-2">
               {subPages.map((page) => (
-                <motion.button
+                <button
                   key={page.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
                     page.active
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -256,19 +220,14 @@ export function BillingPage() {
                 >
                   <page.icon className="w-4 h-4" />
                   <span>{page.label}</span>
-                </motion.button>
+                </button>
               ))}
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Financial Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <AnimatedCard className="p-8 bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900/20 dark:to-green-900/20 backdrop-blur-xl border border-emerald-200/50 dark:border-emerald-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center justify-between">
@@ -322,26 +281,19 @@ export function BillingPage() {
               </div>
             </AnimatedCard>
           </div>
-        </motion.div>
+        </div>
 
         {/* Tabs Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <AnimatedCard className="p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
             <div className="flex flex-wrap gap-2">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
-                  <motion.button
+                  <button
                     key={tab.id}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
                       activeTab === tab.id
                         ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -349,30 +301,21 @@ export function BillingPage() {
                   >
                     <Icon className="w-5 h-5" />
                     <span>{tab.label}</span>
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>
           </AnimatedCard>
-        </motion.div>
+        </div>
 
         {/* Content Based on Active Tab */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8">
           {activeTab === 'overview' && (
             <>
               {/* Charts Row */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Revenue vs Outstanding Chart */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
+                <div className="transition-all duration-300 hover:scale-105">
                   <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -389,14 +332,10 @@ export function BillingPage() {
                       className="w-full"
                     />
                   </AnimatedCard>
-                </motion.div>
+                </div>
 
                 {/* Collection Rate Chart */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
+                <div className="transition-all duration-300 hover:scale-105">
                   <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -416,17 +355,13 @@ export function BillingPage() {
                       className="w-full"
                     />
                   </AnimatedCard>
-                </motion.div>
+                </div>
               </div>
             </>
           )}
 
           {activeTab === 'billing' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div className="transition-all duration-300 hover:scale-105">
               <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-0">
@@ -524,15 +459,11 @@ export function BillingPage() {
                   </table>
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'payments' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div className="transition-all duration-300 hover:scale-105">
               <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
                   Payment Methods & Transactions
@@ -545,13 +476,9 @@ export function BillingPage() {
                     { method: 'Bank Transfer', count: 8, total: 15600, icon: Building2, color: 'purple' },
                     { method: 'Debit Card', count: 15, total: 12300, icon: CreditCard, color: 'indigo' }
                   ].map((payment, index) => (
-                    <motion.div
+                    <div
                       key={payment.method}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+                      className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:scale-105"
                     >
                       <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-${payment.color}-100 dark:bg-${payment.color}-900/20 flex items-center justify-center`}>
                         <payment.icon className={`w-6 h-6 text-${payment.color}-600`} />
@@ -567,19 +494,15 @@ export function BillingPage() {
                           {formatCurrency(payment.total)}
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'reports' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            <div className="transition-all duration-300 hover:scale-105">
               <AnimatedCard className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
                   Financial Reports
@@ -593,13 +516,9 @@ export function BillingPage() {
                     { title: 'Department Performance', icon: Building2, color: 'orange', format: 'Excel' },
                     { title: 'Year-over-Year Comparison', icon: TrendingUp, color: 'indigo', format: 'PDF' }
                   ].map((report, index) => (
-                    <motion.div
+                    <div
                       key={report.title}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+                      className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:scale-105"
                     >
                       <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-${report.color}-100 dark:bg-${report.color}-900/20 flex items-center justify-center`}>
                         <report.icon className={`w-6 h-6 text-${report.color}-600`} />
@@ -615,13 +534,13 @@ export function BillingPage() {
                           <Download className="w-4 h-4" />
                         </AnimatedButton>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </AnimatedCard>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* New Invoice Modal */}

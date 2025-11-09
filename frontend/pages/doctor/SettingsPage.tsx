@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Settings, User, Shield, Bell, Monitor, Palette, Database, 
-  Key, Eye, EyeOff, Smartphone, Globe, Lock, Unlock, 
+import {
+  Settings, User, Shield, Bell, Monitor, Palette, Database,
+  Key, Eye, EyeOff, Smartphone, Globe, Lock, Unlock,
   Brain, Activity, Zap, Save, RefreshCw, Download, Upload
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -33,13 +32,10 @@ export function SettingsPage() {
 
   const renderProfile = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -150,28 +146,23 @@ export function SettingsPage() {
         </div>
 
         <div className="flex justify-end mt-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
           >
             <Save className="w-5 h-5" />
             <span>Save Changes</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
   const renderSecurity = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -285,28 +276,23 @@ export function SettingsPage() {
         </div>
 
         <div className="flex justify-end mt-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
           >
             <Shield className="w-5 h-5" />
             <span>Update Security</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
   const renderNotifications = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -414,28 +400,23 @@ export function SettingsPage() {
         </div>
 
         <div className="flex justify-end mt-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
           >
             <Bell className="w-5 h-5" />
             <span>Save Preferences</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
   const renderAIPreferences = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -554,28 +535,23 @@ export function SettingsPage() {
         </div>
 
         <div className="flex justify-end mt-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
           >
             <Brain className="w-5 h-5" />
             <span>Save AI Preferences</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
   const renderSystem = () => (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className={`p-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -664,7 +640,7 @@ export function SettingsPage() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 
@@ -674,12 +650,10 @@ export function SettingsPage() {
         ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
         : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'
     } p-6`}>
-      
+
+
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+      <div
         className="mb-8"
       >
         <div className="flex items-center justify-between">
@@ -695,26 +669,21 @@ export function SettingsPage() {
               Customize your healthcare experience
             </p>
           </div>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+
+          <button
             className="px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2"
           >
             <RefreshCw className="w-5 h-5" />
             <span>Reset to Defaults</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Tab Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+      <div
         className={`mb-6 rounded-2xl border transition-all duration-500 ${
-          isDark 
-            ? 'bg-slate-800/50 border-slate-700/50' 
+          isDark
+            ? 'bg-slate-800/50 border-slate-700/50'
             : 'bg-white/80 border-slate-200/50'
         }`}
       >
@@ -736,24 +705,16 @@ export function SettingsPage() {
             </button>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === 'profile' && renderProfile()}
-          {activeTab === 'security' && renderSecurity()}
-          {activeTab === 'notifications' && renderNotifications()}
-          {activeTab === 'ai-preferences' && renderAIPreferences()}
-          {activeTab === 'system' && renderSystem()}
-        </motion.div>
-      </AnimatePresence>
+      <div>
+        {activeTab === 'profile' && renderProfile()}
+        {activeTab === 'security' && renderSecurity()}
+        {activeTab === 'notifications' && renderNotifications()}
+        {activeTab === 'ai-preferences' && renderAIPreferences()}
+        {activeTab === 'system' && renderSystem()}
+      </div>
     </div>
   );
 }

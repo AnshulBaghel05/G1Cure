@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, User, Phone, Heart, Shield, Users, Zap, CheckCircle } from 'lucide-react';
-import { AnimatedButton, AnimatedCard, AnimatedInput, AnimatedIcon, AnimatedBadge } from '@/components/ui';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface SignupPageProps {
@@ -94,23 +92,13 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
           
           {/* Left Side - Benefits & Branding */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             {/* Brand Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <AnimatedIcon size="xl" animation="pulse" color="#10B981">
+                <div className="text-green-600">
                   <Heart className="w-16 h-16" />
-                </AnimatedIcon>
+                </div>
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                   G1Cure
                 </h1>
@@ -119,41 +107,23 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                 Join the Future of Healthcare
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                Create your account and experience the most advanced healthcare management platform. 
+                Create your account and experience the most advanced healthcare management platform.
                 Designed for patients, doctors, and administrators.
               </p>
-            </motion.div>
+            </div>
 
             {/* Benefits Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="grid grid-cols-2 gap-6"
-            >
+            <div className="grid grid-cols-2 gap-6">
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={benefit.title}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="group"
+                  className="group hover:transform hover:scale-105 hover:-translate-y-1 transition-all duration-300"
                 >
-                  <AnimatedCard 
-                    className="p-6 h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-                    hoverEffect="glow"
-                    entranceAnimation="slideUp"
-                  >
+                  <div className="p-6 h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
                     <div className="text-center space-y-3">
-                      <AnimatedIcon 
-                        size="lg" 
-                        animation="pulse" 
-                        color="#10B981"
-                        className="mx-auto group-hover:scale-110 transition-transform duration-300"
-                      >
-                        <benefit.icon className="w-8 h-8" />
-                      </AnimatedIcon>
+                      <div className="mx-auto text-green-600 group-hover:scale-110 transition-transform duration-300">
+                        <benefit.icon className="w-8 h-8 mx-auto" />
+                      </div>
                       <h3 className="font-semibold text-gray-900 dark:text-white">
                         {benefit.title}
                       </h3>
@@ -161,77 +131,45 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                         {benefit.description}
                       </p>
                     </div>
-                  </AnimatedCard>
-                </motion.div>
+                  </div>
+                </div>
               ))}
-            </motion.div>
+            </div>
 
             {/* Role Benefits */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center">
                 Benefits for {formData.role === 'patient' ? 'Patients' : formData.role === 'doctor' ? 'Doctors' : 'Administrators'}
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {roleBenefits[formData.role].map((benefit, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 1.0 + index * 0.1 }}
                     className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                     <span>{benefit}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Side - Signup Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex justify-center"
-          >
-            <AnimatedCard 
-              className="w-full max-w-md p-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 shadow-2xl"
-              hoverEffect="lift"
-              entranceAnimation="slideRight"
-            >
+          <div className="flex justify-center">
+            <div className="w-full max-w-md p-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 shadow-2xl rounded-lg hover:shadow-3xl transition-shadow duration-300">
               <div className="text-center mb-8">
-                <motion.h2 
-                  className="text-3xl font-bold text-gray-900 dark:text-white mb-2"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   Create Account
-                </motion.h2>
-                <motion.p 
-                  className="text-gray-600 dark:text-gray-400"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
                   Join G1Cure and transform healthcare
-                </motion.p>
+                </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Role Selection */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="space-y-3"
-                >
+                <div className="space-y-3">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     I am a
                   </label>
@@ -251,29 +189,24 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                       </button>
                     ))}
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Name Fields */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="grid grid-cols-2 gap-4"
-                >
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       First Name
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <User className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type="text"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         placeholder="First name"
-                        className="pl-10 w-full"
+                        className="pl-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                     </div>
@@ -283,42 +216,37 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                       Last Name
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <User className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type="text"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange('lastName', e.target.value)}
                         placeholder="Last name"
-                        className="pl-10 w-full"
+                        className="pl-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Email & Phone */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="space-y-4"
-                >
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Email Address
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <Mail className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="Enter your email"
-                        className="pl-10 w-full"
+                        className="pl-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                     </div>
@@ -328,48 +256,43 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                       Phone Number
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <Phone className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         placeholder="Enter your phone"
-                        className="pl-10 w-full"
+                        className="pl-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Password Fields */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="space-y-4"
-                >
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Password
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <Lock className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type={showPassword ? 'text' : 'password'}
                         value={formData.password}
                         onChange={(e) => handleInputChange('password', e.target.value)}
                         placeholder="Create a password"
-                        className="pl-10 pr-10 w-full"
+                        className="pl-10 pr-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -380,35 +303,30 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                       Confirm Password
                     </label>
                     <div className="relative">
-                      <AnimatedIcon size="sm" animation="pulse" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <Lock className="w-4 h-4" />
-                      </AnimatedIcon>
-                      <AnimatedInput
+                      </div>
+                      <input
                         type={showConfirmPassword ? 'text' : 'password'}
                         value={formData.confirmPassword}
                         onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                         placeholder="Confirm your password"
-                        className="pl-10 pr-10 w-full"
+                        className="pl-10 pr-10 w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
                       >
                         {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Terms Agreement */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  className="flex items-start space-x-3"
-                >
+                <div className="flex items-start space-x-3">
                   <input
                     type="checkbox"
                     checked={formData.agreeToTerms}
@@ -418,39 +336,29 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                   />
                   <label className="text-sm text-gray-600 dark:text-gray-400">
                     I agree to the{' '}
-                    <button type="button" className="text-green-600 hover:text-green-500 font-medium underline">
+                    <button type="button" className="text-green-600 hover:text-green-500 font-medium underline transition-colors duration-200">
                       Terms of Service
                     </button>{' '}
                     and{' '}
-                    <button type="button" className="text-green-600 hover:text-green-500 font-medium underline">
+                    <button type="button" className="text-green-600 hover:text-green-500 font-medium underline transition-colors duration-200">
                       Privacy Policy
                     </button>
                   </label>
-                </motion.div>
+                </div>
 
                 {/* Submit Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.0 }}
-                >
-                  <AnimatedButton
+                <div>
+                  <button
                     type="submit"
-                    className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-700 hover:via-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                    loading={isLoading}
+                    className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-700 hover:via-emerald-700 hover:to-teal-700 text-white rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Creating Account...' : 'Create Account'}
-                  </AnimatedButton>
-                </motion.div>
+                  </button>
+                </div>
 
                 {/* Login Link */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.1 }}
-                  className="text-center"
-                >
+                <div className="text-center">
                   <p className="text-gray-600 dark:text-gray-400">
                     Already have an account?{' '}
                     <button
@@ -461,10 +369,10 @@ export function SignupPage({ onSwitchToLogin }: SignupPageProps) {
                       Sign in here
                     </button>
                   </p>
-                </motion.div>
+                </div>
               </form>
-            </AnimatedCard>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
