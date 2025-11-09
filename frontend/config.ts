@@ -1,27 +1,49 @@
-// The Clerk publishable key, to initialize Clerk.
-// TODO: Set this to your Clerk publishable key, which can be found in the Clerk dashboard.
-export const clerkPublishableKey = "";
+// Configuration loaded from environment variables
+// These are defined in .env.local for development
+
+// Clerk authentication (optional)
+export const clerkPublishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || '';
 
 // Supabase configuration for frontend
-// TODO: Set these to your Supabase project values from the Supabase dashboard.
-export const supabaseUrl = "https://bgfbtbhdbkaossfhviaw.supabase.co";
-export const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZmJ0YmhkYmthb3NzZmh2aWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NzE3OTIsImV4cCI6MjA3MjA0Nzc5Mn0.S-XbgMnv0M4wxzeP_sUCjWSTZ9H6aaGKvbUqHek5ffA";
+export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+export const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-// Stripe configuration for frontend
-// TODO: Set this to your Stripe publishable key from the Stripe dashboard.
-export const stripePublishableKey = "";
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('❌ Supabase configuration missing! Check your .env.local file.');
+}
 
-// Google Maps API Key for frontend
-// TODO: Set this to your Google Maps API Key from the Google Cloud Console.
-export const googleMapsApiKey = "AIzaSyBoI-Rzr9u1qCPCiPulAkMBWPEr-6CPRQY";
+// Stripe configuration for frontend (optional)
+export const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '';
+
+// Google Maps API Key for frontend (optional)
+export const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
 
 // API configuration
-export const apiBaseUrl = process.env.NODE_ENV === 'production' 
-  ? 'https://your-production-api.com' 
-  : 'http://localhost:4000';
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.MODE === 'production'
+    ? 'https://your-production-api.com'
+    : 'http://localhost:4000');
+
+// Agora configuration for video conferencing (optional)
+export const agoraAppId = import.meta.env.VITE_AGORA_APP_ID || '';
 
 // Feature flags
 export const features = {
   enableAnalytics: true,
   enableTelemedicine: true,
+  enableStripePayments: !!stripePublishableKey,
+  enableGoogleMaps: !!googleMapsApiKey,
+  enableVideoConferencing: !!agoraAppId,
 };
+
+// Log configuration status (development only)
+if (import.meta.env.DEV) {
+  console.log('🔧 Configuration loaded:', {
+    supabaseConfigured: !!(supabaseUrl && supabaseAnonKey),
+    stripeConfigured: !!stripePublishableKey,
+    googleMapsConfigured: !!googleMapsApiKey,
+    agoraConfigured: !!agoraAppId,
+    clerkConfigured: !!clerkPublishableKey,
+    apiBaseUrl,
+  });
+}
