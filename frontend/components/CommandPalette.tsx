@@ -287,14 +287,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4 animate-fadeIn" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4 animate-fadeIn" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-all duration-200" />
 
       {/* Command palette */}
       <div className="relative w-full max-w-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-slideUp">
           {/* Header */}
-          <div className="flex items-center gap-3 p-4 border-b border-gray-200">
+          <div className="flex items-center gap-3 p-4 border-b border-gray-200 dark:border-gray-700">
             <Search className="w-5 h-5 text-gray-400" />
             <Input
               value={query}
@@ -373,14 +373,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">↑↓</kbd>
+                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">Up/Down</kbd>
                 <span>navigate</span>
               </div>
               <div className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">↵</kbd>
+                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">Enter</kbd>
                 <span>select</span>
               </div>
             </div>
