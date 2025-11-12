@@ -9,9 +9,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { Plus, Search, Edit, Trash2, CreditCard, Calendar, User, Receipt, DollarSign } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { BillForm } from '../components/BillForm';
-import { getBills, getBillById, createBill, updateBill, processPayment, deleteBill } from '@/lib/api';
-import backend from '~backend/client';
-import type { Bill } from '~backend/clinic/billing';
+import { getBills, getBillById, createBill, updateBill, processPayment, deleteBill, getAppointments, getPatients } from '@/lib/api';
+import type { Bill } from '@/lib/api/billing';
 import { useAuth } from '../contexts/AuthContext';
 
 export function BillingPage() {
@@ -40,13 +39,13 @@ export function BillingPage() {
 
   const { data: appointmentsData } = useQuery({
     queryKey: ['appointments'],
-    queryFn: async () => await backend.clinic.listAppointments({ limit: 1000 }),
+    queryFn: async () => await getAppointments({ limit: 1000 }),
     enabled: !isPatient,
   });
 
   const { data: patientsData } = useQuery({
     queryKey: ['patients'],
-    queryFn: async () => await backend.clinic.listPatients({ limit: 1000 }),
+    queryFn: async () => await getPatients({ limit: 1000 }),
     enabled: !isPatient,
   });
 

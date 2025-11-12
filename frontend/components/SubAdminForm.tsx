@@ -7,8 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/components/ui/use-toast';
 import { StandardModal } from './StandardModal';
-import backend from '~backend/client';
-import type { CreateSubAdminRequest } from '~backend/admin/sub_admin';
+import { createSubAdmin } from '@/lib/api';
 
 interface SubAdminFormProps {
   onClose: () => void;
@@ -17,13 +16,13 @@ interface SubAdminFormProps {
 
 export function SubAdminForm({ onClose, onSuccess }: SubAdminFormProps) {
   const { toast } = useToast();
-  const [formData, setFormData] = useState<CreateSubAdminRequest>({
-    firstName: '',
-    lastName: '',
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     department: '',
-    subAdminType: '',
+    sub_admin_type: '',
     permissions: {
       canViewPatients: false,
       canEditPatients: false,
@@ -38,14 +37,23 @@ export function SubAdminForm({ onClose, onSuccess }: SubAdminFormProps) {
     },
   });
 
-  const { data: departmentsData } = useQuery({
-    queryKey: ['departments'],
-    queryFn: () => backend.admin.listDepartments(),
-  });
+  // Department options (can be made dynamic if backend supports it)
+  const departments = [
+    'General',
+    'Emergency',
+    'Surgery',
+    'Cardiology',
+    'Pediatrics',
+    'Orthopedics',
+    'Neurology',
+    'Pharmacy',
+    'Laboratory',
+    'Radiology',
+  ];
 
   const createSubAdminMutation = useMutation({
-    mutationFn: async (data: CreateSubAdminRequest) => {
-      return await backend.admin.createSubAdmin(data);
+    mutationFn: async (data: typeof formData) => {
+      return await createSubAdmin(data);
     },
     onSuccess: () => {
       toast({
@@ -121,12 +129,12 @@ export function SubAdminForm({ onClose, onSuccess }: SubAdminFormProps) {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="firstName">First Name</Label>
-            <Input id="firstName" value={formData.firstName} onChange={(e) => handleChange('firstName', e.target.value)} required />
+            <Label htmlFor="first_name">First Name</Label>
+            <Input id="first_name" value={formData.first_name} onChange={(e) => handleChange('first_name', e.target.value)} required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input id="lastName" value={formData.lastName} onChange={(e) => handleChange('lastName', e.target.value)} required />
+            <Label htmlFor="last_name">Last Name</Label>
+            <Input id="last_name" value={formData.last_name} onChange={(e) => handleChange('last_name', e.target.value)} required />
           </div>
         </div>
 
@@ -149,17 +157,17 @@ export function SubAdminForm({ onClose, onSuccess }: SubAdminFormProps) {
                 <SelectValue placeholder="Select department" />
               </SelectTrigger>
               <SelectContent>
-                {departmentsData?.departments.map((dept) => (
-                  <SelectItem key={dept.id} value={dept.name}>
-                    {dept.name}
+                {departments.map((dept) => (
+                  <SelectItem key={dept} value={dept}>
+                    {dept}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="subAdminType">Sub-Admin Type</Label>
-            <Select value={formData.subAdminType} onValueChange={(value) => handleChange('subAdminType', value)}>
+            <Label htmlFor="sub_admin_type">Sub-Admin Type</Label>
+            <Select value={formData.sub_admin_type} onValueChange={(value) => handleChange('sub_admin_type', value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>

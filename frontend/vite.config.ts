@@ -7,8 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname),
-      '~backend/client': path.resolve(__dirname, './client'),
-      '~backend': path.resolve(__dirname, '../backend'),
     },
   },
   plugins: [
@@ -52,13 +50,5 @@ export default defineConfig({
       '.ngrok-free.app',
       '.ngrok.io'
     ],
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4000',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
   },
 })

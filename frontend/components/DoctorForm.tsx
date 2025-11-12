@@ -9,8 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
 import { X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import backend from '~backend/client';
-import type { Doctor, CreateDoctorRequest, UpdateDoctorRequest } from '~backend/clinic/doctor';
+import { createDoctor, updateDoctor, type CreateDoctorData, type UpdateDoctorData, type Doctor } from '@/lib/api';
 
 interface DoctorFormProps {
   doctor?: Doctor | null;
@@ -24,23 +23,22 @@ export function DoctorForm({ doctor, onClose, onSuccess }: DoctorFormProps) {
   const isEditing = !!doctor;
 
   const [formData, setFormData] = useState({
-    firstName: doctor?.firstName || '',
-    lastName: doctor?.lastName || '',
+    first_name: doctor?.first_name || '',
+    last_name: doctor?.last_name || '',
     email: doctor?.email || '',
     phone: doctor?.phone || '',
     specialization: doctor?.specialization || '',
-    licenseNumber: doctor?.licenseNumber || '',
-    experience: doctor?.experience?.toString() || '',
-    qualification: doctor?.qualification || '',
-    consultationFee: doctor?.consultationFee?.toString() || '',
+    license_number: doctor?.license_number || '',
+    years_of_experience: doctor?.years_of_experience?.toString() || '',
+    qualifications: doctor?.qualifications || '',
+    consultation_fee: doctor?.consultation_fee?.toString() || '',
     availability: doctor?.availability || '',
     bio: doctor?.bio || '',
-    profileImage: doctor?.profileImage || '',
   });
 
   const createDoctorMutation = useMutation({
-    mutationFn: async (data: CreateDoctorRequest) => {
-      return await backend.clinic.createDoctor(data);
+    mutationFn: async (data: CreateDoctorData) => {
+      return await createDoctor(data);
     },
     onSuccess: () => {
       onSuccess();
@@ -56,8 +54,8 @@ export function DoctorForm({ doctor, onClose, onSuccess }: DoctorFormProps) {
   });
 
   const updateDoctorMutation = useMutation({
-    mutationFn: async (data: UpdateDoctorRequest) => {
-      return await backend.clinic.updateDoctor(data);
+    mutationFn: async ({ id, updates }: { id: string; updates: UpdateDoctorData }) => {
+      return await updateDoctor(id, updates);
     },
     onSuccess: () => {
       onSuccess();
@@ -74,20 +72,21 @@ export function DoctorForm({ doctor, onClose, onSuccess }: DoctorFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const submitData = {
       ...formData,
-      experience: parseInt(formData.experience),
-      consultationFee: parseFloat(formData.consultationFee),
+      years_of_experience: parseInt(formData.years_of_experience),
+      consultation_fee: parseFloat(formData.consultation_fee),
     };
 
     if (isEditing && doctor) {
       updateDoctorMutation.mutate({
         id: doctor.id,
-        ...submitData,
+        updates: submitData,
       });
     } else {
-      createDoctorMutation.mutate(submitData);
+      // Need user_id for creation
+      createDoctorMutation.mutate(submitData as CreateDoctorData);
     }
   };
 

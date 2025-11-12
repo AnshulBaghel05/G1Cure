@@ -8,8 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '../contexts/LanguageContext';
 import { StandardModal } from './StandardModal';
-import backend from '~backend/client';
-import type { Patient, CreatePatientRequest, UpdatePatientRequest } from '~backend/clinic/patient';
+import { createPatient, updatePatient, type CreatePatientData, type UpdatePatientData, type Patient } from '@/lib/api';
 
 interface PatientFormProps {
   patient?: Patient | null;
@@ -23,28 +22,28 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
   const isEditing = !!patient;
 
   const [formData, setFormData] = useState({
-    firstName: patient?.firstName || '',
-    lastName: patient?.lastName || '',
+    first_name: patient?.first_name || '',
+    last_name: patient?.last_name || '',
     email: patient?.email || '',
     phone: patient?.phone || '',
-    dateOfBirth: patient?.dateOfBirth ? new Date(patient.dateOfBirth).toISOString().split('T')[0] : '',
+    date_of_birth: patient?.date_of_birth ? new Date(patient.date_of_birth).toISOString().split('T')[0] : '',
     gender: patient?.gender || 'male' as 'male' | 'female' | 'other',
     address: patient?.address || '',
-    emergencyContact: patient?.emergencyContact || '',
-    emergencyPhone: patient?.emergencyPhone || '',
-    medicalHistory: patient?.medicalHistory || '',
+    emergency_contact: patient?.emergency_contact || '',
+    emergency_phone: patient?.emergency_phone || '',
+    medical_history: patient?.medical_history || '',
     allergies: patient?.allergies || '',
-    currentMedications: patient?.currentMedications || '',
+    current_medications: patient?.current_medications || '',
   });
 
   const createPatientMutation = useMutation({
-    mutationFn: async (data: CreatePatientRequest) => {
-      // This endpoint requires a userId, which we don't have when a doctor creates a patient.
+    mutationFn: async (data: CreatePatientData) => {
+      // This endpoint requires a user_id, which we don't have when a doctor creates a patient.
       // This needs to be handled by a different backend endpoint, e.g., `adminCreateUser`.
       // For now, this will fail if not called correctly.
       // A better approach is to create the user via the auth endpoint first.
       console.warn("Creating a patient directly is not fully implemented. A user record should be created first.");
-      return await backend.clinic.createPatient(data);
+      return await createPatient(data);
     },
     onSuccess: () => {
       onSuccess();
@@ -60,8 +59,8 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
   });
 
   const updatePatientMutation = useMutation({
-    mutationFn: async (data: UpdatePatientRequest) => {
-      return await backend.clinic.updatePatient(data);
+    mutationFn: async ({ id, updates }: { id: string; updates: UpdatePatientData }) => {
+      return await updatePatient(id, updates);
     },
     onSuccess: () => {
       onSuccess();
@@ -78,19 +77,19 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const submitData = {
       ...formData,
-      dateOfBirth: new Date(formData.dateOfBirth),
+      date_of_birth: formData.date_of_birth,
     };
 
     if (isEditing && patient) {
       updatePatientMutation.mutate({
         id: patient.id,
-        ...submitData,
+        updates: submitData,
       });
     } else {
-      // This part is problematic as it requires a userId.
+      // This part is problematic as it requires a user_id.
       // The correct flow is to use the UserForm to create a user with the patient role.
       toast({
         title: "Action Not Supported",
@@ -116,20 +115,20 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="firstName">{t('patients.firstName')}</Label>
+            <Label htmlFor="first_name">{t('patients.firstName')}</Label>
             <Input
-              id="firstName"
-              value={formData.firstName}
-              onChange={(e) => handleChange('firstName', e.target.value)}
+              id="first_name"
+              value={formData.first_name}
+              onChange={(e) => handleChange('first_name', e.target.value)}
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">{t('patients.lastName')}</Label>
+            <Label htmlFor="last_name">{t('patients.lastName')}</Label>
             <Input
-              id="lastName"
-              value={formData.lastName}
-              onChange={(e) => handleChange('lastName', e.target.value)}
+              id="last_name"
+              value={formData.last_name}
+              onChange={(e) => handleChange('last_name', e.target.value)}
               required
             />
           </div>
@@ -159,12 +158,12 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="dateOfBirth">{t('patients.dateOfBirth')}</Label>
+            <Label htmlFor="date_of_birth">{t('patients.dateOfBirth')}</Label>
             <Input
-              id="dateOfBirth"
+              id="date_of_birth"
               type="date"
-              value={formData.dateOfBirth}
-              onChange={(e) => handleChange('dateOfBirth', e.target.value)}
+              value={formData.date_of_birth}
+              onChange={(e) => handleChange('date_of_birth', e.target.value)}
               required
             />
           </div>
@@ -195,31 +194,31 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="emergencyContact">{t('patients.emergencyContact')}</Label>
+            <Label htmlFor="emergency_contact">{t('patients.emergencyContact')}</Label>
             <Input
-              id="emergencyContact"
-              value={formData.emergencyContact}
-              onChange={(e) => handleChange('emergencyContact', e.target.value)}
+              id="emergency_contact"
+              value={formData.emergency_contact}
+              onChange={(e) => handleChange('emergency_contact', e.target.value)}
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="emergencyPhone">{t('patients.emergencyPhone')}</Label>
+            <Label htmlFor="emergency_phone">{t('patients.emergencyPhone')}</Label>
             <Input
-              id="emergencyPhone"
-              value={formData.emergencyPhone}
-              onChange={(e) => handleChange('emergencyPhone', e.target.value)}
+              id="emergency_phone"
+              value={formData.emergency_phone}
+              onChange={(e) => handleChange('emergency_phone', e.target.value)}
               required
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="medicalHistory">{t('patients.medicalHistory')}</Label>
+          <Label htmlFor="medical_history">{t('patients.medicalHistory')}</Label>
           <Textarea
-            id="medicalHistory"
-            value={formData.medicalHistory}
-            onChange={(e) => handleChange('medicalHistory', e.target.value)}
+            id="medical_history"
+            value={formData.medical_history}
+            onChange={(e) => handleChange('medical_history', e.target.value)}
             placeholder="Enter medical history..."
           />
         </div>
@@ -235,11 +234,11 @@ export function PatientForm({ patient, onClose, onSuccess }: PatientFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="currentMedications">{t('patients.currentMedications')}</Label>
+          <Label htmlFor="current_medications">{t('patients.currentMedications')}</Label>
           <Textarea
-            id="currentMedications"
-            value={formData.currentMedications}
-            onChange={(e) => handleChange('currentMedications', e.target.value)}
+            id="current_medications"
+            value={formData.current_medications}
+            onChange={(e) => handleChange('current_medications', e.target.value)}
             placeholder="Enter current medications..."
           />
         </div>

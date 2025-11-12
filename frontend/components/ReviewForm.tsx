@@ -9,8 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
 import { Star, X, ThumbsUp, MessageSquare, Clock, Sparkles } from 'lucide-react';
 import { StandardModal } from './StandardModal';
-import backend from '~backend/client';
-import type { CreateReviewRequest } from '~backend/reviews/review';
+import { createReview, type CreateReviewData } from '@/lib/api';
 
 interface ReviewFormProps {
   appointmentId: string;
@@ -22,21 +21,21 @@ interface ReviewFormProps {
 
 export function ReviewForm({ appointmentId, doctorName, appointmentDate, onClose, onSuccess }: ReviewFormProps) {
   const { toast } = useToast();
-  const [formData, setFormData] = useState<CreateReviewRequest>({
-    appointmentId,
+  const [formData, setFormData] = useState<CreateReviewData>({
+    appointment_id: appointmentId,
     rating: 0,
     comment: '',
-    serviceQuality: 0,
+    service_quality: 0,
     communication: 0,
-    waitTime: 0,
+    wait_time: 0,
     cleanliness: 0,
-    wouldRecommend: true,
-    isAnonymous: false,
+    would_recommend: true,
+    is_anonymous: false,
   });
 
   const createReviewMutation = useMutation({
-    mutationFn: async (data: CreateReviewRequest) => {
-      return await backend.reviews.createReview(data);
+    mutationFn: async (data: CreateReviewData) => {
+      return await createReview(data);
     },
     onSuccess: () => {
       toast({
@@ -67,11 +66,11 @@ export function ReviewForm({ appointmentId, doctorName, appointmentDate, onClose
     createReviewMutation.mutate(formData);
   };
 
-  const handleRatingChange = (field: keyof CreateReviewRequest, rating: number) => {
+  const handleRatingChange = (field: keyof CreateReviewData, rating: number) => {
     setFormData(prev => ({ ...prev, [field]: rating }));
   };
 
-  const handleChange = (field: keyof CreateReviewRequest, value: string | boolean) => {
+  const handleChange = (field: keyof CreateReviewData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -164,8 +163,8 @@ export function ReviewForm({ appointmentId, doctorName, appointmentDate, onClose
         {/* Detailed Ratings */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <StarRating
-            value={formData.serviceQuality || 0}
-            onChange={(rating) => handleRatingChange('serviceQuality', rating)}
+            value={formData.service_quality || 0}
+            onChange={(rating) => handleRatingChange('service_quality', rating)}
             label="Service Quality"
             icon={ThumbsUp}
           />
@@ -176,8 +175,8 @@ export function ReviewForm({ appointmentId, doctorName, appointmentDate, onClose
             icon={MessageSquare}
           />
           <StarRating
-            value={formData.waitTime || 0}
-            onChange={(rating) => handleRatingChange('waitTime', rating)}
+            value={formData.wait_time || 0}
+            onChange={(rating) => handleRatingChange('wait_time', rating)}
             label="Wait Time"
             icon={Clock}
           />
@@ -206,21 +205,21 @@ export function ReviewForm({ appointmentId, doctorName, appointmentDate, onClose
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="wouldRecommend"
-              checked={formData.wouldRecommend}
-              onCheckedChange={(checked) => handleChange('wouldRecommend', checked as boolean)}
+              id="would_recommend"
+              checked={formData.would_recommend}
+              onCheckedChange={(checked) => handleChange('would_recommend', checked as boolean)}
             />
-            <Label htmlFor="wouldRecommend" className="text-sm">
+            <Label htmlFor="would_recommend" className="text-sm">
               I would recommend this doctor to others
             </Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="isAnonymous"
-              checked={formData.isAnonymous}
-              onCheckedChange={(checked) => handleChange('isAnonymous', checked as boolean)}
+              id="is_anonymous"
+              checked={formData.is_anonymous}
+              onCheckedChange={(checked) => handleChange('is_anonymous', checked as boolean)}
             />
-            <Label htmlFor="isAnonymous" className="text-sm">
+            <Label htmlFor="is_anonymous" className="text-sm">
               Submit this review anonymously
             </Label>
           </div>
