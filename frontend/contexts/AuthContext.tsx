@@ -22,6 +22,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   signup: (userData: SignupData) => Promise<{ success: boolean; error?: string; message?: string; requiresVerification?: boolean }>;
   logout: () => Promise<void>;
+  verifyEmail: (token: string) => Promise<void>;
+  resendVerificationEmail: (email: string) => Promise<{ success: boolean; error?: string }>;
   completeProfileCreation: (userId: string, userData: SignupData) => Promise<{ success: boolean; error?: string }>;
   permissions: string[];
 }
@@ -405,6 +407,63 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Email verification function
+  const verifyEmail = async (token: string) => {
+    try {
+      // Verify the email with the token from the URL
+      const { data, error } = await supabase.auth.verifyOtp({
+        token_hash: token,
+        type: 'email',
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data.user && data.session) {
+        setSession(data.session);
+
+        // Check for pending signup data and complete profile creation
+        const pendingSignupStr = localStorage.getItem('pendingSignup');
+        if (pendingSignupStr) {
+          try {
+            const pendingSignup = JSON.parse(pendingSignupStr);
+
+            if (pendingSignup.userId === data.user.id) {
+              await completeProfileCreation(pendingSignup.userId, pendingSignup.userData);
+            }
+          } catch (parseError) {
+            console.error('Error parsing pending signup data:', parseError);
+          }
+        }
+
+        // Fetch the complete user profile
+        await fetchUserProfile(data.user.id);
+      }
+    } catch (error: any) {
+      console.error('Email verification error:', error);
+      throw error;
+    }
+  };
+
+  // Resend verification email
+  const resendVerificationEmail = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email,
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message };
+    }
+  };
+
   const value = {
     user,
     session,
@@ -412,6 +471,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     login,
     signup,
     logout,
+    verifyEmail,
+    resendVerificationEmail,
     completeProfileCreation,
     permissions,
   };

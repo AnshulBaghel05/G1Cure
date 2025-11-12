@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Search, 
-  Users, 
-  UserCheck, 
-  Calendar, 
-  Video, 
-  CreditCard, 
+import {
+  Search,
+  Users,
+  UserCheck,
+  Calendar,
+  Video,
+  CreditCard,
   BarChart3,
   Plus,
   Settings,
@@ -288,30 +287,12 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4"
-        onClick={(e) => e.target === e.currentTarget && onClose()}
-      >
-        {/* Backdrop */}
-        <motion.div
-          initial={{ backdropFilter: 'blur(0px)' }}
-          animate={{ backdropFilter: 'blur(8px)' }}
-          exit={{ backdropFilter: 'blur(0px)' }}
-          className="absolute inset-0 bg-black/20"
-        />
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4 animate-fadeIn" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-all duration-200" />
 
-        {/* Command palette */}
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: -20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: -20 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-2xl bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
-        >
+      {/* Command palette */}
+      <div className="relative w-full max-w-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-slideUp">
           {/* Header */}
           <div className="flex items-center gap-3 p-4 border-b border-gray-200">
             <Search className="w-5 h-5 text-gray-400" />
@@ -347,17 +328,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                       {commands.map((command, index) => {
                         const globalIndex = filteredCommands.indexOf(command);
                         const isSelected = globalIndex === selectedIndex;
-                        
+
                         return (
-                          <motion.div
+                          <div
                             key={command.id}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.02 }}
-                            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
-                              isSelected 
-                                ? 'bg-blue-50 border border-blue-200' 
-                                : 'hover:bg-gray-50'
+                            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-150 ${
+                              isSelected
+                                ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800'
+                                : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                             }`}
                             onClick={command.action}
                           >
@@ -384,7 +362,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                               )}
                               <ArrowRight className="w-4 h-4 text-gray-400" />
                             </div>
-                          </motion.div>
+                          </div>
                         );
                       })}
                     </div>
@@ -395,14 +373,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between p-3 border-t border-gray-200 bg-gray-50/50 text-xs text-gray-500">
+          <div className="flex items-center justify-between p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-white rounded border">↑↓</kbd>
+                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">↑↓</kbd>
                 <span>navigate</span>
               </div>
               <div className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-white rounded border">↵</kbd>
+                <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 rounded border">↵</kbd>
                 <span>select</span>
               </div>
             </div>
@@ -411,8 +389,8 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
               <span>Command Palette</span>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </div>
   );
 }

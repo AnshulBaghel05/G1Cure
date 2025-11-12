@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -112,12 +111,10 @@ export function PatientTimeline({ patientId, events, onEventClick }: PatientTime
       {filteredEvents.map((event, index) => {
         const Icon = eventTypeIcons[event.eventType];
         return (
-          <motion.div
+          <div
             key={event.id}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="relative"
+            className="relative transition-opacity duration-300"
+            style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="flex items-start gap-4">
               <div className="flex flex-col items-center">
@@ -168,7 +165,7 @@ export function PatientTimeline({ patientId, events, onEventClick }: PatientTime
                 </CardContent>
               </Card>
             </div>
-          </motion.div>
+          </div>
         );
       })}
     </div>
@@ -307,37 +304,21 @@ export function PatientTimeline({ patientId, events, onEventClick }: PatientTime
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
+      <div className="transition-opacity duration-300">
         {viewMode === 'timeline' && (
-          <motion.div
-            key="timeline"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <div className="animate-fadeIn">
             {renderTimelineView()}
-          </motion.div>
+          </div>
         )}
-        
+
         {viewMode === 'chart' && (
-          <motion.div
-            key="chart"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <div className="animate-fadeIn">
             {renderChartView()}
-          </motion.div>
+          </div>
         )}
-        
+
         {viewMode === 'analytics' && (
-          <motion.div
-            key="analytics"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
+          <div className="animate-fadeIn grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Total Events</CardTitle>
@@ -368,9 +349,9 @@ export function PatientTimeline({ patientId, events, onEventClick }: PatientTime
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }

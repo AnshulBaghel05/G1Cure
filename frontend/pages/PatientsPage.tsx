@@ -9,8 +9,7 @@ import { Plus, Search, Edit, Trash2, User, Activity, Brain, TrendingUp, Clock } 
 import { useLanguage } from '../contexts/LanguageContext';
 import { PatientForm } from '../components/PatientForm';
 import { PatientTimeline } from '../components/PatientTimeline';
-import backend from '~backend/client';
-import type { Patient } from '~backend/clinic/patient';
+import { getPatients, deletePatient, type Patient } from '@/lib/api';
 
 export function PatientsPage() {
   const { t } = useLanguage();
@@ -25,7 +24,7 @@ export function PatientsPage() {
   const { data: patientsData, isLoading, error } = useQuery({
     queryKey: ['patients', searchTerm],
     queryFn: async () => {
-      const response = await backend.clinic.listPatients({
+      const response = await getPatients({
         search: searchTerm || undefined,
         limit: 100,
       });
@@ -35,7 +34,7 @@ export function PatientsPage() {
 
   const deletePatientMutation = useMutation({
     mutationFn: async (patientId: string) => {
-      await backend.clinic.deletePatient({ id: patientId });
+      await deletePatient(patientId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['patients'] });
