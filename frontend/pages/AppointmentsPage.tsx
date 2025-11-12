@@ -11,8 +11,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { AppointmentForm } from '../components/AppointmentForm';
 import { ReviewForm } from '../components/ReviewForm';
 import { SmartScheduler } from '../components/SmartScheduler';
-import backend from '~backend/client';
-import type { Appointment } from '~backend/clinic/appointment';
+import { getAppointments, getAppointmentById, createAppointment, updateAppointment, cancelAppointment } from '@/lib/api';
+import type { Appointment } from '@/lib/api';
 import { useAuth } from '../contexts/AuthContext';
 
 export function AppointmentsPage() {
@@ -36,7 +36,7 @@ export function AppointmentsPage() {
         params.patientId = user.profile_id;
       }
       // Add search logic if needed
-      return await backend.clinic.listAppointments(params);
+      return await getAppointments(params);
     },
     enabled: !!user,
   });
@@ -55,7 +55,7 @@ export function AppointmentsPage() {
 
   const deleteAppointmentMutation = useMutation({
     mutationFn: async (appointmentId: string) => {
-      await backend.clinic.deleteAppointment({ id: appointmentId });
+      await cancelAppointment(appointmentId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] });

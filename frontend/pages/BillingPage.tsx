@@ -9,6 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Plus, Search, Edit, Trash2, CreditCard, Calendar, User, Receipt, DollarSign } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { BillForm } from '../components/BillForm';
+import { getBills, getBillById, createBill, updateBill, processPayment, deleteBill } from '@/lib/api';
 import backend from '~backend/client';
 import type { Bill } from '~backend/clinic/billing';
 import { useAuth } from '../contexts/AuthContext';
@@ -32,7 +33,7 @@ export function BillingPage() {
         params.patientId = user.profile_id;
       }
       // Add search logic if needed
-      return await backend.clinic.listBills(params);
+      return await getBills(params);
     },
     enabled: !!user,
   });
@@ -51,7 +52,7 @@ export function BillingPage() {
 
   const deleteBillMutation = useMutation({
     mutationFn: async (billId: string) => {
-      await backend.clinic.deleteBill({ id: billId });
+      await deleteBill(billId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bills'] });

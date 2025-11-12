@@ -14,6 +14,42 @@ export interface TelemedicineSession {
   created_at: string;
 }
 
+// Get all telemedicine sessions
+export async function getTelemedicineSessions(options?: {
+  patient_id?: string;
+  doctor_id?: string;
+  status?: string;
+  limit?: number;
+}) {
+  try {
+    let query = supabase
+      .from('telemedicine_sessions')
+      .select('*, appointments(*), patients(*), doctors(*)');
+
+    if (options?.patient_id) {
+      query = query.eq('patient_id', options.patient_id);
+    }
+    if (options?.doctor_id) {
+      query = query.eq('doctor_id', options.doctor_id);
+    }
+    if (options?.status) {
+      query = query.eq('status', options.status);
+    }
+    if (options?.limit) {
+      query = query.limit(options.limit);
+    }
+
+    query = query.order('created_at', { ascending: false });
+
+    const { data, error } = await query;
+
+    if (error) throw handleSupabaseError(error);
+    return { sessions: data || [], total: data?.length || 0 };
+  } catch (error) {
+    throw handleSupabaseError(error);
+  }
+}
+
 // Create telemedicine session
 export async function createTelemedicineSession(appointmentId: string) {
   try {

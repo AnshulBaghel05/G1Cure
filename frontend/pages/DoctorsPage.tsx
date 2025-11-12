@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Plus, Search, Edit, Trash2, UserCheck, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { DoctorForm } from '../components/DoctorForm';
-import backend from '~backend/client';
+import { getDoctors, getDoctorById, createDoctor, updateDoctor, deleteDoctor } from '@/lib/api';
 import type { Doctor } from '~backend/clinic/doctor';
 
 export function DoctorsPage() {
@@ -23,7 +23,7 @@ export function DoctorsPage() {
   const { data: doctorsData, isLoading, error } = useQuery({
     queryKey: ['doctors', searchTerm],
     queryFn: async () => {
-      const response = await backend.clinic.listDoctors({
+      const response = await getDoctors({
         search: searchTerm || undefined,
         limit: 100,
       });
@@ -33,7 +33,7 @@ export function DoctorsPage() {
 
   const deleteDoctorMutation = useMutation({
     mutationFn: async (doctorId: string) => {
-      await backend.clinic.deleteDoctor({ id: doctorId });
+      await deleteDoctor(doctorId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });

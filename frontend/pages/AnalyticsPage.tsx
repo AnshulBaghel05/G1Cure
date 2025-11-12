@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AnimatedKPICard } from '../components/AnimatedKPICard';
-import backend from '~backend/client';
+import { getDashboardStats, getMonthlyRevenue, getAppointmentTrends, getTopDoctors } from '@/lib/api';
 import { AnalyticsChart } from '../components/AnalyticsChart';
 import { Button } from '@/components/ui/button';
 
@@ -27,22 +27,22 @@ export function AnalyticsPage() {
 
   const { data: dashboardStats, isLoading: statsLoading } = useQuery({
     queryKey: ['dashboard-stats'],
-    queryFn: () => backend.analytics.getDashboardStats(),
+    queryFn: () => getDashboardStats(),
   });
 
   const { data: revenueTrends, isLoading: revenueLoading } = useQuery({
     queryKey: ['revenue-trends', revenuePeriod],
-    queryFn: () => backend.analytics.getRevenueTrends({ period: revenuePeriod }),
+    queryFn: () => getMonthlyRevenue(6),
   });
 
   const { data: appointmentTrends, isLoading: appointmentLoading } = useQuery({
     queryKey: ['appointment-trends', appointmentPeriod],
-    queryFn: () => backend.analytics.getAppointmentTrends({ period: appointmentPeriod }),
+    queryFn: () => getAppointmentTrends(),
   });
 
   const { data: doctorPerformance, isLoading: performanceLoading } = useQuery({
     queryKey: ['doctor-performance'],
-    queryFn: () => backend.analytics.getDoctorPerformance(),
+    queryFn: () => getTopDoctors(10),
   });
 
   const isLoading = statsLoading || revenueLoading || appointmentLoading || performanceLoading;
