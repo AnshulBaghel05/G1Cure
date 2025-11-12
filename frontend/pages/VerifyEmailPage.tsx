@@ -13,19 +13,25 @@ export function VerifyEmailPage() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const token = searchParams.get('token');
+    // Supabase uses 'token_hash' parameter for email verification
+    const tokenHash = searchParams.get('token_hash');
+    const type = searchParams.get('type');
 
-    if (!token) {
+    if (!tokenHash || type !== 'email') {
       setStatus('error');
-      setErrorMessage('No verification token found.');
+      setErrorMessage('No verification token found or invalid verification type.');
       return;
     }
 
     const verify = async () => {
       try {
-        await verifyEmail(token);
+        await verifyEmail(tokenHash);
         setStatus('success');
-        setTimeout(() => navigate('/dashboard'), 2000);
+
+        // Redirect to appropriate dashboard based on user role
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
       } catch (error: any) {
         setStatus('error');
         setErrorMessage(error.message || 'Failed to verify email. The link may be invalid or expired.');
