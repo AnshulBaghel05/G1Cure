@@ -12,8 +12,7 @@ import {
 import { ThemeToggle } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import backend from '~backend/client';
-import type { Appointment } from '~backend/clinic/appointment';
+import { getAppointments, createAppointment } from '@/lib/api';
 
 interface Appointment {
   id: string;
@@ -49,14 +48,14 @@ export function AppointmentsPage() {
   // Fetch real-time appointments data
   const { data: appointmentsData, isLoading: appointmentsLoading, error: appointmentsError } = useQuery({
     queryKey: ['appointments', user?.profile_id],
-    queryFn: async () => await backend.clinic.listAppointments({ patientId: user!.profile_id, limit: 50 }),
+    queryFn: async () => await getAppointments({ patientId: user!.profile_id, limit: 50 }),
     enabled: !!user?.profile_id,
   });
 
   // Create appointment mutation
   const createAppointmentMutation = useMutation({
     mutationFn: async (appointmentData: any) => {
-      return await backend.clinic.createAppointment(appointmentData);
+      return await createAppointment(appointmentData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments', user?.profile_id] });

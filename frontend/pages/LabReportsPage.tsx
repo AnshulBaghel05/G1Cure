@@ -6,7 +6,7 @@ import { Upload, FlaskConical, Search, File, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDropzone } from 'react-dropzone';
 import { useToast } from '@/components/ui/use-toast';
-import backend from '~backend/client';
+import { getLabReportUploadUrl } from '@/lib/api';
 
 export function LabReportsPage() {
   const [files, setFiles] = useState<File[]>([]);
@@ -34,7 +34,7 @@ export function LabReportsPage() {
     for (const file of files) {
       try {
         // 1. Get signed URL from backend
-        const { uploadUrl, accessUrl } = await backend.clinic.getLabReportUploadUrl({
+        const { uploadUrl, accessUrl } = await getLabReportUploadUrl({
           filename: file.name,
           contentType: file.type,
         });

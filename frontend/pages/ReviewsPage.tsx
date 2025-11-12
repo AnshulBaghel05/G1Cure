@@ -7,8 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Star, Search, TrendingUp, Users, MessageSquare, ThumbsUp } from 'lucide-react';
 import { ReviewCard } from '../components/ReviewCard';
 import { useAuth } from '../contexts/AuthContext';
-import backend from '~backend/client';
-import type { ReviewStats } from '~backend/reviews/review';
+import { getReviews, getReviewStats } from '@/lib/api';
 
 export function ReviewsPage() {
   const { user } = useAuth();
@@ -22,7 +21,7 @@ export function ReviewsPage() {
       if (ratingFilter !== 'all') {
         params.minRating = parseInt(ratingFilter);
       }
-      return await backend.reviews.listReviews(params);
+      return await getReviews(params);
     },
   });
 
@@ -33,7 +32,7 @@ export function ReviewsPage() {
       if (user?.role === 'doctor') {
         params.doctorId = user.profile_id;
       }
-      return await backend.reviews.getReviewStats(params);
+      return await getReviewStats(params);
     },
   });
 

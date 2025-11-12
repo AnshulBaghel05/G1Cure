@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { UserForm } from '../components/UserForm';
 import { SubAdminManagementPage } from './SubAdminManagementPage';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import backend from '~backend/client';
 
 export function UserManagementPage() {
   const [showForm, setShowForm] = useState(false);

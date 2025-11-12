@@ -152,3 +152,32 @@ export async function endSession(sessionId: string) {
     throw handleSupabaseError(error);
   }
 }
+
+// Join session
+export async function joinSession(sessionId: string) {
+  try {
+    const { data: session, error } = await supabase
+      .from('telemedicine_sessions')
+      .select('*, channel_name')
+      .eq('id', sessionId)
+      .single();
+
+    if (error) throw handleSupabaseError(error);
+
+    if (!session) {
+      throw new Error('Session not found');
+    }
+
+    // Generate session URL (you can customize this based on your video provider)
+    const sessionUrl = session.session_url || `/telemedicine/session/${sessionId}?channel=${session.channel_name}`;
+
+    // Update session status to active if it's scheduled
+    if (session.status === 'waiting' || session.status === 'scheduled') {
+      await startSession(sessionId);
+    }
+
+    return { sessionUrl, session };
+  } catch (error) {
+    throw handleSupabaseError(error);
+  }
+}

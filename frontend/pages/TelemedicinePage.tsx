@@ -9,8 +9,8 @@ import { Plus, Search, Video, Play, Clock, User, UserCheck, ExternalLink, Brain,
 import { useLanguage } from '../contexts/LanguageContext';
 import { TelemedicineForm } from '../components/TelemedicineForm';
 import { AdvancedTelemedicine } from '../components/AdvancedTelemedicine';
-import backend from '~backend/client';
-import type { TelemedicineSession } from '~backend/telemedicine/session';
+import { getTelemedicineSessions, joinSession, getAppointments, getPatients, getDoctors } from '@/lib/api';
+import type { TelemedicineSession } from '@/lib/api/telemedicine';
 
 export function TelemedicinePage() {
   const { t } = useLanguage();
@@ -24,7 +24,7 @@ export function TelemedicinePage() {
   const { data: sessionsData, isLoading, error } = useQuery({
     queryKey: ['telemedicine-sessions', searchTerm],
     queryFn: async () => {
-      const response = await backend.telemedicine.listSessions({
+      const response = await getTelemedicineSessions({
         limit: 100,
       });
       return response;
@@ -34,7 +34,7 @@ export function TelemedicinePage() {
   const { data: appointmentsData } = useQuery({
     queryKey: ['appointments'],
     queryFn: async () => {
-      const response = await backend.clinic.listAppointments({ 
+      const response = await getAppointments({
         limit: 1000,
       });
       return response;
@@ -44,7 +44,7 @@ export function TelemedicinePage() {
   const { data: patientsData } = useQuery({
     queryKey: ['patients'],
     queryFn: async () => {
-      const response = await backend.clinic.listPatients({ limit: 1000 });
+      const response = await getPatients({ limit: 1000 });
       return response;
     },
   });
@@ -52,14 +52,14 @@ export function TelemedicinePage() {
   const { data: doctorsData } = useQuery({
     queryKey: ['doctors'],
     queryFn: async () => {
-      const response = await backend.clinic.listDoctors({ limit: 1000 });
+      const response = await getDoctors({ limit: 1000 });
       return response;
     },
   });
 
   const joinSessionMutation = useMutation({
     mutationFn: async (sessionId: string) => {
-      return await backend.telemedicine.joinSession({ id: sessionId });
+      return await joinSession(sessionId);
     },
     onSuccess: (data) => {
       window.open(data.sessionUrl, '_blank');

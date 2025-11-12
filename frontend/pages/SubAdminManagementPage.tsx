@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { Plus, Search, Edit, Shield, Users, UserCog } from 'lucide-react';
 import { SubAdminForm } from '../components/SubAdminForm';
-import backend from '~backend/client';
+import { listSubAdmins } from '@/lib/api';
 
 export function SubAdminManagementPage() {
   const { toast } = useToast();
@@ -18,7 +18,7 @@ export function SubAdminManagementPage() {
 
   const { data: subAdminsData, isLoading } = useQuery({
     queryKey: ['sub-admins'],
-    queryFn: () => backend.admin.listSubAdmins(),
+    queryFn: () => listSubAdmins(),
   });
 
   const handleFormSuccess = () => {

@@ -23,9 +23,9 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { extractUserId } from '../../lib/type-utils';
 import { useQuery } from '@tanstack/react-query';
-import backend from '~backend/client';
+import { getAppointments, getBills } from '@/lib/api';
 import { useNavigate } from 'react-router-dom';
-import type { Appointment } from '~backend/clinic/appointment';
+import type { Appointment } from '@/lib/api/appointments';
 import { ThemeToggle } from '../../contexts/ThemeContext';
 
 export function PatientDashboard() {
@@ -37,13 +37,13 @@ export function PatientDashboard() {
   
   const { data: appointmentsData, isLoading: appointmentsLoading } = useQuery({
     queryKey: ['appointments', userId],
-    queryFn: async () => await backend.clinic.listAppointments({ patientId: userId!, limit: 10 }),
+    queryFn: async () => await getAppointments({ patientId: userId!, limit: 10 }),
     enabled: !!userId,
   });
 
   const { data: billsData, isLoading: billsLoading } = useQuery({
     queryKey: ['bills', userId],
-    queryFn: async () => await backend.clinic.listBills({ patientId: userId!, status: 'pending' }),
+    queryFn: async () => await getBills({ patientId: userId!, status: 'pending' }),
     enabled: !!userId,
   });
 
