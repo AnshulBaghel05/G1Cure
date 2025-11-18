@@ -619,45 +619,360 @@ export function AnalyticsPage() {
           )}
 
           {activeTab === 'trends' && (
-            <div className="transition-all duration-300 hover:scale-105">
-              <AnimatedCard 
-                className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-                hoverEffect="glow"
-                entranceAnimation="slideUp"
-              >
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-orange-100 to-red-200 dark:from-orange-900/30 dark:to-red-800/30">
-                    <TrendingUp className="w-6 h-6 text-orange-600" />
+            <div className="space-y-6">
+              {/* Trend Analysis Header */}
+              <AnimatedCard className="p-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border border-orange-200 dark:border-orange-800">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-orange-100 to-red-200 dark:from-orange-900/30 dark:to-red-800/30">
+                      <TrendingUp className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                        Trend Analysis & Forecasting
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        AI-powered insights into historical patterns and future predictions
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
-                    Trend Analysis
-                  </h3>
+                  <AnimatedButton variant="outline" size="sm">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export Analysis
+                  </AnimatedButton>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  Advanced trend analysis and forecasting capabilities coming soon...
-                </p>
+              </AnimatedCard>
+
+              {/* Revenue Trend */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-2">
+                    <DollarSign className="w-5 h-5 text-green-600" />
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Revenue Trend</h4>
+                  </div>
+                  <AnimatedBadge variant="outline" className="border-green-600 text-green-600">
+                    +{((chartData[chartData.length - 1].revenue - chartData[0].revenue) / chartData[0].revenue * 100).toFixed(1)}% Growth
+                  </AnimatedBadge>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-64">
+                    <AnimatedChart
+                      data={chartData}
+                      type="line"
+                      xKey="label"
+                      yKeys={['revenue']}
+                      colors={['#10b981']}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Current Month</p>
+                      <p className="text-2xl font-bold text-green-600">${(chartData[chartData.length - 1].revenue / 1000).toFixed(0)}K</p>
+                    </div>
+                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Forecast Next Month</p>
+                      <p className="text-2xl font-bold text-blue-600">${((chartData[chartData.length - 1].revenue * 1.12) / 1000).toFixed(0)}K</p>
+                      <p className="text-xs text-blue-600">+12% projected</p>
+                    </div>
+                    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Average Growth</p>
+                      <p className="text-2xl font-bold text-purple-600">11.5%</p>
+                      <p className="text-xs text-purple-600">per month</p>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedCard>
+
+              {/* Patient Growth Trend */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-2">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Patient Growth Trend</h4>
+                  </div>
+                  <AnimatedBadge variant="outline" className="border-blue-600 text-blue-600">
+                    {((chartData[chartData.length - 1].patients - chartData[0].patients) / chartData[0].patients * 100).toFixed(1)}% Increase
+                  </AnimatedBadge>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-64">
+                    <AnimatedChart
+                      data={chartData}
+                      type="area"
+                      xKey="label"
+                      yKeys={['patients']}
+                      colors={['#3b82f6']}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">Retention Rate</p>
+                          <p className="text-2xl font-bold text-blue-600">94.2%</p>
+                        </div>
+                        <TrendingUp className="w-8 h-8 text-blue-600 opacity-50" />
+                      </div>
+                    </div>
+                    <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">New Patients/Month</p>
+                          <p className="text-2xl font-bold text-green-600">+{Math.round((chartData[chartData.length - 1].patients - chartData[chartData.length - 2].patients))}</p>
+                        </div>
+                        <ArrowUpRight className="w-8 h-8 text-green-600 opacity-50" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedCard>
+
+              {/* Appointment Completion Trend */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-2">
+                    <Calendar className="w-5 h-5 text-purple-600" />
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Appointment Efficiency</h4>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Brain className="w-4 h-4 text-purple-600" />
+                    <span className="text-sm text-purple-600 font-medium">AI Insights</span>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-64">
+                    <AnimatedChart
+                      data={chartData}
+                      type="bar"
+                      xKey="label"
+                      yKeys={['appointments']}
+                      colors={['#a855f7']}
+                    />
+                  </div>
+                  <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-600">
+                    <div className="flex items-start space-x-3">
+                      <Sparkles className="w-5 h-5 text-purple-600 mt-0.5" />
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white mb-1">AI Recommendation</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Based on current trends, consider adding 2 more time slots on weekdays to accommodate growing demand.
+                          Peak hours: 10 AM - 12 PM and 3 PM - 5 PM show highest booking rates.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedCard>
+
+              {/* Seasonal Patterns */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Clock className="w-5 h-5 text-orange-600" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Seasonal Patterns</h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-lg">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Peak Season</p>
+                    <p className="text-lg font-bold text-orange-600">Spring (Mar-May)</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">+15% increase in appointments</p>
+                  </div>
+                  <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Low Season</p>
+                    <p className="text-lg font-bold text-blue-600">Winter (Dec-Feb)</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">-8% decrease in appointments</p>
+                  </div>
+                </div>
               </AnimatedCard>
             </div>
           )}
 
           {activeTab === 'comparisons' && (
-            <div className="transition-all duration-300 hover:scale-105">
-              <AnimatedCard 
-                className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20"
-                hoverEffect="glow"
-                entranceAnimation="slideUp"
-              >
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-200 dark:from-indigo-900/30 dark:to-purple-800/30">
-                    <BarChart className="w-6 h-6 text-indigo-600" />
+            <div className="space-y-6">
+              {/* Comparative Analysis Header */}
+              <AnimatedCard className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200 dark:border-indigo-800">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-200 dark:from-indigo-900/30 dark:to-purple-800/30">
+                      <BarChart className="w-6 h-6 text-indigo-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
+                        Comparative Analysis & Benchmarking
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Compare performance across departments, time periods, and industry standards
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent">
-                    Comparative Analysis
-                  </h3>
+                  <div className="flex items-center space-x-2">
+                    <select className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
+                      <option>Last 6 Months</option>
+                      <option>Last Year</option>
+                      <option>YTD</option>
+                    </select>
+                    <AnimatedButton variant="outline" size="sm">
+                      <Share2 className="w-4 h-4 mr-2" />
+                      Share Report
+                    </AnimatedButton>
+                  </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  Comparative analysis tools and benchmarking features coming soon...
-                </p>
+              </AnimatedCard>
+
+              {/* Month-over-Month Comparison */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center space-x-2 mb-4">
+                  <BarChart3 className="w-5 h-5 text-indigo-600" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Month-over-Month Comparison</h4>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-64">
+                    <AnimatedChart
+                      data={chartData}
+                      type="bar"
+                      xKey="label"
+                      yKeys={['patients', 'appointments']}
+                      colors={['#3b82f6', '#a855f7']}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    {analyticsData.slice(0, 3).map((metric) => (
+                      <div key={metric.id} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{metric.metric}</p>
+                        <div className="flex items-end justify-between mt-2">
+                          <p className="text-xl font-bold text-gray-900 dark:text-white">
+                            {metric.metric.includes('Revenue') ? '$' : ''}{metric.value.toLocaleString()}
+                            {metric.metric.includes('Satisfaction') || metric.metric.includes('Completion') ? '/5' : ''}
+                          </p>
+                          <div className={`flex items-center text-sm ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+                            {metric.trend === 'up' ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+                            <span>{Math.abs(metric.change)}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedCard>
+
+              {/* Department Performance Comparison */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Target className="w-5 h-5 text-purple-600" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Department Performance</h4>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    { dept: 'Cardiology', revenue: 285000, patients: 450, rating: 4.8, growth: 12 },
+                    { dept: 'Pediatrics', revenue: 210000, patients: 680, rating: 4.6, growth: 8 },
+                    { dept: 'Orthopedics', revenue: 195000, patients: 320, rating: 4.7, growth: 15 },
+                    { dept: 'General Medicine', revenue: 340000, patients: 890, rating: 4.5, growth: 6 }
+                  ].map((dept, idx) => (
+                    <div key={idx} className="p-4 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <p className="font-semibold text-gray-900 dark:text-white">{dept.dept}</p>
+                          <div className="flex items-center space-x-4 mt-2">
+                            <div className="flex items-center space-x-1">
+                              <DollarSign className="w-4 h-4 text-green-600" />
+                              <span className="text-sm text-gray-600 dark:text-gray-400">${(dept.revenue / 1000).toFixed(0)}K</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Users className="w-4 h-4 text-blue-600" />
+                              <span className="text-sm text-gray-600 dark:text-gray-400">{dept.patients}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Activity className="w-4 h-4 text-purple-600" />
+                              <span className="text-sm text-gray-600 dark:text-gray-400">{dept.rating}/5</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <AnimatedProgress value={dept.growth * 5} className="w-20" />
+                          <span className={`text-sm font-semibold ${dept.growth > 10 ? 'text-green-600' : 'text-blue-600'}`}>
+                            +{dept.growth}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </AnimatedCard>
+
+              {/* Industry Benchmarking */}
+              <AnimatedCard className="p-6">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Zap className="w-5 h-5 text-yellow-600" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Industry Benchmarking</h4>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    { metric: 'Patient Satisfaction', yours: 94, industry: 87, status: 'ahead' },
+                    { metric: 'Appointment Completion Rate', yours: 92, industry: 85, status: 'ahead' },
+                    { metric: 'Average Wait Time', yours: 18, industry: 25, status: 'ahead', unit: 'min', reverse: true },
+                    { metric: 'Revenue per Patient', yours: 245, industry: 220, status: 'ahead', unit: '$' }
+                  ].map((bench, idx) => (
+                    <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-medium text-gray-900 dark:text-white">{bench.metric}</p>
+                        <AnimatedBadge
+                          variant="outline"
+                          className={bench.status === 'ahead' ? 'border-green-600 text-green-600' : 'border-red-600 text-red-600'}
+                        >
+                          {bench.status === 'ahead' ? '✓ Above Industry' : '⚠ Below Industry'}
+                        </AnimatedBadge>
+                      </div>
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Your Performance</p>
+                          <AnimatedProgress
+                            value={bench.reverse ? 100 - (bench.yours / 30 * 100) : (bench.yours / 100 * 100)}
+                            className="h-2"
+                          />
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
+                            {bench.unit === '$' && '$'}{bench.yours}{bench.unit && bench.unit !== '$' ? bench.unit : ''}{!bench.unit ? '%' : ''}
+                          </p>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Industry Average</p>
+                          <AnimatedProgress
+                            value={bench.reverse ? 100 - (bench.industry / 30 * 100) : (bench.industry / 100 * 100)}
+                            className="h-2 opacity-50"
+                          />
+                          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mt-1">
+                            {bench.unit === '$' && '$'}{bench.industry}{bench.unit && bench.unit !== '$' ? bench.unit : ''}{!bench.unit ? '%' : ''}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </AnimatedCard>
+
+              {/* Competitive Insights */}
+              <AnimatedCard className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800">
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="w-6 h-6 text-green-600 mt-0.5" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Competitive Advantage</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                      Your healthcare facility is performing exceptionally well compared to industry standards:
+                    </p>
+                    <ul className="space-y-2">
+                      <li className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                        <span>7% higher patient satisfaction than average</span>
+                      </li>
+                      <li className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                        <span>28% lower average wait time</span>
+                      </li>
+                      <li className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                        <span>11% higher revenue per patient</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </AnimatedCard>
             </div>
           )}

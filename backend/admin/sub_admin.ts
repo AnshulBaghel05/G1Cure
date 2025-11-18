@@ -2,15 +2,6 @@ import { api, APIError } from "encore.dev/api";
 import { supabaseAdmin } from "../supabase/client";
 import { getAuthData } from "~encore/auth";
 
-export interface Department {
-  id: string;
-  name: string;
-  description?: string;
-  isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface SubAdminPermissions {
   id: string;
   userId: string;
@@ -68,10 +59,6 @@ export interface UpdateSubAdminPermissionsRequest {
   };
 }
 
-export interface ListDepartmentsResponse {
-  departments: Department[];
-}
-
 export interface ListSubAdminsResponse {
   subAdmins: Array<{
     id: string;
@@ -87,18 +74,6 @@ export interface ListSubAdminsResponse {
 
 export interface GetUserPermissionsResponse {
   permissions: SubAdminPermissions[];
-}
-
-// Maps a Supabase row to the Department interface
-function mapRowToDepartment(row: any): Department {
-  return {
-    id: row.id,
-    name: row.name,
-    description: row.description,
-    isActive: row.is_active,
-    createdAt: new Date(row.created_at),
-    updatedAt: new Date(row.updated_at),
-  };
 }
 
 // Maps a Supabase row to the SubAdminPermissions interface
@@ -122,31 +97,6 @@ function mapRowToPermissions(row: any): SubAdminPermissions {
     updatedAt: new Date(row.updated_at),
   };
 }
-
-// Lists all departments
-export const listDepartments = api<void, ListDepartmentsResponse>(
-  { expose: true, method: "GET", path: "/admin/departments", auth: true },
-  async () => {
-    const auth = getAuthData()!;
-    if (!['admin', 'sub-admin'].includes(auth.role)) {
-      throw APIError.permissionDenied("Only admins and sub-admins can view departments");
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from("departments")
-      .select("*")
-      .eq("is_active", true)
-      .order("name");
-
-    if (error) {
-      throw APIError.internal("Failed to fetch departments", { cause: error });
-    }
-
-    return {
-      departments: data.map(mapRowToDepartment),
-    };
-  }
-);
 
 // Creates a new sub-admin user with permissions
 export const createSubAdmin = api<CreateSubAdminRequest, { user: any }>(
