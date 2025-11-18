@@ -9,6 +9,7 @@ export * from './reviews';
 export * from './telemedicine';
 export * from './prescriptions';
 export * from './medical-records';
+export * from './chatbot';
 
 // Re-export for backwards compatibility
 import * as patients from './patients';

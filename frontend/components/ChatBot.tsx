@@ -3,22 +3,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  MessageCircle, 
-  X, 
-  Send, 
-  Bot, 
+import {
+  MessageCircle,
+  X,
+  Send,
+  Bot,
   User,
   Minimize2,
   Maximize2,
-  HelpCircle
+  Sparkles,
+  Trash2
 } from 'lucide-react';
+import { sendChatMessage } from '@/lib/api/chatbot';
+import toast from 'react-hot-toast';
 
 interface Message {
   id: string;
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
+  intent?: string;
+  suggestions?: string[];
 }
 
 interface ChatBotProps {
@@ -31,53 +36,21 @@ export function ChatBot({ isOpen, onClose }: ChatBotProps) {
   const [inputValue, setInputValue] = useState('');
   const [isMinimized, setIsMinimized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [conversationId, setConversationId] = useState<string | undefined>();
+  const [currentSuggestions, setCurrentSuggestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const predefinedResponses = {
-    greeting: [
-      "Hello! I'm G1Cure's AI assistant. How can I help you today?",
-      "Hi there! Welcome to G1Cure. What would you like to know about our healthcare platform?",
-      "Greetings! I'm here to help you with any questions about G1Cure. What can I assist you with?"
-    ],
-    features: [
-      "G1Cure offers comprehensive healthcare management including patient records, appointment scheduling, telemedicine, billing, and analytics. Which feature interests you most?",
-      "Our platform includes patient management, video consultations, smart billing, appointment scheduling, and detailed analytics. Would you like to know more about any specific feature?"
-    ],
-    pricing: [
-      "We offer a 7-day free trial to get you started! After that, our pricing is flexible based on your clinic size and needs. Would you like to schedule a demo to discuss pricing?",
-      "You can try G1Cure free for 7 days. Our pricing plans are designed for clinics of all sizes. Shall I connect you with our sales team for detailed pricing?"
-    ],
-    demo: [
-      "I'd be happy to help you book a demo! You can schedule one through our contact page, or I can connect you with our team right away. What works better for you?",
-      "Great choice! A demo is the best way to see G1Cure in action. You can book one on our contact page or I can arrange for someone to reach out to you."
-    ],
-    support: [
-      "For technical support, you can reach us at support@g1cure.com or call +91 98765 43210. Our support team is available Monday to Friday, 9 AM to 6 PM IST.",
-      "Our support team is here to help! Contact us at support@g1cure.com or through our contact page. We typically respond within 24 hours."
-    ],
-    default: [
-      "I'm not sure about that specific question, but I'd be happy to connect you with our team who can provide detailed information. Would you like me to do that?",
-      "That's a great question! For detailed information, I recommend reaching out to our team through the contact page or scheduling a demo. Can I help you with anything else about G1Cure?",
-      "I don't have specific information about that, but our team would love to help! You can contact us through our contact page or book a demo to get all your questions answered."
-    ]
-  };
-
-  const quickActions = [
-    { text: "Book a Demo", action: "demo" },
-    { text: "View Features", action: "features" },
-    { text: "Pricing Info", action: "pricing" },
-    { text: "Get Support", action: "support" }
-  ];
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       const welcomeMessage: Message = {
         id: Date.now().toString(),
-        text: predefinedResponses.greeting[0],
+        text: "Hello! I'm G1Cure's AI assistant powered by Google Gemini. I can help you learn about our healthcare platform, features, pricing, and more. How can I assist you today?",
         sender: 'bot',
-        timestamp: new Date()
+        timestamp: new Date(),
+        suggestions: ["View Features", "Pricing Info", "Book a Demo", "Get Support"]
       };
       setMessages([welcomeMessage]);
+      setCurrentSuggestions(welcomeMessage.suggestions || []);
     }
   }, [isOpen]);
 
@@ -87,32 +60,6 @@ export function ChatBot({ isOpen, onClose }: ChatBotProps) {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const getResponse = (userMessage: string): string => {
-    const message = userMessage.toLowerCase();
-    
-    if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-      return predefinedResponses.greeting[Math.floor(Math.random() * predefinedResponses.greeting.length)];
-    }
-    
-    if (message.includes('feature') || message.includes('what') || message.includes('do')) {
-      return predefinedResponses.features[Math.floor(Math.random() * predefinedResponses.features.length)];
-    }
-    
-    if (message.includes('price') || message.includes('cost') || message.includes('plan')) {
-      return predefinedResponses.pricing[Math.floor(Math.random() * predefinedResponses.pricing.length)];
-    }
-    
-    if (message.includes('demo') || message.includes('show') || message.includes('see')) {
-      return predefinedResponses.demo[Math.floor(Math.random() * predefinedResponses.demo.length)];
-    }
-    
-    if (message.includes('support') || message.includes('help') || message.includes('contact')) {
-      return predefinedResponses.support[Math.floor(Math.random() * predefinedResponses.support.length)];
-    }
-    
-    return predefinedResponses.default[Math.floor(Math.random() * predefinedResponses.default.length)];
   };
 
   const handleSendMessage = async () => {
@@ -125,36 +72,68 @@ export function ChatBot({ isOpen, onClose }: ChatBotProps) {
       timestamp: new Date()
     };
 
+    const messageToSend = inputValue;
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsTyping(true);
+    setCurrentSuggestions([]);
 
-    // Simulate typing delay
-    setTimeout(() => {
+    try {
+      // Call AI chatbot API
+      const response = await sendChatMessage(messageToSend, conversationId);
+
+      // Update conversation ID
+      if (!conversationId) {
+        setConversationId(response.conversationId);
+      }
+
       const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: getResponse(inputValue),
+        id: response.id,
+        text: response.response,
         sender: 'bot',
-        timestamp: new Date()
+        timestamp: new Date(),
+        intent: response.intent,
+        suggestions: response.suggestions
       };
-      
+
       setMessages(prev => [...prev, botResponse]);
+      setCurrentSuggestions(response.suggestions || []);
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    } catch (error) {
+      console.error('Chatbot error:', error);
+
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm having trouble connecting right now. Please try again in a moment or contact support@g1cure.com for assistance.",
+        sender: 'bot',
+        timestamp: new Date(),
+        suggestions: ['Try again', 'Contact support']
+      };
+
+      setMessages(prev => [...prev, errorResponse]);
+      setCurrentSuggestions(errorResponse.suggestions || []);
+      setIsTyping(false);
+    }
   };
 
-  const handleQuickAction = (action: string) => {
-    const responses = predefinedResponses[action as keyof typeof predefinedResponses] || predefinedResponses.default;
-    const response = responses[Math.floor(Math.random() * responses.length)];
-    
-    const botMessage: Message = {
-      id: Date.now().toString(),
-      text: response,
-      sender: 'bot',
-      timestamp: new Date()
-    };
-    
-    setMessages(prev => [...prev, botMessage]);
+  const handleQuickAction = (suggestionText: string) => {
+    setInputValue(suggestionText);
+    // Auto-send the suggestion
+    setTimeout(() => handleSendMessage(), 100);
+  };
+
+  const handleClearChat = () => {
+    if (confirm('Clear all chat messages?')) {
+      setMessages([{
+        id: Date.now().toString(),
+        text: "Chat cleared! How can I help you today?",
+        sender: 'bot',
+        timestamp: new Date(),
+        suggestions: ["View Features", "Pricing Info", "Book a Demo", "Get Support"]
+      }]);
+      setConversationId(undefined);
+      setCurrentSuggestions(["View Features", "Pricing Info", "Book a Demo", "Get Support"]);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -181,14 +160,26 @@ export function ChatBot({ isOpen, onClose }: ChatBotProps) {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"
             >
-              <Bot className="w-4 h-4" />
+              <Sparkles className="w-4 h-4" />
             </motion.div>
             <div>
-              <CardTitle className="text-sm font-medium">G1Cure Assistant</CardTitle>
-              <p className="text-xs opacity-90">Online now</p>
+              <CardTitle className="text-sm font-medium">G1Cure AI Assistant</CardTitle>
+              <p className="text-xs opacity-90 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                Powered by Gemini AI
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClearChat}
+              className="w-6 h-6 p-0 text-white hover:bg-white/20"
+              title="Clear chat"
+            >
+              <Trash2 className="w-3 h-3" />
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -281,20 +272,20 @@ export function ChatBot({ isOpen, onClose }: ChatBotProps) {
                     <div ref={messagesEndRef} />
                   </div>
 
-                  {/* Quick Actions */}
-                  {messages.length <= 1 && (
+                  {/* Suggestions */}
+                  {currentSuggestions.length > 0 && !isTyping && (
                     <div className="p-3 border-t border-gray-200 dark:border-gray-700">
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Quick actions:</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Suggested questions:</p>
                       <div className="grid grid-cols-2 gap-1">
-                        {quickActions.map((action) => (
+                        {currentSuggestions.map((suggestion, index) => (
                           <Button
-                            key={action.text}
+                            key={index}
                             variant="outline"
                             size="sm"
-                            onClick={() => handleQuickAction(action.action)}
-                            className="text-xs h-8"
+                            onClick={() => handleQuickAction(suggestion)}
+                            className="text-xs h-8 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                           >
-                            {action.text}
+                            {suggestion}
                           </Button>
                         ))}
                       </div>
