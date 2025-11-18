@@ -391,6 +391,5 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
