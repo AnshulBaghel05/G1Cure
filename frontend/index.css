@@ -150,11 +150,71 @@
     }
   }
 
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-10px);
+    }
+    75% {
+      transform: translateY(-15px) translateX(5px);
+    }
+  }
+
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
   .animate-fadeIn {
     animation: fadeIn 0.2s ease-out;
   }
 
   .animate-slideUp {
     animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-float-delay-1 {
+    animation: float 10s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .animate-float-delay-2 {
+    animation: float 12s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .animate-float-delay-3 {
+    animation: float 9s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  .animate-gradient {
+    background-size: 200% auto;
+    animation: gradient 3s linear infinite;
+  }
+
+  .delay-75 {
+    animation-delay: 75ms;
+  }
+
+  .delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
   }
 }
