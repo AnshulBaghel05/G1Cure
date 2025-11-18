@@ -40,19 +40,39 @@
       "name": "Dashboard",
       "short_name": "Home",
       "description": "Open dashboard",
-      "url": "/"
+      "url": "/",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
     },
     {
       "name": "Appointments",
       "short_name": "Appointments",
-      "description": "View appointments",
-      "url": "/appointments"
+      "description": "View and manage appointments",
+      "url": "/appointments",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Telemedicine",
+      "short_name": "Video Call",
+      "description": "Start telemedicine session",
+      "url": "/telemedicine",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
     }
   ],
   "prefer_related_applications": false,
-  "permissions": [
-    "camera",
-    "microphone",
-    "notifications"
-  ]
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["image/*", "application/pdf"]
+        }
+      ]
+    }
+  }
 }
